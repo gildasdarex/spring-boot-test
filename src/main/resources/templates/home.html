@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="layout">
+<head>
+  <title>PEJ/D&eacute;coupage territoriale</title>
+</head>
+<body>
+ 
+  <div layout:fragment="content">
+                 <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>D&eacute;coupage territoriale</h3>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for..."/>
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+   
+             <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Liste des d&eacute;partements<small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Importer donn&eacute;es</a>
+                          </li>
+                          <li><a href="#">Exporter donn&eacute;es</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+						<div class="row">
+							 <a href="#" th:href="@{/pej/departement}" class="btn btn-info"><i class="fa fa-plus"></i> Ajouter</a>
+			
+						</div>
+						<table class="table table-striped" id="departement_list">
+							<thead>
+								<tr>
+								  <th>Code</th>
+								  <th>Libelle</th>
+								  <th>Description</th>
+								   <th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+							<tr data-th-each="departement : ${departements}">
+								<td data-th-text="${departement.codedepartement}"></td>
+								<td data-th-text="${departement.libdeparteement}"></td>
+								<td data-th-text="${departement.description}"></td>
+								<td>
+									<div class="btn-group btn-group-xs">
+										<a class="btn btn-default" th:href="@{'/pej/departement/' + ${departement.codedepartement}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> Modifier</a>
+										<a class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> Supprimer</a>
+									</div>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+			
+                  </div>
+                </div>
+              </div>	
+
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Liste des communes<small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Importer donn&eacute;es</a>
+                          </li>
+                          <li><a href="#">Exporter donn&eacute;es</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+					<div class="row">
+							
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">S&eacute;lectionner commune</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select class="select2_single form-control" tabindex="-1">
+                            <option data-th-each="departement : ${departements}" th:text="${departement.libdeparteement}" th:value="${departement.codedepartement}"></option>
+                          
+                          </select>
+                        
+                        </div>
+                       <div class="col-md-3 col-sm-3 col-xs-12">
+                        <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#modalCommune"><i class="fa fa-plus"></i> Ajouter</button>
+                      </div>
+						</div>
+						</div>
+						<table class="table table-striped" id="departement_list">
+							<thead>
+								<tr>
+								  <th>Code</th>
+								  <th>Libelle</th>
+								  <th>Description</th>
+								   <th>Département</th>
+								   <th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+							<tr data-th-each="commune : ${communes}">
+								<td data-th-text="${commune.codecommune}"></td>
+								<td data-th-text="${commune.libcommune}"></td>
+								<td data-th-text="${commune.description}"></td>
+								<td data-th-text="${commune.departement.libdeparteement}"></td>
+								<td>
+									<div class="btn-group btn-group-xs">
+										<a class="btn btn-default"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> Modifier</a>
+										<a class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> Supprimer</a>
+									</div>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Liste des arrondissements <small>Custom design</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <div class="x_content">
+
+                    <p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>
+
+                    <div class="table-responsive">
+                      <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                          <tr class="headings">
+                            <th>
+                              <input type="checkbox" id="check-all" class="flat"/>
+                            </th>
+                            <th class="column-title">Invoice </th>
+                            <th class="column-title">Invoice Date </th>
+                            <th class="column-title">Order </th>
+                            <th class="column-title">Bill to Name </th>
+                            <th class="column-title">Status </th>
+                            <th class="column-title">Amount </th>
+                            <th class="column-title no-link last"><span class="nobr">Action</span>
+                            </th>
+                            <th class="bulk-actions" colspan="7">
+                              <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                            </th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr class="even pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records"/>
+                            </td>
+                            <td class=" ">121000040</td>
+                            <td class=" ">May 23, 2014 11:47:56 PM </td>
+                            <td class=" ">121000210 <i class="success fa fa-long-arrow-up"></i></td>
+                            <td class=" ">John Blank L</td>
+                            <td class=" ">Paid</td>
+                            <td class="a-right a-right ">$7.45</td>
+                            <td class=" last"><a href="#">View</a>
+                            </td>
+                          </tr>
+                          <tr class="odd pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records"/>
+                            </td>
+                            <td class=" ">121000039</td>
+                            <td class=" ">May 23, 2014 11:30:12 PM</td>
+                            <td class=" ">121000208 <i class="success fa fa-long-arrow-up"></i>
+                            </td>
+                            <td class=" ">John Blank L</td>
+                            <td class=" ">Paid</td>
+                            <td class="a-right a-right ">$741.20</td>
+                            <td class=" last"><a href="#">View</a>
+                            </td>
+                          </tr>
+                          <tr class="even pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records"/>
+                            </td>
+                            <td class=" ">121000038</td>
+                            <td class=" ">May 24, 2014 10:55:33 PM</td>
+                            <td class=" ">121000203 <i class="success fa fa-long-arrow-up"></i>
+                            </td>
+                            <td class=" ">Mike Smith</td>
+                            <td class=" ">Paid</td>
+                            <td class="a-right a-right ">$432.26</td>
+                            <td class=" last"><a href="#">View</a>
+                            </td>
+                          </tr>
+                          <tr class="odd pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records"/>
+                            </td>
+                            <td class=" ">121000037</td>
+                            <td class=" ">May 24, 2014 10:52:44 PM</td>
+                            <td class=" ">121000204</td>
+                            <td class=" ">Mike Smith</td>
+                            <td class=" ">Paid</td>
+                            <td class="a-right a-right ">$333.21</td>
+                            <td class=" last"><a href="#">View</a>
+                            </td>
+                          </tr>
+                          <tr class="even pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records"/>
+                            </td>
+                            <td class=" ">121000040</td>
+                            <td class=" ">May 24, 2014 11:47:56 PM </td>
+                            <td class=" ">121000210</td>
+                            <td class=" ">John Blank L</td>
+                            <td class=" ">Paid</td>
+                            <td class="a-right a-right ">$7.45</td>
+                            <td class=" last"><a href="#">View</a>
+                            </td>
+                          </tr>
+                          <tr class="odd pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records"/>
+                            </td>
+                            <td class=" ">121000039</td>
+                            <td class=" ">May 26, 2014 11:30:12 PM</td>
+                            <td class=" ">121000208 <i class="error fa fa-long-arrow-down"></i>
+                            </td>
+                            <td class=" ">John Blank L</td>
+                            <td class=" ">Paid</td>
+                            <td class="a-right a-right ">$741.20</td>
+                            <td class=" last"><a href="#">View</a>
+                            </td>
+                          </tr>
+                          <tr class="even pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records"/>
+                            </td>
+                            <td class=" ">121000038</td>
+                            <td class=" ">May 26, 2014 10:55:33 PM</td>
+                            <td class=" ">121000203</td>
+                            <td class=" ">Mike Smith</td>
+                            <td class=" ">Paid</td>
+                            <td class="a-right a-right ">$432.26</td>
+                            <td class=" last"><a href="#">View</a>
+                            </td>
+                          </tr>
+                          <tr class="odd pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records"/>
+                            </td>
+                            <td class=" ">121000037</td>
+                            <td class=" ">May 26, 2014 10:52:44 PM</td>
+                            <td class=" ">121000204</td>
+                            <td class=" ">Mike Smith</td>
+                            <td class=" ">Paid</td>
+                            <td class="a-right a-right ">$333.21</td>
+                            <td class=" last"><a href="#">View</a>
+                            </td>
+                          </tr>
+
+                          <tr class="even pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records"/>
+                            </td>
+                            <td class=" ">121000040</td>
+                            <td class=" ">May 27, 2014 11:47:56 PM </td>
+                            <td class=" ">121000210</td>
+                            <td class=" ">John Blank L</td>
+                            <td class=" ">Paid</td>
+                            <td class="a-right a-right ">$7.45</td>
+                            <td class=" last"><a href="#">View</a>
+                            </td>
+                          </tr>
+                          <tr class="odd pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records"/>
+                            </td>
+                            <td class=" ">121000039</td>
+                            <td class=" ">May 28, 2014 11:30:12 PM</td>
+                            <td class=" ">121000208</td>
+                            <td class=" ">John Blank L</td>
+                            <td class=" ">Paid</td>
+                            <td class="a-right a-right ">$741.20</td>
+                            <td class=" last"><a href="#">View</a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- START MODAL DEPARTEMENT -->
+   	        <div id="modalDepartement" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+               <div class="modal-dialog modal-lf">
+                 <div class="modal-content">
+                   <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">x</span>
+                     </button>
+                     <h4 class="modal-title" id="myModalLabel">Département</h4>
+                   </div>
+                                  
+                   <div class="modal-body">
+                     <form id="frmDepartement"  class="form-horizontal form-label-left"  action="#" th:action="@{/home}" th:object="${objDepartement}" method="post">
+            		      <div class="form-group" th:class="${#fields.hasErrors('libdeparteement')}? has-error">
+		                    <label  class="col-sm-2 control-label" for="inputEmail3">Département</label>
+		                    <div class="col-sm-10">
+		                     <input type="text" th:field="*{libdeparteement}"  id="libbdepartement" placeholder="departement" class="form-control"></input>          
+		                     <span th:if="${#fields.hasErrors('libdeparteement')}" th:errors="*{libdeparteement}" th:errorclass="fieldError">Name Error</span>
+		                    </div>
+	                   </div>
+            		   <div class="form-group">
+		                    <label  class="col-sm-2 control-label" for="inputEmail3">Description</label>
+		                    <div class="col-sm-10">
+		                     <input type="text" th:field="*{description}"  id="description" placeholder="description" class="form-control" ></input>         
+		                    </div>
+	                   </div>
+	                  
+          
+						 <div class="modal-footer">
+	                      <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+	                      <button type="button" class="btn btn-primary">Save changes</button>
+	                    </div>
+					</form>
+                   </div>
+                  
+				
+                 </div>
+               </div>
+             </div>
+             <!-- END MODAL DEPARTEMENT -->
+              <!-- START MODAL COMMUNE -->
+	        <div id="modalCommune" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+               <div class="modal-dialog modal-lf">
+                 <div class="modal-content">
+
+                   <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">x</span>
+                     </button>
+                     <h4 class="modal-title" id="myModalLabel">Commune</h4>
+                   </div>
+                 
+                   <div class="modal-body">
+                       <form id="demo-form2"  class="form-horizontal form-label-left">
+                       	<div class="form-group">
+		                    <label  class="col-sm-2 control-label" for="inputEmail3">Département</label>
+		                    <div class="col-sm-10">
+		                          <select id="heard" class="form-control">
+		                            <option value="">Choose..</option>
+		                            <option value="press">Press</option>
+		                            <option value="net">Internet</option>
+		                            <option value="mouth">Word of mouth</option>
+		                          </select>
+		                    </div>
+                  		</div>
+	            		<div class="form-group">
+		                    <label  class="col-sm-2 control-label" for="inputEmail3">Libellé</label>
+		                    <div class="col-sm-10">
+		                     <input type="text" class="form-control" id="inputEmail3" placeholder="Email"/>          
+		                    </div>
+	                   </div>
+	                  <div class="form-group">
+	                    <label class="col-sm-2 control-label" for="inputPassword3" >Description</label>
+	                    <div class="col-sm-10">
+	                        <input type="text" class="form-control"  id="inputPassword3" placeholder="Password"/>
+	                    </div>
+	                  </div>
+          
+						 <div class="modal-footer">
+	                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	                      <button type="button" class="btn btn-primary">Save changes</button>
+	                    </div>
+					</form>
+                   </div>
+                  
+				
+                 </div>
+               </div>
+             </div>
+             <!-- END MODAL COMMUNE -->
+          </div>
+        </div>
+        <!-- /page content -->    
+  </div>
+
+  <footer>
+    <p layout:fragment="custom-footer">This is some footer content from content page 1</p>
+  </footer>
+  
+
+</body>
+</html>
