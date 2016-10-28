@@ -4,6 +4,6 @@ import org.springframework.stereotype.Repository;
 import com.pej.domains.Arrondissement;
 
 @Repository
-public interface ArrondissementRepository extends CrudRepository<Arrondissement, String>{
+public interface ArrondissementRepository extends CrudRepository<Arrondissement, Integer>{
 
 }

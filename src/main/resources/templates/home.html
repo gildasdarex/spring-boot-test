@@ -120,7 +120,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                         
                         </div>
                        <div class="col-md-3 col-sm-3 col-xs-12">
-                        <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#modalCommune"><i class="fa fa-plus"></i> Ajouter</button>
+                       <a href="#" th:href="@{/pej/commune}" class="btn btn-info"><i class="fa fa-plus"></i> Ajouter</a>
                       </div>
 						</div>
 						</div>
@@ -142,7 +142,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 								<td data-th-text="${commune.departement.libdeparteement}"></td>
 								<td>
 									<div class="btn-group btn-group-xs">
-										<a class="btn btn-default"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> Modifier</a>
+										<a class="btn btn-default" th:href="@{'/pej/commune/' + ${commune.codecommune}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> Modifier</a>
 										<a class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> Supprimer</a>
 									</div>
 								</td>

@@ -22,12 +22,17 @@ import javax.validation.Valid;
 @Controller
 public class CandidatController {
 	@Autowired private DepartementRepository departementRepository;
+	@GetMapping("/pej/candidats")
+    String index(Model model,@ModelAttribute("objDepartement") Departement objDepartement) {  
+        return "candidats";
+    }
 	
-	@RequestMapping(value="/candidats", method=RequestMethod.GET)
-    String index(Model model) {
+
+	@RequestMapping(value="/pej/candidats/add", method=RequestMethod.GET)
+    String addCandidat(Model model) {
     	List<Departement> departements = (List<Departement>) departementRepository.findAll();
     	model.addAttribute("departements", departements);
-        return "candidat";
+        return "frmCandidat";
     }
 
 }

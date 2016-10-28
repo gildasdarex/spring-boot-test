@@ -45,14 +45,42 @@ class HomeController  extends WebMvcConfigurerAdapter {
 	public String editDepartement(@ModelAttribute("objDepartement") Departement objDepartement){
 		 return "departement";
 	}
+	@GetMapping("/pej/commune")
+	public String editCommune(@ModelAttribute("objCommune") Commune objCommune, ModelMap model){
+		 List<Departement> departements = (List<Departement>) departementRepository.findAll();
+		 model.addAttribute("departements", departements); 
+		 model.addAttribute("selectedDepartement", ""); 
+		 return "commune";
+	}
+	@GetMapping("/pej/arrondissement")
+	public String editArrondissement(@ModelAttribute("objArrondissement") Arrondissement objArrondissement){
+		 return "arrondissement";
+	}
 
 	@GetMapping("/pej/departement/{id}")
 	public String updateDepartement(@PathVariable Integer id, ModelMap model){
+		
 		Departement departement=departementRepository.findOne(id);
 		model.addAttribute("objDepartement", departement);
 		 return "departement";
 	}
-
+	
+	@GetMapping("/pej/commune/{id}")
+	public String updateCommune(@PathVariable Integer id, ModelMap model){
+		List<Departement> departements = (List<Departement>) departementRepository.findAll();
+		model.addAttribute("departements", departements); 
+		Commune commune=communeRepository.findOne(id);
+		model.addAttribute("objCommune", commune);
+		return "commune";
+	}
+	
+	@GetMapping("/pej/arrondissement/{id}")
+	public String updateArrondissement(@PathVariable Integer id, ModelMap model){
+		Arrondissement arrondissement=arrondissementRepository.findOne(id);
+		model.addAttribute("objArrondissement", arrondissement);
+		 return "arrondissement";
+	}
+	
     @PostMapping("/pej/departement")
     public String savedepartement(@Valid @ModelAttribute(value="objDepartement")  Departement objDepartement, BindingResult result,Model model) {
     	System.out.println("Starting Save Ok");
@@ -64,7 +92,7 @@ class HomeController  extends WebMvcConfigurerAdapter {
         else
         	System.out.println("Objdépartement est null: ");
         
-       if(objDepartement.getCodedepartement()>0){
+       if(objDepartement.getCodedepartement()!=null && objDepartement.getCodedepartement()>0){
     	   Departement departement=departementRepository.findOne(objDepartement.getCodedepartement());
     	   departement.setLibdeparteement(objDepartement.getLibdeparteement());
     	   departement.setDescription(objDepartement.getDescription());
@@ -72,6 +100,28 @@ class HomeController  extends WebMvcConfigurerAdapter {
            return "redirect:/pej/decoupement";
        }
        departementRepository.save(objDepartement);
+       return "redirect:/pej/decoupement";
+    }
+    
+    @PostMapping("/pej/commune")
+    public String savecommune(@Valid @ModelAttribute(value="objCommune")  Commune objCommune, BindingResult result,Model model) {
+    	System.out.println("Starting Save Ok");
+        if (result.hasErrors()) {
+        	List<Departement> departements = (List<Departement>) departementRepository.findAll();
+        	model.addAttribute("departements", departements);
+            return "commune";
+        }
+      System.out.println("Département de la commune "+objCommune.getDepartement().getLibdeparteement());
+        
+       if(objCommune.getCodecommune()!=null && objCommune.getCodecommune()>0){
+    	   Commune commune=communeRepository.findOne(objCommune.getCodecommune());
+    	   commune.setLibcommune(objCommune.getLibcommune());
+    	   commune.setDescription(objCommune.getDescription());
+    	   commune.setDepartement(objCommune.getDepartement());
+    	   communeRepository.save(commune);
+           return "redirect:/pej/decoupement";
+       }
+       communeRepository.save(objCommune);
        return "redirect:/pej/decoupement";
     }
 }

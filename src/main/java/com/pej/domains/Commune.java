@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "COMMUNE", schema = "ADMINPEJ")
 public class Commune implements java.io.Serializable {
 
-	private String codecommune;
+	private Integer codecommune;
 	private Departement departement;
 	private String libcommune;
 	private String description;
@@ -24,11 +24,11 @@ public class Commune implements java.io.Serializable {
 	public Commune() {
 	}
 
-	public Commune(String codecommune) {
+	public Commune(Integer codecommune) {
 		this.codecommune = codecommune;
 	}
 
-	public Commune(String codecommune, Departement departement, String libcommune, String descriptioin,
+	public Commune(Integer codecommune, Departement departement, String libcommune, String descriptioin,
 			Set<Arrondissement> arrondissements) {
 		this.codecommune = codecommune;
 		this.departement = departement;
@@ -37,14 +37,16 @@ public class Commune implements java.io.Serializable {
 		this.arrondissements = arrondissements;
 	}
 
+	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(generator = "SEQ_CODECOMMUNE", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "SEQ_CODECOMMUNE", sequenceName = "SEQ_CODECOMMUNE",allocationSize=1)
 	@Column(name = "CODECOMMUNE", unique = true, nullable = false, length = 20)
-	public String getCodecommune() {
+	public Integer getCodecommune() {
 		return this.codecommune;
 	}
 
-	public void setCodecommune(String codecommune) {
+	public void setCodecommune(Integer codecommune) {
 		this.codecommune = codecommune;
 	}
 

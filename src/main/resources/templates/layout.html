@@ -28,5 +28,22 @@
 
    <th:block layout:fragment="body_end"/>
    <th:block layout:replace="fragments/body_scripts :: end"/>
+    <script th:inline="javascript">
+ 	  // <![CDATA[
+		 $(document).ready(function() {
+			 console.log('Exec wizard');
+        $('#wizard').smartWizard();
+
+        $('#wizard_verticle').smartWizard({
+          transitionEffect: 'slide'
+        });
+
+        $('.buttonNext').addClass('btn btn-success');
+        $('.buttonPrevious').addClass('btn btn-primary');
+        $('.buttonFinish').addClass('btn btn-default');
+      });
+      // ]]>
+    </script>
   </body>
+  
 </html>

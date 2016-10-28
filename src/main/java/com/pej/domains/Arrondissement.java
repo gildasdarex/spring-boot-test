@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Table(name = "ARRONDISSEMENT", schema = "ADMINPEJ")
 public class Arrondissement implements java.io.Serializable {
 
-	private String codearrondissement;
+	private Integer codearrondissement;
 	private Commune commune;
 	private String libarrondissement;
 	private String description;
@@ -20,12 +20,12 @@ public class Arrondissement implements java.io.Serializable {
 	public Arrondissement() {
 	}
 
-	public Arrondissement(String codearrondissement, String libarrondissement) {
+	public Arrondissement(Integer codearrondissement, String libarrondissement) {
 		this.codearrondissement = codearrondissement;
 		this.libarrondissement = libarrondissement;
 	}
 
-	public Arrondissement(String codearrondissement, Commune commune, String libarrondissement, String description) {
+	public Arrondissement(Integer codearrondissement, Commune commune, String libarrondissement, String description) {
 		this.codearrondissement = codearrondissement;
 		this.commune = commune;
 		this.libarrondissement = libarrondissement;
@@ -35,11 +35,11 @@ public class Arrondissement implements java.io.Serializable {
 	@Id
 	@GeneratedValue
 	@Column(name = "CODEARRONDISSEMENT", unique = true, nullable = false, length = 20)
-	public String getCodearrondissement() {
+	public Integer getCodearrondissement() {
 		return this.codearrondissement;
 	}
 
-	public void setCodearrondissement(String codearrondissement) {
+	public void setCodearrondissement(Integer codearrondissement) {
 		this.codearrondissement = codearrondissement;
 	}
 

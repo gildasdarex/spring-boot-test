@@ -4,6 +4,6 @@ import org.springframework.stereotype.Repository;
 import com.pej.domains.Commune;
 
 @Repository
-public interface CommuneRepository  extends CrudRepository<Commune, String>{
+public interface CommuneRepository  extends CrudRepository<Commune, Integer>{
 
 }
