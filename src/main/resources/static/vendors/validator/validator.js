@@ -15,11 +15,11 @@ var validator = (function($){
     /* general text messages
     */
     message = {
-        invalid         : 'invalid input',
-        checked         : 'must be checked',
-        empty           : 'please put something here',
-        min             : 'input is too short',
-        max             : 'input is too long',
+        invalid         : 'Entrée invalide',
+        checked         : 'Doit être coché',
+        empty           : 'ne doit pas être vide',
+        min             : 'Entrée trop court',
+        max             : 'Entrée trop long',
         number_min      : 'too low',
         number_max      : 'too high',
         url             : 'invalid URL',
@@ -29,7 +29,7 @@ var validator = (function($){
         password_repeat : 'passwords do not match',
         repeat          : 'no match',
         complete        : 'input is not complete',
-        select          : 'Please select an option'
+        select          : 'Sélectionner une valeur'
     };
 
     if(!window.console){
@@ -55,9 +55,11 @@ var validator = (function($){
         },
         hasValue : function(a){
             if( !a ){
+            	
                 alertTxt = message.empty;
                 return false;
             }
+            //console.log('Has value');
             return true;
         },
         // 'linked' is a special test case for inputs which their values should be equal to each other (ex. confirm email or retype password)
@@ -232,9 +234,9 @@ var validator = (function($){
     /* marks invalid fields
     */
     mark = function( field, text ){
+    	
         if( !text || !field || !field.length )
             return false;
-
         // check if not already marked as a 'bad' record and add the 'alert' object.
         // if already is marked as 'bad', then make sure the text is set again because i might change depending on validation
         var item = field.closest('.' + defaults.classes.item),
@@ -247,6 +249,7 @@ var validator = (function($){
 
 
         else if( defaults.alerts ){
+        	
             warning = $('<div class="'+ defaults.classes.alert +'">').html( text );
             item.append( warning );
         }
@@ -303,6 +306,7 @@ var validator = (function($){
     /* Checks a single form field by it's type and specific (custom) attributes
     */
     function checkField(){
+ 
         // skip testing fields whom their type is not HIDDEN but they are HIDDEN via CSS.
         if( this.type !='hidden' && $(this).is(':hidden') )
             return true;
@@ -347,6 +351,7 @@ var validator = (function($){
             * this is needed when fixing the placeholders for older browsers which does not support them.
             * in this case, make sure the "placeholder" jQuery plugin was even used before proceeding
             */
+        	//console.log('Champ valide.');
             if( tests.sameAsPlaceholder(field) ){
                 alertTxt = message.empty;
                 data.valid = false;
@@ -365,9 +370,12 @@ var validator = (function($){
         }
 
         // mark / unmark the field, and set the general 'submit' flag accordingly
-        if( data.valid )
-            unmark( field );
+        if( data.valid ){
+        	  //console.log('Champ valide. Démarquage du champ');
+        	  unmark( field );	  
+        }        
         else{
+        	//console.log('Champ non valide. Marquage du champ');
             mark( field, alertTxt );
             submit = false;
         }
@@ -388,7 +396,8 @@ var validator = (function($){
         var that = this,
             submit = true, // save the scope
             // get all the input/textareas/select fields which are required or optional (meaning, they need validation only if they were filled)
-            fieldsToCheck = $form.find(':input').filter('[required=required], .required, .optional').not('[disabled=disabled]');
+            fieldsToCheck = $form.find(':input').filter('[required="required"],[required="true"],[required=required], .required, .optional').not('[disabled=disabled]');
+            //console.log('Fields to check: ',fieldsToCheck);
 
         fieldsToCheck.each(function(){
             // use an AND operation, so if any of the fields returns 'false' then the submitted result will be also FALSE
