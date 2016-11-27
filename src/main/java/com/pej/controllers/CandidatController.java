@@ -1,4 +1,4 @@
-package com.pej;
+package com.pej.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -23,6 +23,9 @@ import com.pej.domains.Agent;
 import com.pej.domains.Arrondissement;
 import com.pej.domains.Candidat;
 import com.pej.repository.*;
+import com.pej.services.NotificationService;
+import com.pej.services.NotificationServiceImpl.NotificationMessageType;
+import com.pej.utils.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +43,7 @@ public class CandidatController {
 	@Autowired private AgentRepository agentRepository;
 	@Autowired private StatutcandidatRepository statutcandidatRepository;
 	@Autowired private DonRepository donRepository;
+	@Autowired private NotificationService notifyService;
 	
 	@GetMapping("/pej/candidats")
     String index(Model model,@ModelAttribute("objDepartement") Departement objDepartement) {  
@@ -81,19 +85,88 @@ public class CandidatController {
 		Arrondissement arrondissement=arrondissementRepository.findOne(id);
 		return new ArrayList<Quartier>(arrondissement.getQuartiers());
 	}
-	
+	/*Récupérer la liste des quartier  d'un arrondissement*/
+	@RequestMapping(value = "/pej/candidats/agent/{id}", method = RequestMethod.GET)
+	public @ResponseBody Agent findAgent(@PathVariable String id) {
+		Agent agent=agentRepository.getAgent(id);
+		return agent;
+	}
 	@PostMapping("/pej/candidats")
-    public String savedepartement(@Valid @ModelAttribute(value="objCandidat")  Candidat objCandidat, BindingResult result,Model model) {
+    public String savecandidat(@Valid @ModelAttribute(value="objCandidat")  Candidat objCandidat, BindingResult result,Model model) {
     	System.out.println("Starting Save Ok");
         if (result.hasErrors()) {
             return "frmCandidat";
         }
+       
         Agent agent=agentRepository.getAgent(objCandidat.getNumeroagent());
-        
+        if(objCandidat.getIdcandidat()!=null && objCandidat.getIdcandidat().intValue() >0 ){
+        	try{
+				Candidat candidat=candidatRepository.findOne(objCandidat.getIdcandidat());
+				candidat.setAgent(agent);
+				candidat.setNom(objCandidat.getNom());  
+				candidat.setPrenom(objCandidat.getPrenom());
+				candidat.setDatenaissance(objCandidat.getDatenaissance());
+				candidat.setDocidentite(objCandidat.getDocidentite());
+				candidat.setNiveau(candidat.getNiveau());
+				candidat.setDiplome(objCandidat.getDiplome());
+				candidat.setCodearrondissement(objCandidat.getCodearrondissement());
+				candidat.setRefdocidentite(objCandidat.getRefdocidentite());
+				candidat.setTelprincipal(objCandidat.getTelprincipal());
+				candidat.setTelalternatif(objCandidat.getTelalternatif());
+				candidat.setAge(objCandidat.getAge());
+				candidat.setSexe(objCandidat.getSexe());
+				candidat.setSituationmatrimoniale(objCandidat.getSituationmatrimoniale());
+				candidat.setParentechefmenage(objCandidat.getParentechefmenage());
+				candidat.setNbpersonnemenage(objCandidat.getNbpersonnemenage());
+				candidat.setMenagebeneficiaire(objCandidat.getMenagebeneficiaire());
+				candidat.setScolarise(objCandidat.getScolarise());
+				candidat.setDernierniveauetude(objCandidat.getDernierniveauetude());
+				candidat.setLecture(objCandidat.getLecture());
+				candidat.setQualificationpersonelle(objCandidat.getQualificationpersonelle());
+				candidat.setWorklastmonth(objCandidat.getWorklastmonth());
+				candidat.setRecherchetravail(objCandidat.getRecherchetravail());
+				candidat.setMotifnonrecherche(objCandidat.getMotifnonrecherche());
+				candidat.setActiviteactuelle(objCandidat.getActiviteactuelle());
+				candidat.setAsoncompte(objCandidat.getAsoncompte());
+				        		
+				candidat.setNbmoistravail(objCandidat.getNbmoistravail());
+				candidat.setNbjoursmoyen(objCandidat.getNbjoursmoyen());
+				candidat.setNbheuremoyen(objCandidat.getNbheuremoyen());
+				candidat.setRevenumoyen(objCandidat.getRevenumoyen());
+				candidat.setDomainesouhait(objCandidat.getDomainesouhait());
+				candidat.setTravailgroupe(objCandidat.getTravailgroupe());
+				candidat.setNumcarteagratter(objCandidat.getNumcarteagratter());
+				candidat.setQuartier(objCandidat.getQuartier());
+				candidat.setCommune(objCandidat.getCommune());
+				candidat.setDepartement(objCandidat.getDepartement());
+				candidat.setDateenregistrement(objCandidat.getDateenregistrement());
+				candidat.setNumeroagent(objCandidat.getNumeroagent());
+				candidat.setNumerofiche(objCandidat.getNumerofiche());
+        		
+        		candidatRepository.save(objCandidat);
+        		notifyService.addInfoMessage("Candidat modififé avec succès.");
+        	}
+        	catch(Exception e){
+        		notifyService.addErrorMessage("Echec lors de la modification du candidat. "+e.getMessage());
+        	}
+        }
+        Statutcandidat st=statutcandidatRepository.findOne(1);
+        if(st==null){
+        	notifyService.addErrorMessage("Aucun statut par défaut configuré pour les candidats");
+        	return "";
+        }
+        objCandidat.setStatutcandidat(st);
         objCandidat.setAgent(agent);
         System.out.print("Agent récupéré: "+agent.getNom());
         System.out.print("Saving candidat: "+objCandidat.toString());
-        candidatRepository.save(objCandidat);
+        
+        try{
+    		candidatRepository.save(objCandidat);
+    		notifyService.addInfoMessage("Candidat enregistré avec succès.");
+    	}
+    	catch(Exception e){
+    		notifyService.addErrorMessage("Echec lors de l'enregistrement du candidat. "+e.getMessage());
+    	}
         return "redirect:/pej/candidats";
     }
 	
@@ -140,4 +213,12 @@ public class CandidatController {
         return "redirect:/pej/candidats";
     }
 	
+	@GetMapping("/pej/candidats/{id}")
+	public String updateCandidat(@PathVariable Integer id, ModelMap model){
+		List<Departement> departements = (List<Departement>) departementRepository.findAll();
+    	model.addAttribute("departements", departements);
+		Candidat candidat=candidatRepository.findOne(id);
+		model.addAttribute("objCandidat", candidat);
+		 return "frmCandidat";
+	}
 }

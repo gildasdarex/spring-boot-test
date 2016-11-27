@@ -20,6 +20,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
@@ -29,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name="CANDIDAT"
     ,schema="ADMINPEJ"
 )
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Candidat  implements java.io.Serializable {
 
 
@@ -42,12 +44,14 @@ public class Candidat  implements java.io.Serializable {
      private Agent agent;
      private String nom;
      private String prenom;
+     @DateTimeFormat(pattern = "dd/MM/yyyy")
      private Date datenaissance;
      private String docidentite;
      private String niveau;
      private String diplome;
      private String codearrondissement;
      private String userlogin;
+     @DateTimeFormat(pattern = "dd/MM/yyyy")
      private Date datecreation;
      private String refdocidentite;
      private String telprincipal;
@@ -75,10 +79,10 @@ public class Candidat  implements java.io.Serializable {
      private String domainesouhait;
      private Integer travailgroupe;
      private String numcarteagratter;
-     private Integer idquartier;
-     private String quartier;
+     private Quartier quartier;
      private String commune;
      private String departement;
+     @DateTimeFormat(pattern = "dd/MM/yyyy")
      private Date dateenregistrement;
      private String numeroagent;
      private String numerofiche;
@@ -87,7 +91,7 @@ public class Candidat  implements java.io.Serializable {
      private String precisionactivitesouhaiter;
      private int niveauvalidation;
      private Set<Formationbeneficaire> formationbeneficaires = new HashSet<Formationbeneficaire>(0);
-
+     
     public Candidat() {
     }
 
@@ -95,7 +99,7 @@ public class Candidat  implements java.io.Serializable {
     public Candidat(Integer idcandidat) {
         this.idcandidat = idcandidat;
     }
-    public Candidat(Integer idcandidat, Agent agent, String nom, String prenom, Date datenaissance, String docidentite, String niveau, String diplome, String codearrondissement, String userlogin, Date datecreation, String refdocidentite, String telprincipal, String telalternatif, Integer age, String sexe, String situationmatrimoniale, String parentechefmenage, Integer nbpersonnemenage, Integer menagebeneficiaire, String scolarise, String dernierniveauetude, Integer niveaualphabetisation, String qualificationpersonelle, Integer worklastmonth, Integer recherchetravail, String motifnonrecherche, String activiteactuelle, String asoncompte, Integer nbmoistravail, Integer nbjoursmoyen, Integer nbheuremoyen, String revenumoyen, String domainesouhait, Integer travailgroupe, String numcarteagratter, Integer idquartier, String quartier, String commune, String departement, Date dateenregistrement, String numeroagent, String numerofiche, Set<Beneficiaire> beneficiaires) {
+    public Candidat(Integer idcandidat, Agent agent, String nom, String prenom, Date datenaissance, String docidentite, String niveau, String diplome, String codearrondissement, String userlogin, Date datecreation, String refdocidentite, String telprincipal, String telalternatif, Integer age, String sexe, String situationmatrimoniale, String parentechefmenage, Integer nbpersonnemenage, Integer menagebeneficiaire, String scolarise, String dernierniveauetude, Integer niveaualphabetisation, String qualificationpersonelle, Integer worklastmonth, Integer recherchetravail, String motifnonrecherche, String activiteactuelle, String asoncompte, Integer nbmoistravail, Integer nbjoursmoyen, Integer nbheuremoyen, String revenumoyen, String domainesouhait, Integer travailgroupe, String numcarteagratter, Quartier quartier, String commune, String departement, Date dateenregistrement, String numeroagent, String numerofiche, Set<Beneficiaire> beneficiaires) {
        this.idcandidat = idcandidat;
        this.agent = agent;
        this.nom = nom;
@@ -132,7 +136,6 @@ public class Candidat  implements java.io.Serializable {
        this.domainesouhait = domainesouhait;
        this.travailgroupe = travailgroupe;
        this.numcarteagratter = numcarteagratter;
-       this.idquartier = idquartier;
        this.quartier = quartier;
        this.commune = commune;
        this.departement = departement;
@@ -513,22 +516,15 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="IDQUARTIER", precision=22, scale=0)
-    public Integer getIdquartier() {
-        return this.idquartier;
-    }
-    
-    public void setIdquartier(Integer idquartier) {
-        this.idquartier = idquartier;
-    }
 
     
-    @Column(name="QUARTIER", length=128)
-    public String getQuartier() {
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="IDQUARTIER")
+    public Quartier getQuartier() {
         return this.quartier;
     }
     
-    public void setQuartier(String quartier) {
+    public void setQuartier(Quartier quartier) {
         this.quartier = quartier;
     }
 
@@ -653,7 +649,7 @@ public class Candidat  implements java.io.Serializable {
 				+ ", activiteactuelle=" + activiteactuelle + ", asoncompte=" + asoncompte + ", nbmoistravail="
 				+ nbmoistravail + ", nbjoursmoyen=" + nbjoursmoyen + ", nbheuremoyen=" + nbheuremoyen + ", revenumoyen="
 				+ revenumoyen + ", domainesouhait=" + domainesouhait + ", travailgroupe=" + travailgroupe
-				+ ", numcarteagratter=" + numcarteagratter + ", idquartier=" + idquartier + ", quartier=" + quartier
+				+ ", numcarteagratter=" + numcarteagratter  + ", quartier=" + quartier
 				+ ", commune=" + commune + ", departement=" + departement + ", dateenregistrement=" + dateenregistrement
 				+ ", numeroagent=" + numeroagent + ", numerofiche=" + numerofiche + ", languesparlees=" + languesparlees
 				+ ", precisionactivite=" + precisionactivite + ", precisionactivitesouhaiter="

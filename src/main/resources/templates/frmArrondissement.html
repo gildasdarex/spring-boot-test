@@ -42,7 +42,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Département</h2>
+                    <h2>Arrondissement</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -63,19 +63,31 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 
                   <div class="x_content">
 										
-					  <form id="frmDepartement"  class="form-horizontal form-label-left" action="#" th:action="@{/pej/departement}" th:object="${objDepartement}" method="post">
+					  <form id="frmArrondissement" novalidate="true" class="frmPej form-horizontal form-label-left" action="#" th:action="@{/pej/arrondissement}" th:object="${objArrondissement}" method="post">
+					    <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Département <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                               <select id="departement" name="departement" class="select2_single form-control">
+	                            	<option data-th-each="departement : ${departements}" th:text="${departement.libdeparteement}" th:value="${departement.codedepartement}"></option>      
+	                           </select>
+                            </div>
+                          </div>
+                          <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Commune<span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              	<select id="commune" name="commune" class="select2_single form-control"  th:field="*{commune}" >
+	                            	<option value=""></option>     
+	                           </select>
+                            </div>
+                          </div>
+			                         
 					   <div class="form-group">
-					      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Code Département <span class="required">*</span>
+					      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Arrondissement <span class="required">*</span>
 					      </label>
 					      <div class="col-md-6 col-sm-6 col-xs-12">
-					        <input type="text"  th:field="*{codedepartement}"  id="codedepartement"  class="form-control col-md-7 col-xs-12"></input>
-					      </div>
-					    </div>
-					   <div class="form-group" th:classappend="${#fields.hasErrors('libdeparteement')}? bad">
-					      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Département <span class="required">*</span>
-					      </label>
-					      <div class="col-md-6 col-sm-6 col-xs-12">
-					        <input type="text"  th:field="*{libdeparteement}"  id="libbdepartement"  required="required" class="form-control col-md-7 col-xs-12"></input>
+					        <input type="text"  th:field="*{libarrondissement}"  id="libarrondissement"  required="required" class="form-control col-md-7 col-xs-12"></input>
 					      </div>
 					    </div>
 					    <div class="form-group">

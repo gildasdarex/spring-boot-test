@@ -13,7 +13,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>D&eacute;coupage territoriale</h3>
+                <h3>Edition Agent</h3>
               </div>
 
               <div class="title_right">
@@ -42,7 +42,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Département</h2>
+                    <h2>Agent</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -63,30 +63,47 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 
                   <div class="x_content">
 										
-					  <form id="frmDepartement"  class="form-horizontal form-label-left" action="#" th:action="@{/pej/departement}" th:object="${objDepartement}" method="post">
-					   <div class="form-group">
-					      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Code Département <span class="required">*</span>
-					      </label>
-					      <div class="col-md-6 col-sm-6 col-xs-12">
-					        <input type="text"  th:field="*{codedepartement}"  id="codedepartement"  class="form-control col-md-7 col-xs-12"></input>
-					      </div>
-					    </div>
-					   <div class="form-group" th:classappend="${#fields.hasErrors('libdeparteement')}? bad">
-					      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Département <span class="required">*</span>
-					      </label>
-					      <div class="col-md-6 col-sm-6 col-xs-12">
-					        <input type="text"  th:field="*{libdeparteement}"  id="libbdepartement"  required="required" class="form-control col-md-7 col-xs-12"></input>
-					      </div>
-					    </div>
-					    <div class="form-group">
-					      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Description
-					      </label>
-					      <div class="col-md-6 col-sm-6 col-xs-12">
-					        <input type="text" th:field="*{description}"  id="description" required="required" class="form-control col-md-7 col-xs-12"></input>
-					      </div>
-					    </div>
-					   
-					   
+					  <form id="frmAgent"  novalidate="true" class="frmPej form-horizontal form-label-left" action="#" th:action="@{/pej/agents}" th:object="${objAgent}" method="post">
+				       <div class="item form-group">
+                            <label for="numerofiche" class="control-label col-md-3 col-sm-3 col-xs-12">N° Agent</label>
+                             <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="numeroagent" th:field="*{numeroagent}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+					    <div class="item form-group">
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Nom</label>
+                             <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="nom" th:field="*{nom}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Prénom</label>
+                             <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="prenom" th:field="*{prenom}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Date naissance</label>
+                             <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="datenaissance" th:field="*{datenaissance}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Sexe <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+	                            <select id="sexe" name="scolarise" class="select2_single form-control"  th:field="*{sexe}">
+                            		<option value="Masculin">Masculin</option> 
+                            		<option value="F�minin">Féminin</option>      
+                           		</select>
+	                         </div>
+                         </div>
+                         <div class="item form-group">
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">N° Téléphone</label>
+                             <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="telephone" th:field="*{telephone}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
 					    <div class="ln_solid"></div>
 					    <div class="form-group">
 					      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">

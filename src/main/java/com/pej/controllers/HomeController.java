@@ -1,4 +1,4 @@
-package com.pej;
+package com.pej.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import javax.validation.Valid;
@@ -27,7 +27,7 @@ import java.util.List;
 
 
 @Controller
-class HomeController  extends WebMvcConfigurerAdapter {
+class HomeController  {
 	@Autowired private DepartementRepository departementRepository;
 	@Autowired private CommuneRepository communeRepository;
 	@Autowired private ArrondissementRepository arrondissementRepository;
