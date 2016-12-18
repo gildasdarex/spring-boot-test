@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.pej.domains.Formateur;
@@ -27,10 +28,18 @@ public class FormateurController {
     }
 	
 	@GetMapping("/pej/formateurs/add")
-	public String editCommune(@ModelAttribute("objFormateur") Formateur objFormateur, ModelMap model){
+	public String editFormateur(@ModelAttribute("objFormateur") Formateur objFormateur, ModelMap model){
 		 model.addAttribute("objFormateur", objFormateur); 
 		 return "frmFormateur";
 	}
+	
+	@GetMapping("/pej/formateurs/{id}")
+	public String editFormateur(@PathVariable Integer id, ModelMap model){
+		 Formateur objFormateur=formateurRepository.findOne(id);
+		 model.addAttribute("objFormateur", objFormateur); 
+		 return "frmFormateur";
+	}
+	
 	
     @PostMapping("/pej/formateurs")
     public String saveagents(@ModelAttribute(value="objFormateur")  Formateur objFormateur, BindingResult result,Model model) {

@@ -79,19 +79,19 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                         <div class="item form-group">
                             <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Date formation</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="dateformation" th:field="*{dateformation}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+                              <input type="text" data-inputmask="'mask': '99/99/9999'" id="dateformation" th:field="*{dateformation}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="item form-group">
                             <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Heure début</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="heuredebut" th:field="*{heuredebut}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+                              <input type="text" data-inputmask="'mask' : '99:99'" id="heuredebut" th:field="*{heuredebut}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                          <div class="item form-group">
                             <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Heure fin</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="heuredebut" th:field="*{heurefin}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+                              <input type="text" data-inputmask="'mask' : '99:99'" id="heuredebut" th:field="*{heurefin}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="item form-group">

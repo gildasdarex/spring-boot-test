@@ -12,11 +12,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -35,11 +39,14 @@ public class Agent  implements java.io.Serializable {
      private Integer idagent;
      private String nom;
      private String prenom;
+     @DateTimeFormat(pattern = "dd/MM/yyyy")
      private Date datenaissance;
      private String sexe;
      private String cardid;
      private String telephone;
      private String numeroagent;
+     @JsonIgnore
+     private Antenne antenne;
      @JsonIgnore
      private Set<Candidat> candidats = new HashSet<Candidat>(0);
 
@@ -152,6 +159,17 @@ public class Agent  implements java.io.Serializable {
     public void setCandidats(Set<Candidat> candidats) {
         this.candidats = candidats;
     }
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="IDANTENNE")
+	public Antenne getAntenne() {
+		return antenne;
+	}
+
+
+	public void setAntenne(Antenne antenne) {
+		this.antenne = antenne;
+	}
 
 
 

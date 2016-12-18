@@ -64,7 +64,15 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                   <div class="x_content">
 										
 					<form id="frmCooperative"  novalidate="true" class="frmPej form-horizontal form-label-left" action="#" th:action="@{/pej/cooperatives}" th:object="${objCooperative}" method="post">
-				    	
+				    	<div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Département <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                               <select id="departement" name="departement" class="select2_single form-control" th:field="*{departement}">
+	                            	<option data-th-each="departement : ${departements}" th:text="${departement.libdeparteement}" th:value="${departement.codedepartement}"></option>      
+	                           </select>
+                            </div>
+                        </div>
 				       <div class="item form-group">
                             <label for="numerofiche" class="control-label col-md-3 col-sm-3 col-xs-12">Intitué</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">

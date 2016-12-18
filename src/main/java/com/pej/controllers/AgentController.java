@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.pej.domains.Agent;
+import com.pej.domains.Antenne;
 import com.pej.repository.AgentRepository;
+import com.pej.repository.AntenneRepository;
 import com.pej.services.NotificationService;
 
 @Controller
 public class AgentController {
 	@Autowired private AgentRepository agentRepository;
+	@Autowired private AntenneRepository antenneRepository;
 	@Autowired private NotificationService notifyService;
 	@GetMapping("/pej/agents")
     String index(Model model,@ModelAttribute("objAgent") Agent objAgent) {
@@ -31,7 +34,20 @@ public class AgentController {
     }
 	
 	@GetMapping("/pej/agents/add")
-	public String editCommune(@ModelAttribute("objAgent") Agent objAgent, ModelMap model){
+	public String editAgent(@ModelAttribute("objAgent") Agent objAgent, ModelMap model){
+		 
+		 List<Antenne> antennes = (List<Antenne>) antenneRepository.findAll();
+		 model.addAttribute("antennes", antennes); 
+		 model.addAttribute("objAgent", objAgent); 
+		 return "frmAgent";
+	}
+	
+	@GetMapping("/pej/agents/{id}")
+	public String modifierAgent(@PathVariable Integer id, ModelMap model){
+		 
+		 List<Antenne> antennes = (List<Antenne>) antenneRepository.findAll();
+		 Agent objAgent=agentRepository.findOne(id);
+		 model.addAttribute("antennes", antennes); 
 		 model.addAttribute("objAgent", objAgent); 
 		 return "frmAgent";
 	}

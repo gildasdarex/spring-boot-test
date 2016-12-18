@@ -22,6 +22,8 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
@@ -32,6 +34,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
     ,schema="ADMINPEJ"
 )
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties(value = { "handler", "hibernateLazyInitializer" })
 public class Candidat  implements java.io.Serializable {
 
 
@@ -79,6 +82,7 @@ public class Candidat  implements java.io.Serializable {
      private String domainesouhait;
      private Integer travailgroupe;
      private String numcarteagratter;
+     @JsonIgnore
      private Quartier quartier;
      private String commune;
      private String departement;

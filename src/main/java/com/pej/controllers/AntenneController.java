@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.pej.domains.Antenne;
@@ -31,13 +32,20 @@ public class AntenneController {
     }
 	
 	@GetMapping("/pej/antennes/add")
-	public String editCommune(@ModelAttribute("objAntenne") Antenne objAntenne, ModelMap model){
+	public String editAtenne(@ModelAttribute("objAntenne") Antenne objAntenne, ModelMap model){
 		List<Departement> departements = (List<Departement>) departementRepository.findAll();
 		model.addAttribute("departements", departements);
 		 model.addAttribute("objAntenne", objAntenne); 
 		 return "frmAntenne";
 	}
-	
+	@GetMapping("/pej/antennes/{id}")
+	public String modifierAntenne(@PathVariable Integer id, ModelMap model){
+		List<Departement> departements = (List<Departement>) departementRepository.findAll();
+		Antenne objAntenne=antenneRepository.findOne(id);
+		model.addAttribute("departements", departements);
+		 model.addAttribute("objAntenne", objAntenne); 
+		 return "frmAntenne";
+	}
     @PostMapping("/pej/antennes")
     public String saveagents(@ModelAttribute(value="objAgent")  Antenne objAntenne, BindingResult result,Model model) {
     	System.out.println("Starting Save Ok");

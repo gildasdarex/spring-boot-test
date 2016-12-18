@@ -78,7 +78,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 								<td class=" " data-th-text="${formation.idformation}"></td>
 								<td class=" " data-th-text="${formation.intitule}"></td>
 								<td class=" " data-th-text="${formation.remarque}"></td>
-								<td class=" " data-th-text="${formation.dateformation}"></td>
+								<td class=" " data-th-text="${#dates.format(formation.dateformation,'dd/MM/yyyy')}"></td>
 								<td class=" " data-th-text="${formation.heuredebut}"></td>
 								<td class=" " data-th-text="${formation.heurefin}"></td>
 								<td class=" ">

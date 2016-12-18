@@ -80,7 +80,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                         <div class="item form-group">
                             <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Date naissance</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="datenaissance" th:field="*{datenaissance}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+                              <input type="text" data-inputmask="'mask': '99/99/9999'" id="datenaissance" th:field="*{datenaissance}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                        

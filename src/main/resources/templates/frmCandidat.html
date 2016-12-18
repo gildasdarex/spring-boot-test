@@ -96,6 +96,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                       <form novalidate="true" class="form-horizontal form-label-left" id="frmCandidat" name="frmCandidat" 
                       			action="#" th:action="@{/pej/candidats}" th:object="${objCandidat}" method="post">
 	                      <div id="step-1">
+	                      
 	                          <div class="item form-group">
 	                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Date enregistrement <span class="required">*</span>
 	                            </label>
@@ -118,7 +119,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	                            </div>
 	                          </div>
 	                         <div class="item form-group">
-	                            <label for="numerofiche" class="control-label col-md-3 col-sm-3 col-xs-12">N° Fiche</label>
+	                            <label for="numerofiche" class="control-label col-md-3 col-sm-3 col-xs-12">N° Enregistrement</label>
 	                             <div class="col-md-6 col-sm-6 col-xs-12">
 	                              <input type="text" id="numerofiche" th:field="*{numerofiche}" th:required="required" class="form-control col-md-7 col-xs-12"/>
 	                            </div>

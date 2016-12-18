@@ -57,6 +57,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                               <input type="checkbox" id="check-all" class="flat"/>
                             </th>
                             <th class="column-title">Nom  Prénom </th>
+                            <th class="column-title">Antenne </th>
                             <th class="column-title">Date naissance </th>
                             <th class="column-title">Sexe</th>
                             <th class="column-title">N° Agent </th>
@@ -76,7 +77,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	                              <input type="checkbox" class="flat" name="table_records"/>
 	                            </td>
 								<td class=" " data-th-text="${agent.nom}"></td>
-								<td class=" " data-th-text="${agent.datenaissance}"></td>
+								<td class=" " data-th-text="${agent.antenne.libantenne}"></td>
+								<td class=" "  data-th-text="${#dates.format(agent.datenaissance,'dd/MM/yyyy')}"></td>
 								<td class=" " data-th-text="${agent.sexe}"></td>
 								<td class=" " data-th-text="${agent.numeroagent}"></td>
 								<td class=" " data-th-text="${agent.cardid}"></td>

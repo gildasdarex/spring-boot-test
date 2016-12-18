@@ -23,11 +23,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				  <span th:if="${notifyMessages}" th:remove="all" th:text="${session.remove(T(com.pej.services.NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY)}"></span>
 			</div>
             <div class="row">
-            	  <div class="alert alert-success alert-dismissible fade in" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                    </button>
-                    <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
-                  </div>
+            	  
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">

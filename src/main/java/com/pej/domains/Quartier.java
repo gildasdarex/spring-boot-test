@@ -29,10 +29,15 @@ import com.pej.domains.Candidat;
 @Table(name="QUARTIER"
     ,schema="ADMINPEJ"
 )
+
 public class Quartier  implements java.io.Serializable {
 
 
-     private Integer idquartier;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer idquartier;
      private String libquartier;
      private String description;
      @JsonIgnore

@@ -19,7 +19,7 @@
                 <img th:src="@{/images/img.jpg}" alt="..." class="img-circle profile_img"></img>
               </div>
               <div class="profile_info">
-                <span>Welcome,</span>
+                <span>Bienvenue,</span>
                 <h2>DEV</h2>
               </div>
             </div>
@@ -35,16 +35,18 @@
                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Tableau de bords<span class="label label-success pull-right">Graphes</span></a></li>
                   <li><a><i class="fa fa-home"></i> Accueil <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="#">Tableau de bord</a></li>
+                      <li><a  href="#" th:href="@{/pej/dashboard}">Tableau de bord</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Gestion des candidatures <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="#" th:href="@{/pej/candidats}">Candidats</a></li>
+                      <li><a href="#" th:href="@{/pej/candidats/upload}">Chargement de fichier</a></li>
                       <li><a href="#" th:href="@{/pej/cooperatives}">Coopératives</a></li>
                        <li><a href="#" th:href="@{/pej/agents}">Agents recruteurs</a></li>
                       <li><a href="#" th:href="@{/pej/decoupement}">Découpement territoriale</a></li>
                       <li><a href="#" th:href="@{/pej/antennes}">Antennes</a></li>
+                      <li><a href="#" th:href="@{/pej/statutcandidats}">Statuts</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> Gestion des formations <span class="fa fa-chevron-down"></span></a>

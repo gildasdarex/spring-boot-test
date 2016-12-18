@@ -58,6 +58,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             </th>
                             <th class="column-title">#</th>
                             <th class="column-title">Nom Coopérative </th>
+                            <th class="column-title">Département </th>
                             <th class="column-title">Description</th>
                             
                             <th class="column-title no-link last"><span class="nobr">Action</span>
@@ -75,11 +76,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	                            </td>
 								<td class=" " data-th-text="${cooperative.idgroupe}"></td>
 								<td class=" " data-th-text="${cooperative.libgroupe}"></td>
+								<td class=" " data-th-text="${cooperative.departement.libdeparteement}"></td>
 								<td class=" " data-th-text="${cooperative.description}"></td>
 								<td>
 									<div class="btn-group btn-group-xs">
 										<a class="btn btn-default" th:href="@{'/pej/cooperatives/' + ${cooperative.idgroupe}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> Modifier</a>
 										<a class="btn btn-xs btn-info"  th:href="@{'/pej/beneficiairecooperative/cooperative/' + ${cooperative.idgroupe}}"><i class="fa fa-plus" data-toggle="tooltip" title="Ajouter participant"></i> Ajouter membre</a>
+										<a class="btn btn-xs btn-success"  href="#" th:href="@{'/pej/cooperatives/don/' + ${cooperative.idgroupe}}" > Accorder don</a>
 									</div>
 								</td>
 						

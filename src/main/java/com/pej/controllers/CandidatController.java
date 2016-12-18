@@ -1,9 +1,12 @@
 package com.pej.controllers;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,9 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import com.pej.domains.Departement;
 import com.pej.domains.Don;
+import com.pej.domains.FileBucket;
 import com.pej.domains.Quartier;
 import com.pej.domains.Statutcandidat;
 import com.pej.domains.Commune;
@@ -32,7 +40,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
-
+import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class CandidatController {
 	@Autowired private DepartementRepository departementRepository;
@@ -44,7 +52,7 @@ public class CandidatController {
 	@Autowired private StatutcandidatRepository statutcandidatRepository;
 	@Autowired private DonRepository donRepository;
 	@Autowired private NotificationService notifyService;
-	
+	private static String UPLOAD_LOCATION="C:/FFOutput/";
 	@GetMapping("/pej/candidats")
     String index(Model model,@ModelAttribute("objDepartement") Departement objDepartement) {  
 		List<Candidat> candidats = (List<Candidat>) candidatRepository.findAll();
@@ -53,6 +61,14 @@ public class CandidatController {
         return "candidats";
     }
 	
+	/*Récupérer la liste des candidats au format json*/
+	@RequestMapping(value = "/pej/candidatjson", method = RequestMethod.GET)
+	public @ResponseBody List<Candidat> findCandidatJson() throws IOException {
+		List<Candidat> candidats = (List<Candidat>) candidatRepository.findAll();
+		Candidats listCnd=new Candidats(candidats);
+		JSONUtils.createAndWriteToFile("C:/FFOutput/candidats.json",listCnd,Candidats.class);
+		return candidats;
+	}
 
 	@RequestMapping(value="/pej/candidats/add", method=RequestMethod.GET)
     String addCandidat(@ModelAttribute("objCandidat") Candidat objCandidat, ModelMap model) {
@@ -183,6 +199,26 @@ public class CandidatController {
 		return candidat;
 	}
     
+	
+	/*Upgrade en max des candidats*/
+	@RequestMapping(value = "/pej/candidats/validermax/{id}", method = RequestMethod.GET)
+	public String  upgradeStatuts (@PathVariable String id) {
+		String[] ids=id.split("@");
+		List<Candidat> candidatToUpgrade=new ArrayList<Candidat>();
+		for (int i = 0; i < ids.length; i++) {
+			Candidat candidat=candidatRepository.findOne(Integer.parseInt(ids[i]));
+			if(candidat==null) continue;
+			Statutcandidat statut= statutcandidatRepository.findOne(candidat.getStatutcandidat().getId()+1);
+			if(statut !=null){
+				candidat.setStatutcandidat(statut);	
+				candidatRepository.save(candidat);
+				candidatToUpgrade.add(candidat);
+			}
+		}
+		//return candidatToUpgrade;
+		return "redirect:/pej/candidats";
+	}
+	
 	/*Récupérer la page d'accord de don à un candidat*/
 	@RequestMapping(value = "/pej/candidats/don/{id}", method = RequestMethod.GET)
 	public String  getDonPage (@PathVariable Integer id, ModelMap model) {
@@ -214,6 +250,7 @@ public class CandidatController {
     }
 	
 	@GetMapping("/pej/candidats/{id}")
+	
 	public String updateCandidat(@PathVariable Integer id, ModelMap model){
 		List<Departement> departements = (List<Departement>) departementRepository.findAll();
     	model.addAttribute("departements", departements);
@@ -221,4 +258,52 @@ public class CandidatController {
 		model.addAttribute("objCandidat", candidat);
 		 return "frmCandidat";
 	}
+	
+	
+	@GetMapping("/pej/candidats/upload")	
+	public String uploadFile(ModelMap model){	
+		 FileBucket fileModel = new FileBucket();
+	     model.addAttribute("fileBucket", fileModel);
+		 return "frmUploadCandidat";
+	}
+	
+	 @RequestMapping(value="/singleUpload", method = RequestMethod.GET)
+	    public String getSingleUploadPage(ModelMap model) {
+	        FileBucket fileModel = new FileBucket();
+	        model.addAttribute("fileBucket", fileModel);
+	        return "singleFileUploader";
+	    }
+	 
+	    @RequestMapping(value="/pej/candidats/upload", method = RequestMethod.POST)
+	    public String singleFileUpload(@Valid FileBucket fileBucket, BindingResult result, ModelMap model) throws IOException {
+	 
+	        /*if (result.hasErrors()) {
+	        	 notifyService.addWarningMessage("Une erreur est survenue." +result.getFieldError().toString());
+	            System.out.println("validation errors");
+	            
+	            return "frmUploadCand
+	            idat";
+	        } else {   */         
+	            System.out.println("Fetching file");
+	            MultipartFile multipartFile = fileBucket.getFile();
+	 
+	            //Now do something with file...
+	           // FileCopyUtils.copy(fileBucket.getFile().getBytes(), new File(UPLOAD_LOCATION + fileBucket.getFile().getOriginalFilename()));
+	            
+	            //Candidats postulants=new Candidats();
+	            Candidats postulants=JSONUtils.fromJSON(fileBucket.getFile().getBytes(), Candidats.class);
+	            //List<Candidat> savingCandidat=new ArrayList<Candidat>();
+	            //List<Candidat>  savingCandidat=postulants.getPostulant();
+	            //Candidat cnd=new Candidat();
+	           // cnd=(Candidat) JSONUtils.fromJSON(fileBucket.getFile().getBytes(), Candidat.class);
+	            System.out.println(postulants.getPostulant().get(0).toString());
+	            candidatRepository.save(postulants.getPostulant());
+	            
+	            String fileName = multipartFile.getOriginalFilename();
+	            model.addAttribute("fileName", fileName);
+	            notifyService.addWarningMessage("Fichier envoyé sur le serveur avec succès. Logique de traitement non implémentée encore.");
+	            System.out.println("End copy file");
+	        	return "redirect:/pej/candidats";
+	       // }
+	    }
 }

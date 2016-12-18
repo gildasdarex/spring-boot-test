@@ -1,5 +1,6 @@
   $(document).ready(function() {
 	  console.log('Exec wizard');
+	  $(":input").inputmask();
 	  $('#wizard').smartWizard({ transitionEffect: 'slide', 
 		  keyNavigation: true,
 		  labelNext:'Suivant',
@@ -263,4 +264,5 @@
 		            }
 		          };
 		        }();
+  
   });
