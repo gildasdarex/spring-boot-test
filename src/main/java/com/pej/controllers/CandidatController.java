@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+//import org.apache.camel.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -27,6 +27,7 @@ import com.pej.domains.FileBucket;
 import com.pej.domains.Quartier;
 import com.pej.domains.Statutcandidat;
 import com.pej.domains.Commune;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pej.domains.Agent;
 import com.pej.domains.Arrondissement;
 import com.pej.domains.Candidat;
@@ -277,33 +278,33 @@ public class CandidatController {
 	    @RequestMapping(value="/pej/candidats/upload", method = RequestMethod.POST)
 	    public String singleFileUpload(@Valid FileBucket fileBucket, BindingResult result, ModelMap model) throws IOException {
 	 
-	        /*if (result.hasErrors()) {
-	        	 notifyService.addWarningMessage("Une erreur est survenue." +result.getFieldError().toString());
-	            System.out.println("validation errors");
-	            
-	            return "frmUploadCand
-	            idat";
-	        } else {   */         
+	           
 	            System.out.println("Fetching file");
 	            MultipartFile multipartFile = fileBucket.getFile();
-	 
-	            //Now do something with file...
+
 	           // FileCopyUtils.copy(fileBucket.getFile().getBytes(), new File(UPLOAD_LOCATION + fileBucket.getFile().getOriginalFilename()));
 	            
-	            //Candidats postulants=new Candidats();
-	            Candidats postulants=JSONUtils.fromJSON(fileBucket.getFile().getBytes(), Candidats.class);
-	            //List<Candidat> savingCandidat=new ArrayList<Candidat>();
-	            //List<Candidat>  savingCandidat=postulants.getPostulant();
-	            //Candidat cnd=new Candidat();
-	           // cnd=(Candidat) JSONUtils.fromJSON(fileBucket.getFile().getBytes(), Candidat.class);
-	            System.out.println(postulants.getPostulant().get(0).toString());
-	            candidatRepository.save(postulants.getPostulant());
-	            
+	            Candidat postulants=new Candidat();
+	          
+	            ObjectMapper mapper = new ObjectMapper();
+	        	Candidat[] postulant=mapper.readValue(fileBucket.getFile().getBytes(), Candidat[].class);
+	        	
+	        	Quartier quartier=quartierRepository.findOne(42);
+	        	
+	        	//postulants.setQuartier(quartier);
+	            System.out.println(postulant[0].toString());
+	            //candidatRepository.save(postulants.getPostulant());
+	            for (int i = 0; i < postulant.length; i++) {
+	            	postulant[i].setQuartier(quartier);
+	            	candidatRepository.save(postulant[i]);
+				}
 	            String fileName = multipartFile.getOriginalFilename();
 	            model.addAttribute("fileName", fileName);
-	            notifyService.addWarningMessage("Fichier envoyé sur le serveur avec succès. Logique de traitement non implémentée encore.");
+	            notifyService.addSucceesgMessage("Fichier envoyé sur le serveur avec succès. Logique de traitement non implémentée encore.");
 	            System.out.println("End copy file");
 	        	return "redirect:/pej/candidats";
+	        	
+	        	
 	       // }
 	    }
 }
