@@ -8,6 +8,21 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 <body>
  
   <div layout:fragment="content">
+  		<script type="text/javascript" th:inline="javascript">
+		    /*<![CDATA[*/
+	    	
+	    	function computeAge(){
+		    	
+				 var dateOfBirth=moment(document.getElementById("datenaissance").value).format("DD/MM/YYYY");
+				 console.log('dateOfBirth: ', dateOfBirth);
+				 var year= moment().diff(dateOfBirth, 'years',false);
+				 document.getElementById("age").value=year;
+				  console.log('Age: ', year);
+				}
+	    	
+
+		    /*]]>*/
+  </script>	
         <!-- page content -->
        		 <!-- page content -->
         <div class="right_col" role="main">
@@ -102,7 +117,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	                            </label>
 	                            <div class="col-md-6 col-sm-6 col-xs-12">
 	                              <input type="text" id="dateenregistrement" th:field="*{dateenregistrement}"
-	                              th:required="required" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '99/99/9999'"/>
+	                               class="form-control col-md-7 col-xs-12"  data-inputmask="'mask': '99/99/9999'" onblur="computeAge()"/>
 	                            </div>
 	                          </div>
 	                          <div class="item form-group">
@@ -131,7 +146,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Département <span class="required">*</span>
 			                            </label>
 			                            <div class="col-md-6 col-sm-6 col-xs-12">
-			                               <select id="departement" name="departement" class="select2_single form-control">
+			                               <select id="departement" name="departement"  class="form-control">
 				                            	<option data-th-each="departement : ${departements}" th:text="${departement.libdeparteement}" th:value="${departement.codedepartement}"></option>      
 				                           </select>
 			                            </div>
@@ -140,7 +155,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Commune<span class="required">*</span>
 			                            </label>
 			                            <div class="col-md-6 col-sm-6 col-xs-12">
-			                              	<select id="commune" name="commune" class="select2_single form-control">
+			                              	<select id="commune" name="commune" class="form-control">
 				                            	<!-- option data-th-each="commune : ${communes}" th:text="${commune.libcommune}" th:value="${commune.codecommune}"></option-->
 				                            	<option value=""></option>     
 				                           </select>
@@ -149,7 +164,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                          <div class="item form-group">
 			                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Arrondissement</label>
 			                             <div class="col-md-6 col-sm-6 col-xs-12">
-			                              		<select id="arrondissement" name="arrondissement" class="select2_single form-control">
+			                              		<select id="arrondissement" name="arrondissement" class="form-control">
 				                            		<!--option data-th-each="arrondissement : ${arrondissements}" th:text="${arrondissement.libarrondissement}" th:value="${arrondissement.codearrondissement}"></option-->      
 				                           			<option value=""></option>
 				                           		</select>
@@ -158,7 +173,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                         <div class="item form-group">
 			                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Quartier/Village</label>
 			                             <div class="col-md-6 col-sm-6 col-xs-12">
-			                              		<select id="quartier"  class="select2_single form-control"  th:field="*{quartier}">
+			                              		<select id="quartier"   class="form-control"  th:field="*{quartier}">
 				                            		<!--option data-th-each="quartier : ${quartiers}" th:text="${quartier.libquartier}" th:value="${quartier.idquartier}"></option-->  
 				                            		<option value=""></option>    
 				                           		</select>
@@ -179,20 +194,41 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                          <div class="item form-group">
 			                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Téléphone Principal</label>
 			                             <div class="col-md-6 col-sm-6 col-xs-12">
-			                              <input th:field="*{telprincipal}"  id="telprincipal" th:required="required"  class="form-control col-md-7 col-xs-12"/>
+			                              <input type="text" th:field="*{telprincipal}"  data-inputmask="'mask': '(+22\\9) 99999999'"  id="telprincipal" th:required="required"  class="form-control col-md-7 col-xs-12"/>
 			                            </div>
 			                          </div>
 			                           <div class="item form-group">
 			                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Téléphone alternatif</label>
 			                             <div class="col-md-6 col-sm-6 col-xs-12">
-			                              <input th:field="*{telalternatif}"  id="telalternatif"  th:required="required" class="form-control col-md-7 col-xs-12"/>
+			                              <input type="text" th:field="*{telalternatif}" data-inputmask="'mask': '(+22\\9) 99999999'" id="telalternatif"  th:required="required" class="form-control col-md-7 col-xs-12"/>
 			                            </div>
 			                          </div>
 			                          <div class="item form-group">
-			                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Document d'identification</label>
-			                             <div class="col-md-6 col-sm-6 col-xs-12">
-			                              <input type="text" th:field="*{docidentite}"  id="docidentite" th:required="required" class="form-control col-md-7 col-xs-12"/>
+			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nompere">Père <span class="required">*</span>
+			                            </label>
+			                            <div class="col-md-6 col-sm-6 col-xs-12">
+				                              <input type="text" data-validate-minmax="10,100" id="nompere" th:field="*{nompere}" th:required="required" class="form-control col-md-7 col-xs-12"/>
 			                            </div>
+		                          	 </div>
+		                          	 <div class="item form-group">
+			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nommere">Mère <span class="required">*</span>
+			                            </label>
+			                            <div class="col-md-6 col-sm-6 col-xs-12">
+				                              <input type="text" data-validate-minmax="10,100" id="nommere" th:field="*{nommere}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+			                            </div>
+		                          	 </div>
+			                          <div class="item form-group">
+			                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Document d'identification</label>
+			                            <div class="col-md-6 col-sm-6 col-xs-12">
+				                            <select th:field="*{docidentite}"  id="docidentite" th:required="required" class="form-control">
+			                            		<option value="CNI">Carte nationale d'identité</option> 
+			                            		<option value="Passeport">Passeport</option>
+			                            		<option value="Permis de conduire">Permis de conduire</option>
+			                            		<option value="Carte LEPI">Carte LEPI</option>
+			                            		<option value="Acte de naissance">Acte de naissance</option>      
+			                           		</select>
+				                         </div>
+			                          
 			                          </div>
 			                          <div class="item form-group">
 			                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">N° Document</label>
@@ -207,7 +243,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Sexe <span class="required">*</span>
 			                            </label>
 			                            <div class="col-md-6 col-sm-6 col-xs-12">
-				                            <select id="sexe" name="scolarise" class="select2_single form-control"  th:field="*{sexe}">
+				                            <select id="sexe" name="scolarise" class="form-control"  th:field="*{sexe}">
 			                            		<option value="Masculin">Masculin</option> 
 			                            		<option value="Féminin">Féminin</option>      
 			                           		</select>
@@ -217,7 +253,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Date naissance<span class="required">*</span>
 			                            </label>
 			                            <div class="col-md-6 col-sm-6 col-xs-12">
-			                              <input type="text" data-inputmask="'mask': '99/99/9999'" id="datenaissance" th:field="*{datenaissance}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+			                              <input type="text" data-inputmask="'mask': '99/99/9999'" id="datenaissance" th:field="*{datenaissance}" th:required="required" class="form-control col-md-7 col-xs-12" onblur="computeAge()"/>
 			                            </div>
 			                          </div>
 			                          <div class="item form-group">
@@ -236,7 +272,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                         <div class="item form-group">
 			                            <label for="situationmatrimoniale" class="control-label col-md-3 col-sm-3 col-xs-12">Situation matrimoniale</label>
 			                             <div class="col-md-6 col-sm-6 col-xs-12">
-			                               <select id="situationmatrimoniale"  class="select2_single form-control"  th:field="*{situationmatrimoniale}">
+			                               <select id="situationmatrimoniale"  class="form-control"  th:field="*{situationmatrimoniale}">
 			                            		<option value="Célibataire(Jamais marié)">Célibataire(Jamais marié)</option> 
 			                            		<option value="Marié(e) en union libre">Marié(e) en union libre</option>
 			                            		<option value="Divorcé(e)">Divorcé(e)</option>
@@ -247,7 +283,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                          <div class="item form-group">
 			                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Lien de parenté</label>
 			                             <div class="col-md-6 col-sm-6 col-xs-12">
-			                                 <select id="parentechefmenage"  class="select2_single form-control"  th:field="*{parentechefmenage}">
+			                                 <select id="parentechefmenage"  class="form-control"  th:field="*{parentechefmenage}">
 			                            		<option value="Chef du ménage">Chef du ménage</option> 
 			                            		<option value="Epoux/Epouse du chef de ménage">Epoux/Epouse du chef de ménage</option>
 			                            		<option value="Fils/Fille du chef de ménage">Fils/Fille du chef de ménage</option>
@@ -268,7 +304,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="menagebeneficiaire">Bénéficiaire PSDCC <span class="required">*</span>
 			                            </label>
 			                            <div class="col-md-6 col-sm-6 col-xs-12">
-				                         <select id="menagebeneficiaire" name="scolarise" class="select2_single form-control"  th:field="*{menagebeneficiaire}">
+				                         <select id="menagebeneficiaire" name="scolarise" class="form-control"  th:field="*{menagebeneficiaire}">
 			                            		<option value="1">OUI</option> 
 			                            		<option value="0">NON</option>      
 			                           		</select>
@@ -281,7 +317,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Scolarité en cours <span class="required">*</span>
 			                            </label>
 			                            <div class="col-md-6 col-sm-6 col-xs-12">
-			                               	<select id="scolarise" name="scolarise" class="select2_single form-control"  th:field="*{scolarise}">
+			                               	<select id="scolarise" name="scolarise" class="form-control"  th:field="*{scolarise}">
 			                            		<option value="1">OUI</option> 
 			                            		<option value="0">NON</option>      
 			                           		</select>
@@ -291,7 +327,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Dernier niveau scolaire<span class="required">*</span>
 			                            </label>
 			                            <div class="col-md-6 col-sm-6 col-xs-12">
-			                              <select id="scolarise" name="scolarise" class="select2_single form-control"  th:field="*{scolarise}">
+			                              <select id="scolarise" name="scolarise" class="form-control"  th:field="*{scolarise}">
 			                            		<option value="CP">CP</option> 
 			                            		<option value="CE1">CE1</option>
 			                            		<option value="CE2">CE2</option>
@@ -313,7 +349,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lecture">Capacité à lire<span class="required">*</span>
 			                            </label>
 			                            <div class="col-md-6 col-sm-6 col-xs-12">
-	                              	       	<select id="lecture" name="scolarise" class="select2_single form-control"  th:field="*{lecture}">
+	                              	       	<select id="lecture" name="scolarise" class="form-control"  th:field="*{lecture}">
 			                            		<option value="1">OUI</option> 
 			                            		<option value="0">NON</option>      
 			                           		</select>
@@ -322,7 +358,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                          <div class="item form-group">
 			                            <label for="ecriture" class="control-label col-md-3 col-sm-3 col-xs-12">Capacité à rédiger</label>
 			                             <div class="col-md-6 col-sm-6 col-xs-12">
-	                              	    	<select id="ecriture" class="select2_single form-control"  th:field="*{ecriture}">
+	                              	    	<select id="ecriture" class="form-control"  th:field="*{ecriture}">
 			                            		<option value="1">OUI</option> 
 			                            		<option value="0">NON</option>      
 			                           		</select>
@@ -332,7 +368,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Qualification professionnelle</label>
 			                             <div class="col-md-6 col-sm-6 col-xs-12">
 			                              
-			                              	<select id="qualificationpersonelle" th:field="*{ecriture}" class="select2_single form-control" >
+			                              	<select id="qualificationpersonelle" th:field="*{ecriture}" class="form-control" >
 			                            		<option value="Auncune qualification">Auncune qualification</option> 
 			                            		<option value="Titulaire du CQP">Titulaire du CQP</option>
 			                            		<option value="Titulaire du CQM">Titulaire du CQM</option>
@@ -346,7 +382,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                          <div class="item form-group">
 			                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Travail trois derniers mois</label>
 			                             <div class="col-md-6 col-sm-6 col-xs-12">
-			                          		<select id="worklastmonth" class="select2_single form-control"  th:field="*{worklastmonth}">
+			                          		<select id="worklastmonth" class="form-control"  th:field="*{worklastmonth}">
 			                            		<option value="1">OUI</option> 
 			                            		<option value="0">NON</option>      
 			                           		</select>
@@ -356,7 +392,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                          <div class="item form-group">
 			                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Recherhe de travail/trois derniers mois</label>
 			                             <div class="col-md-6 col-sm-6 col-xs-12">
-			                       			<select id="recherchetravail" class="select2_single form-control"  th:field="*{recherchetravail}">
+			                       			<select id="recherchetravail" class="form-control"  th:field="*{recherchetravail}">
 			                            		<option value="1">OUI</option> 
 			                            		<option value="0">NON</option>      
 			                           		</select>
@@ -371,7 +407,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                          <div class="item form-group">
 			                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Activité principale actuelle</label>
 			                             <div class="col-md-6 col-sm-6 col-xs-12">
-			                                 <select id="activiteactuelle" th:field="*{activiteactuelle}" class="select2_single form-control" th:required="required">
+			                                 <select id="activiteactuelle" th:field="*{activiteactuelle}" class="form-control" th:required="required">
 			                            		<option value="Agriculture">Agriculture</option> 
 			                            		<option value="Elevage">Elevage</option>
 			                            		<option value="Pêche/Pisciculture">Pêche/Pisciculture</option>
@@ -391,7 +427,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                          <div class="item form-group">
 			                            <label for="asoncompte" class="control-label col-md-3 col-sm-3 col-xs-12">Travail à son propre compte</label>
 			                             <div class="col-md-6 col-sm-6 col-xs-12">
-			                 				<select id="asoncompte" class="select2_single form-control"  th:field="*{asoncompte}">
+			                 				<select id="asoncompte" class="form-control"  th:field="*{asoncompte}">
 			                            		<option value="1">OUI</option> 
 			                            		<option value="0">NON</option>      
 			                           		</select>
@@ -422,7 +458,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="revenumoyen">Revenu mensuel <span class="required">*</span>
 			                            </label>
 			                            <div class="col-md-6 col-sm-6 col-xs-12">
-				                             <select id="revenumoyen" th:field="*{revenumoyen}" class="select2_single form-control">
+				                             <select id="revenumoyen" th:field="*{revenumoyen}" class="form-control">
 			                            		<option value="Non payé">Non payé</option> 
 			                            		<option value="Moins de 15 000 FCFA">Moins de 15 000 FCFA</option>
 			                            		<option value="15 000 à 31 625">15 000 à 31 625</option>
@@ -441,7 +477,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="domainesouhait">Domaine d'activité souhaité <span class="required">*</span>
 			                            </label>
 			                            <div class="col-md-6 col-sm-6 col-xs-12">
-				                             <select id="domainesouhait" class="select2_single form-control"  th:field="*{domainesouhait}">
+				                             <select id="domainesouhait" class="form-control"  th:field="*{domainesouhait}">
 			                     				 <option value="Agriculture">Agriculture</option> 
 			                            		<option value="Elevage">Elevage</option>
 			                            		<option value="Pêche/Pisciculture">Pêche/Pisciculture</option>
@@ -461,7 +497,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 		                          	  <div class="item form-group">
 			                            <label for="travailgroupe" class="control-label col-md-3 col-sm-3 col-xs-12">Travail en groupe ou coopérative</label>
 			                             <div class="col-md-6 col-sm-6 col-xs-12">
-											<select id="travailgroupe" class="select2_single form-control"  th:field="*{travailgroupe}">
+											<select id="travailgroupe" class="form-control"  th:field="*{travailgroupe}">
 			                            		<option value="1">OUI</option> 
 			                            		<option value="0">NON</option>      
 			                           		</select>
@@ -473,8 +509,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                            <div class="col-md-6 col-sm-6 col-xs-12">
 				                              <input type="text" data-validate-minmax="10,100" id="numcarteagratter" th:field="*{numcarteagratter}" th:required="required" class="form-control col-md-7 col-xs-12"/>
 			                            </div>
-			                      
 		                          	 </div>
+		                          	 
+		                       
 	                      </div>
                        </form>
 
@@ -499,4 +536,4 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    
     <!-- /validator -->
 </body>
-</html>
+</html>36

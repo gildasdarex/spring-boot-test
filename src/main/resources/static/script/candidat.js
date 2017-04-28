@@ -214,7 +214,7 @@
 		    	 doGet(url, quartiers);
 		      }
 		      
-		      $('#datatable-departements').DataTable( {
+		      /*$('#datatable-departements').DataTable( {
 			        dom: 'Bfrtip',
 			        buttons: [
 			            'copyHtml5',
@@ -223,9 +223,9 @@
 			            'pdfHtml5'
 			        ]
 			    } );
-
+*/
 		      /*Impression des tables*/
-		      var handleDataTableButtons = function() {
+		     /* var handleDataTableButtons = function()z {
 		          if ($("#tablepej").length) {
 		            $("#tablepej").DataTable({
 		              dom: "Bfrtip",
@@ -264,5 +264,5 @@
 		            }
 		          };
 		        }();
-  
+  */
   });

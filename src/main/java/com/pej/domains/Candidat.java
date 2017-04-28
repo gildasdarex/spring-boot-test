@@ -20,9 +20,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Proxy;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -33,6 +34,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name="CANDIDAT"
     ,schema="ADMINPEJ"
 )
+@Proxy(lazy=false)
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonIgnoreProperties(value = { "handler", "hibernateLazyInitializer" })
 public class Candidat  implements java.io.Serializable {
@@ -64,14 +66,14 @@ public class Candidat  implements java.io.Serializable {
      private String situationmatrimoniale;
      private String parentechefmenage;
      private Integer nbpersonnemenage;
-     private Integer menagebeneficiaire;
+     private String menagebeneficiaire;
      private String scolarise;
      private String dernierniveauetude;
      private String lecture;
      private String ecriture;
      private String qualificationpersonelle;
-     private Integer worklastmonth;
-     private Integer recherchetravail;
+     private String worklastmonth;
+     private String recherchetravail;
      private String motifnonrecherche;
      private String activiteactuelle;
      private String asoncompte;
@@ -80,7 +82,7 @@ public class Candidat  implements java.io.Serializable {
      private Integer nbheuremoyen;
      private String revenumoyen;
      private String domainesouhait;
-     private Integer travailgroupe;
+     private String travailgroupe;
      private String numcarteagratter;
      @JsonIgnore
      private Quartier quartier;
@@ -94,8 +96,44 @@ public class Candidat  implements java.io.Serializable {
      private String precisionactivite;
      private String precisionactivitesouhaiter;
      private int niveauvalidation;
+     private String nompere;
+ 	 private String nommere;
+ 	 private String photolink;
+ 	 
+ 	 //New property
+ 	 private String deviceid;
+	 private String agentenregistreur;
+	 private String enqueteur;
+	 private String localdepartement;
+	 private String localcommune;
+	 private String arrondissement;//non crée
+	 private String village;
+	 private String nourrison;
+	 private String documentidentite;
+	 private String autredocidentite;
+	 private String beneficiairepsdcc;
+	 private String liencm;
+	 private String  autreniveauetude;
+	 private String niveaualphabetfr;
+	 private String niveaualphabetlocal;
+	 private String formationentrepreunariat;
+	 private String autrerecherchetravail;
+	 private String activiteprincipale;
+	 private String employeur;
+	 private String codebarre;
+	 private String numeroserie;
+	 private String numerocandidat;
+	 private String nomradio;
+	 private String commentaire;
+	 private String agentautre;
+	 private String autreslanguesparlees;
+	 private String autrequalifpersonelle;
+	 
      private Set<Formationbeneficaire> formationbeneficaires = new HashSet<Formationbeneficaire>(0);
-     
+     @JsonIgnore
+     private Set<Fichefinancement> fichefinancements = new HashSet<Fichefinancement>(0);
+     @JsonIgnore
+     private Set<Entreprise> entreprises = new HashSet<Entreprise>(0);
     public Candidat() {
     }
 
@@ -103,7 +141,7 @@ public class Candidat  implements java.io.Serializable {
     public Candidat(Integer idcandidat) {
         this.idcandidat = idcandidat;
     }
-    public Candidat(Integer idcandidat, Agent agent, String nom, String prenom, Date datenaissance, String docidentite, String niveau, String diplome, String codearrondissement, String userlogin, Date datecreation, String refdocidentite, String telprincipal, String telalternatif, Integer age, String sexe, String situationmatrimoniale, String parentechefmenage, Integer nbpersonnemenage, Integer menagebeneficiaire, String scolarise, String dernierniveauetude, Integer niveaualphabetisation, String qualificationpersonelle, Integer worklastmonth, Integer recherchetravail, String motifnonrecherche, String activiteactuelle, String asoncompte, Integer nbmoistravail, Integer nbjoursmoyen, Integer nbheuremoyen, String revenumoyen, String domainesouhait, Integer travailgroupe, String numcarteagratter, Quartier quartier, String commune, String departement, Date dateenregistrement, String numeroagent, String numerofiche, Set<Beneficiaire> beneficiaires) {
+    public Candidat(Integer idcandidat, Agent agent, String nom, String prenom, Date datenaissance, String docidentite, String niveau, String diplome, String codearrondissement, String userlogin, Date datecreation, String refdocidentite, String telprincipal, String telalternatif, Integer age, String sexe, String situationmatrimoniale, String parentechefmenage, Integer nbpersonnemenage, String menagebeneficiaire, String scolarise, String dernierniveauetude, String niveaualphabetisation, String qualificationpersonelle, String worklastmonth, String recherchetravail, String motifnonrecherche, String activiteactuelle, String asoncompte, Integer nbmoistravail, Integer nbjoursmoyen, Integer nbheuremoyen, String revenumoyen, String domainesouhait, String travailgroupe, String numcarteagratter, Quartier quartier, String commune, String departement, Date dateenregistrement, String numeroagent, String numerofiche, Set<Beneficiaire> beneficiaires) {
        this.idcandidat = idcandidat;
        this.agent = agent;
        this.nom = nom;
@@ -342,12 +380,12 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="MENAGEBENEFICIAIRE", precision=22, scale=0)
-    public Integer getMenagebeneficiaire() {
+    @Column(name="MENAGEBENEFICIAIRE")
+    public String getMenagebeneficiaire() {
         return this.menagebeneficiaire;
     }
     
-    public void setMenagebeneficiaire(Integer menagebeneficiaire) {
+    public void setMenagebeneficiaire(String menagebeneficiaire) {
         this.menagebeneficiaire = menagebeneficiaire;
     }
 
@@ -400,22 +438,22 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="WORKLASTMONTH", precision=22, scale=0)
-    public Integer getWorklastmonth() {
+    @Column(name="WORKLASTMONTH")
+    public String getWorklastmonth() {
         return this.worklastmonth;
     }
     
-    public void setWorklastmonth(Integer worklastmonth) {
+    public void setWorklastmonth(String worklastmonth) {
         this.worklastmonth = worklastmonth;
     }
 
     
-    @Column(name="RECHERCHETRAVAIL", precision=22, scale=0)
-    public Integer getRecherchetravail() {
+    @Column(name="RECHERCHETRAVAIL")
+    public String getRecherchetravail() {
         return this.recherchetravail;
     }
     
-    public void setRecherchetravail(Integer recherchetravail) {
+    public void setRecherchetravail(String recherchetravail) {
         this.recherchetravail = recherchetravail;
     }
 
@@ -500,12 +538,12 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="TRAVAILGROUPE", precision=22, scale=0)
-    public Integer getTravailgroupe() {
+    @Column(name="TRAVAILGROUPE")
+    public String getTravailgroupe() {
         return this.travailgroupe;
     }
     
-    public void setTravailgroupe(Integer travailgroupe) {
+    public void setTravailgroupe(String travailgroupe) {
         this.travailgroupe = travailgroupe;
     }
 
@@ -591,6 +629,32 @@ public class Candidat  implements java.io.Serializable {
     public void setLanguesparlees(String languesparlees) {
         this.nom = languesparlees;
     }
+    @Column(name = "NOMMERE")
+	public String getNommere() {
+		return this.nommere;
+	}
+
+	public void setNommere(String nommere) {
+		this.nommere = nommere;
+	}
+	
+	 @Column(name = "NOMPERE")
+	public String getNompere() {
+		return this.nompere;
+	}
+
+	public void setNompere(String nompere) {
+		this.nompere = nompere;
+	}
+
+	@Column(name = "PHOTOLINK", length = 100)
+	public String getPhotolink() {
+		return this.photolink;
+	}
+
+	public void setPhotolink(String photolink) {
+		this.photolink = photolink;
+	}
     @Column(name="PRECISIONACTIVITE", length=50)
     public String getPrecisionactivite() {
         return this.precisionactivite;
@@ -638,6 +702,25 @@ public class Candidat  implements java.io.Serializable {
     public void setFormationbeneficaires(Set<Formationbeneficaire> formationbeneficaires) {
         this.formationbeneficaires = formationbeneficaires;
     }
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="candidat")
+    public Set<Fichefinancement> getFichefinancements() {
+        return this.fichefinancements;
+    }
+
+    public void setFichefinancements(Set<Fichefinancement> fichefinancements) {
+        this.fichefinancements = fichefinancements;
+    }
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="candidat")
+    public Set<Entreprise> getEntreprises() {
+        return this.entreprises;
+    }
+
+    public void setEntreprises(Set<Entreprise> entreprises) {
+        this.entreprises = entreprises;
+    }
+    
+    
+    
 	@Override
 	public String toString() {
 		return "Candidat [idcandidat=" + idcandidat + ", agent=" + agent + ", nom=" + nom + ", prenom=" + prenom
@@ -660,6 +743,283 @@ public class Candidat  implements java.io.Serializable {
 				+ precisionactivitesouhaiter + ", beneficiaires="  + "]";
 	}
 
+	@Column(name="deviceid", length=50)
+	public String getDeviceid() {
+		return deviceid;
+	}
+
+
+	public void setDeviceid(String deviceid) {
+		this.deviceid = deviceid;
+	}
+
+	@Column(name="agentenregistreur", length=50)
+	public String getAgentenregistreur() {
+		return agentenregistreur;
+	}
+
+
+	public void setAgentenregistreur(String agentenregistreur) {
+		this.agentenregistreur = agentenregistreur;
+	}
+
+	@Column(name="enqueteur", length=50)
+	public String getEnqueteur() {
+		return enqueteur;
+	}
+
+
+	public void setEnqueteur(String enqueteur) {
+		this.enqueteur = enqueteur;
+	}
+
+	@Column(name="localdepartement", length=50)
+	public String getLocaldepartement() {
+		return localdepartement;
+	}
+
+
+	public void setLocaldepartement(String localdepartement) {
+		this.localdepartement = localdepartement;
+	}
+
+	@Column(name="localcommune", length=50)
+	public String getLocalcommune() {
+		return localcommune;
+	}
+
+
+	public void setLocalcommune(String localcommune) {
+		this.localcommune = localcommune;
+	}
+
+	@Column(name="arrondissement", length=50)
+	public String getArrondissement() {
+		return arrondissement;
+	}
+
+
+	public void setArrondissement(String arrondissement) {
+		this.arrondissement = arrondissement;
+	}
+
+	@Column(name="village", length=50)
+	public String getVillage() {
+		return village;
+	}
+
+
+	public void setVillage(String village) {
+		this.village = village;
+	}
+
+	@Column(name="nourrison", length=50)
+	public String getNourrison() {
+		return nourrison;
+	}
+
+
+	public void setNourrison(String nourrison) {
+		this.nourrison = nourrison;
+	}
+
+	@Column(name="documentidentite", length=50)
+	public String getDocumentidentite() {
+		return documentidentite;
+	}
+
+
+	public void setDocumentidentite(String documentidentite) {
+		this.documentidentite = documentidentite;
+	}
+
+	@Column(name="autredocidentite", length=50)
+	public String getAutredocidentite() {
+		return autredocidentite;
+	}
+
+
+	public void setAutredocidentite(String autredocidentite) {
+		this.autredocidentite = autredocidentite;
+	}
+
+	@Column(name="beneficiairepsdcc", length=50)
+	public String getBeneficiairepsdcc() {
+		return beneficiairepsdcc;
+	}
+
+
+	public void setBeneficiairepsdcc(String beneficiairepsdcc) {
+		this.beneficiairepsdcc = beneficiairepsdcc;
+	}
+
+	@Column(name="liencm", length=50)
+	public String getLiencm() {
+		return liencm;
+	}
+
+
+	public void setLiencm(String liencm) {
+		this.liencm = liencm;
+	}
+
+	@Column(name="autreniveauetude", length=50)
+	public String getAutreniveauetude() {
+		return autreniveauetude;
+	}
+
+
+	public void setAutreniveauetude(String autreniveauetude) {
+		this.autreniveauetude = autreniveauetude;
+	}
+
+	@Column(name="niveaualphabetfr", length=50)
+	public String getNiveaualphabetfr() {
+		return niveaualphabetfr;
+	}
+
+
+	public void setNiveaualphabetfr(String niveaualphabetfr) {
+		this.niveaualphabetfr = niveaualphabetfr;
+	}
+
+	@Column(name="niveaualphabetlocal", length=50)
+	public String getNiveaualphabetlocal() {
+		return niveaualphabetlocal;
+	}
+
+
+	public void setNiveaualphabetlocal(String niveaualphabetlocal) {
+		this.niveaualphabetlocal = niveaualphabetlocal;
+	}
+
+	@Column(name="formationentrepreunariat", length=50)
+	public String getFormationentrepreunariat() {
+		return formationentrepreunariat;
+	}
+
+
+	public void setFormationentrepreunariat(String formationentrepreunariat) {
+		this.formationentrepreunariat = formationentrepreunariat;
+	}
+
+	@Column(name="autrerecherchetravail", length=50)
+	public String getAutrerecherchetravail() {
+		return autrerecherchetravail;
+	}
+
+
+	public void setAutrerecherchetravail(String autrerecherchetravail) {
+		this.autrerecherchetravail = autrerecherchetravail;
+	}
+
+	@Column(name="activiteprincipale", length=50)
+	public String getActiviteprincipale() {
+		return activiteprincipale;
+	}
+
+
+	public void setActiviteprincipale(String activiteprincipale) {
+		this.activiteprincipale = activiteprincipale;
+	}
+
+	@Column(name="employeur", length=50)
+	public String getEmployeur() {
+		return employeur;
+	}
+
+	
+	public void setEmployeur(String employeur) {
+		this.employeur = employeur;
+	}
+
+	@Column(name="codebarre", length=50)
+	public String getCodebarre() {
+		return codebarre;
+	}
+
+
+	public void setCodebarre(String codebarre) {
+		this.codebarre = codebarre;
+	}
+
+	@Column(name="numeroserie", length=50)
+	public String getNumeroserie() {
+		return numeroserie;
+	}
+
+
+	public void setNumeroserie(String numeroserie) {
+		this.numeroserie = numeroserie;
+	}
+
+	@Column(name="numerocandidat", length=50)
+	public String getNumerocandidat() {
+		return numerocandidat;
+	}
+
+
+	public void setNumerocandidat(String numerocandidat) {
+		this.numerocandidat = numerocandidat;
+	}
+
+	@Column(name="nomradio", length=50)
+	public String getNomradio() {
+		return nomradio;
+	}
+
+
+	public void setNomradio(String nomradio) {
+		this.nomradio = nomradio;
+	}
+
+	@Column(name="commentaire", length=50)
+	public String getCommentaire() {
+		return commentaire;
+	}
+
+
+	public void setCommentaire(String commentaire) {
+		this.commentaire = commentaire;
+	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	@Column(name="agentautre", length=50)
+	public String getAgentautre() {
+		return agentautre;
+	}
+
+	
+	public void setAgentautre(String agentautre) {
+		this.agentautre = agentautre;
+	}
+
+	@Column(name="autreslanguesparlees", length=50)
+	public String getAutreslanguesparlees() {
+		return autreslanguesparlees;
+	}
+
+
+	public void setAutreslanguesparlees(String autreslanguesparlees) {
+		this.autreslanguesparlees = autreslanguesparlees;
+	}
+
+	@Column(name="autrequalifpersonelle", length=50)
+	public String getAutrequalifpersonelle() {
+		return autrequalifpersonelle;
+	}
+
+
+	public void setAutrequalifpersonelle(String autrequalifpersonelle) {
+		this.autrequalifpersonelle = autrequalifpersonelle;
+	}
+	
+	
+	
 
 }
 

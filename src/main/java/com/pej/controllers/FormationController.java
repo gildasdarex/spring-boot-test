@@ -9,22 +9,27 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.pej.domains.Formateur;
 import com.pej.domains.Formation;
+import com.pej.domains.Typeformation;
 import com.pej.repository.FormateurRepository;
 import com.pej.repository.FormationRepository;
+import com.pej.repository.TypeformationRepository;
 
 @Controller
 public class FormationController {
 @Autowired private FormationRepository formationRepository;
 @Autowired private FormateurRepository formateurRepository;
+@Autowired private TypeformationRepository typeformationRepository;
 	
 	@GetMapping("/pej/formations")
     String index(Model model,@ModelAttribute("objFormation") Formation objFormation) {
     	System.out.println("Starting Index Ok");
-    	List<Formation> formations = (List<Formation>) formationRepository.findAll();  	
+    	List<Formation> formations = (List<Formation>) formationRepository.findAll();  
+    	 
     	model.addAttribute("formations", formations);
         return "formations";
     }
@@ -34,7 +39,19 @@ public class FormationController {
 		List<Formateur> formateurs= (List<Formateur>)formateurRepository.findAll();
 		 model.addAttribute("formateurs",formateurs);
 		 model.addAttribute("objFormation", objFormation); 
+		 List<Typeformation> typeformations = (List<Typeformation>) typeformationRepository.findAll(); 
+		 model.addAttribute("typeformations", typeformations);
 		 return "frmFormation";
+	}
+	@GetMapping("/pej/formations/add/{id}")
+	public String editFormation(@PathVariable Integer id, ModelMap model){
+		List<Formateur> formateurs= (List<Formateur>)formateurRepository.findAll();
+		Formation objFormation=formationRepository.findOne(id);
+		model.addAttribute("formateurs",formateurs);
+		model.addAttribute("objFormation", objFormation); 
+		List<Typeformation> typeformations = (List<Typeformation>) typeformationRepository.findAll(); 
+		model.addAttribute("typeformations", typeformations);
+		return "frmFormation";
 	}
 	
     @PostMapping("/pej/formations")

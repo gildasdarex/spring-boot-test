@@ -19,33 +19,38 @@
 				  <span th:if="${notifyMessages}" th:remove="all" th:text="${session.remove(T(com.pej.services.NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY)}"></span>
 			</div>
           <section class="login_content">
-            <form>
+            <form method="post" th:action="@{/pej/login}" th:object="${loginForm}" >
               <h1>CONNECTEZ-VOUS</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
+                <input type="text" id="username" name="username" class="form-control" placeholder="username" th:value="*{username}" required="" />
+                <span class="formError" th:if="${#fields.hasErrors('username')}"
+                      th:errors="*{username}" th:text="invalid username"></span>
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
+                <input  id="password" type="password" name="password" class="form-control" placeholder="mot de passe" th:value="*{password}" required="" />
+                <span class="formError" th:if="${#fields.hasErrors('password')}"
+                      th:errors="*{password}" th:text="invalid password"></span>
               </div>
               <div>
-                <a href="#" th:href="@{/pej/candidats}" class="btn btn-default submit">Se connecter</a>
+                <input class="btn btn-default submit" type="submit" value="Se connecter"/>
+                <!--<a href="#" th:href="@{/pej/candidats}" class="btn btn-default submit">Se connecter</a>-->
     
-                <a class="reset_pass" href="#">Mot de passe perdu?</a>
+                <a class="reset_pass" href="#" >Réinitialiser mot de passe</a>
               </div>
 
               <div class="clearfix"></div>
 
               <div class="separator">
-                <p class="change_link">Nouvel utilisateur?
-                  <a href="#signup" class="to_register"> Créer un compte </a>
+                <p class="change_link" >Créer utilisateur
+                  <a href="#signup" class="to_register" >Créer un compte </a>
                 </p>
 
                 <div class="clearfix"></div>
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-paw"></i>Programme Emploi Jeune</h1>
-                  <p>©2016 Tous droits réservés. </p>
+                  <h1><i class="fa fa-paw" ></i>Projet Emploi des  Jeunes </h1>
+                  <p >bjComputing©2016 Tous droits réservés.</p>
                 </div>
               </div>
             </form>

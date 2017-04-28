@@ -74,6 +74,11 @@ public class UsersManagementController {
 	public String editRoles(@ModelAttribute("ObjRole") Roles ObjRole){
 		 return "frmRole";
 	}
+	@GetMapping("/pej/accessdenied")
+    public String accessDenied(){
+
+        return "page404";
+    }
 	@GetMapping("/pej/roles/{id}")
 	public String editRoles(@PathVariable Integer id, ModelMap model){
 		 Roles objRole=rolesRepository.findOne(id);

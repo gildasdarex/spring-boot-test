@@ -13,7 +13,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Edition Coopérative</h3>
+                <h3>Edition Grp. d'apprenants</h3>
               </div>
 
               <div class="title_right">
@@ -42,7 +42,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Coopérative</h2>
+                    <h2>Grp. d'apprenants</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -73,16 +73,43 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	                           </select>
                             </div>
                         </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Lot d'affectation <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                               <select id="lot" name="lot" class="select2_single form-control" th:field="*{lot}">
+	                            	<option data-th-each="lot : ${lots}" th:text="${lot.intitule}" th:value="${lot.idlot}"></option>      
+	                           </select>
+                            </div>
+                        </div>
+                        
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">Type d'ensemble<span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                               <select id="type" name="type" class="select2_single form-control" th:field="*{type}">
+                            		<option value="Coopérative">Coopérative</option> 
+                            		<option value="Ensemble d'apprenants">Ensemble d'apprenants</option>  
+	                           </select>
+                            </div>
+                        </div>
+                        
 				       <div class="item form-group">
                             <label for="numerofiche" class="control-label col-md-3 col-sm-3 col-xs-12">Intitué</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="libgroupe" th:field="*{libgroupe}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
+                        <div class="item form-group">
+                            <label for="nombre" class="control-label col-md-3 col-sm-3 col-xs-12">Nombre max</label>
+                             <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="nombre" th:field="*{nombre}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
 					    <div class="item form-group">
                             <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="description" th:field="*{description}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+                              <input type="text" id="description" th:field="*{description}"  class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         

@@ -13,7 +13,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Edition Formation</h3>
+                <h3>Edition Module formation</h3>
               </div>
 
               <div class="title_right">
@@ -42,7 +42,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Formation</h2>
+                    <h2>Module de Formation</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -65,21 +65,49 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 										
 					  <form id="frmFormation"  novalidate="true" class="frmPej form-horizontal form-label-left frmPej" action="#" th:action="@{/pej/formations}" th:object="${objFormation}" method="post">
 				       <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Type formation<span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                               <select id="typeformation" name="typeformation" class="select2_single form-control" th:field="*{typeformation}">
+	                            	<option data-th-each="typeformation : ${typeformations}" th:text="${typeformation.intitule}" th:value="${typeformation.idtypeformation}"></option>      
+	                           </select>
+                            </div>
+                        </div>
+				       <div class="item form-group">
                             <label for="numerofiche" class="control-label col-md-3 col-sm-3 col-xs-12">Intitulé</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="intitule" th:field="*{intitule}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
+                         <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Phase<span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                               <select id="phase" name="phase" class="select2_single form-control" th:field="*{phase}">
+	                            	<option value="Phase I">Phase I</option> 
+			                        <option value="Phase II">Phase II</option>
+	                           </select>
+                            </div>
+                        </div>
 					    <div class="item form-group">
                             <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="description" th:field="*{remarque}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+                              <input type="text" id="description" th:field="*{remarque}" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                            
+		                </div>
+                    
+                        <div class="item form-group">
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Date début</label>
+                             <div class="col-md-6 col-sm-6 col-xs-12 date">
+                              <input type="text" id="dateformation" th:field="*{dateformation}"  class="form-control col-md-7 col-xs-12"/>
+                            	
                             </div>
                         </div>
-                        <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Date formation</label>
-                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" data-inputmask="'mask': '99/99/9999'" id="dateformation" th:field="*{dateformation}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+                         <div class="item form-group">
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Date fin</label>
+                             <div class="col-md-6 col-sm-6 col-xs-12 date">
+                              <input type="text" id="datefin" data-inputmask="'mask': '99/99/9999'"  th:field="*{datefin}"  class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="item form-group">
@@ -95,10 +123,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Formateur <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Formateurs <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-	                            <select id="formateur" name="formateur" class="select2_single form-control" th:field="*{formateur}">
+	                            <select id="formateur" name="formateur" class="select2_single form-control" th:field="*{formateurs}" multiple="multiple">
 	                            	<option data-th-each="formateur : ${formateurs}" th:text="${formateur.nom}" th:value="${formateur.idformateur}"></option>      
 	                           </select>
 	                         </div>

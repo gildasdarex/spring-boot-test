@@ -31,7 +31,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
             <div class="clearfix"></div>
 			<div th:with="notifyMessages=${session[T(com.pej.services.NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY]}">	
 				  <div th:each="msg : ${notifyMessages}"  class="alert alert-success alert-dismissible fade in" th:classappend="'alert-'+${#strings.toLowerCase(msg.type)}" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">ï¿½</span>
 					</button>
 					<strong th:text="${msg.text}"></strong>
 				  </div>
@@ -72,7 +72,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					      </div>
 					    </div>
 					   <div class="form-group">
-					      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Département <span class="required">*</span>
+					      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">DÃ©partement <span class="required">*</span>
 					      </label>
 					      <div class="col-md-6 col-sm-6 col-xs-12">
 					         <select class="select2_single form-control" tabindex="-1" th:field="*{departement}">
@@ -88,10 +88,17 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					      </div>
 					    </div>
 					    <div class="form-group">
+					      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombre de  bÃ©nÃ©ficaires attendus
+					      </label>
+					      <div class="col-md-6 col-sm-6 col-xs-12">
+					        <input type="text" th:field="*{nbrebeneficiaire}"  id="nbrebenficiaire" required="required" class="form-control col-md-7 col-xs-12"></input>
+					      </div>
+					    </div>
+					    <div class="form-group">
 					      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Description
 					      </label>
 					      <div class="col-md-6 col-sm-6 col-xs-12">
-					        <input type="text" th:field="*{description}"  id="description" required="required" class="form-control col-md-7 col-xs-12"></input>
+					        <input type="text" th:field="*{description}"  id="description" class="form-control col-md-7 col-xs-12"></input>
 					      </div>
 					    </div>
 					   

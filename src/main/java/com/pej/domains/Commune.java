@@ -40,6 +40,7 @@ public class Commune  implements java.io.Serializable {
      private Departement departement;
      private String libcommune;
      private String description;
+     private Integer nbrebeneficiaire;
      private Set<Arrondissement> arrondissements = new HashSet<Arrondissement>(0);
 
     public Commune() {
@@ -108,7 +109,17 @@ public class Commune  implements java.io.Serializable {
         this.arrondissements = arrondissements;
     }
 
+    @Column(name="NBREBENEFICIAIRE", unique=true, nullable=false, precision=22, scale=0)
+	public Integer getNbrebeneficiaire() {
+		return nbrebeneficiaire;
+	}
 
+
+	public void setNbrebeneficiaire(Integer nbrebeneficiaire) {
+		this.nbrebeneficiaire = nbrebeneficiaire;
+	}
+
+    
 
 
 }

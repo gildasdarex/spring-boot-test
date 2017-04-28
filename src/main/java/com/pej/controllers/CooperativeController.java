@@ -22,9 +22,11 @@ import com.pej.domains.Cooperative;
 import com.pej.domains.Departement;
 import com.pej.domains.Don;
 import com.pej.domains.DonCooperative;
+import com.pej.domains.Lot;
 import com.pej.repository.CooperativeRepository;
 import com.pej.repository.DepartementRepository;
 import com.pej.repository.DoncooperativeRepository;
+import com.pej.repository.LotRepository;
 import com.pej.services.NotificationService;
 
 @Controller
@@ -32,6 +34,7 @@ public class CooperativeController {
 	@Autowired private CooperativeRepository cooperativeRepository;
 	@Autowired private DepartementRepository departementRepository;
 	@Autowired private DoncooperativeRepository doncooperativeRepository;
+	@Autowired private LotRepository lotRepository;
 	@Autowired private NotificationService notifyService;
 
 		@GetMapping("/pej/cooperatives")
@@ -46,7 +49,10 @@ public class CooperativeController {
 		public String editCommune(@ModelAttribute("objCooperative") Cooperative objCooperative, ModelMap model){
 			List<Departement> departements = (List<Departement>) departementRepository.findAll();
 			model.addAttribute("departements", departements); 
-			model.addAttribute("objCooperative", objCooperative); 
+			model.addAttribute("objCooperative", objCooperative);
+			
+			List<Lot> lots = (List<Lot>) lotRepository.findAll();
+			model.addAttribute("lots", lots);
 			 return "frmCooperative";
 		}
 		
@@ -54,9 +60,14 @@ public class CooperativeController {
 		public String modifierCooperative(@PathVariable Integer id, ModelMap model){
 			List<Departement> departements = (List<Departement>) departementRepository.findAll();
 			model.addAttribute("departements", departements); 
+			System.out.println("START FIND COOPERATIVE OK");
 			Cooperative objCooperative=cooperativeRepository.findOne(id);
+			List<Lot> lots = (List<Lot>) lotRepository.findAll();
+			model.addAttribute("lots", lots);
 			model.addAttribute("objCooperative", objCooperative); 
+			System.out.println("End find cooperative: "+objCooperative);
 			return "frmCooperative";
+			//return "redirect:/pej/cooperatives";
 		}
 	    @PostMapping("/pej/cooperatives")
 	    public String saveagents(@ModelAttribute(value="objCooperative")  Cooperative objCooperative, BindingResult result,Model model) {

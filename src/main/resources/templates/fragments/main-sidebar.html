@@ -16,7 +16,7 @@
             <!-- menu profile quick info -->
             <div class="profile">
               <div class="profile_pic">
-                <img alt="..." class="img-circle profile_img"></img>
+                <img th:src="@{/images/nopicture.PNG}" alt="" class="img-circle profile_img"/>
               </div>
               <div class="profile_info">
                 <span>Bienvenue,</span>
@@ -42,19 +42,32 @@
                     <ul class="nav child_menu">
                       <li><a href="#" th:href="@{/pej/candidats}">Candidats</a></li>
                       <li><a href="#" th:href="@{/pej/candidats/upload}">Chargement de fichier</a></li>
-                      <li><a href="#" th:href="@{/pej/cooperatives}">Coopératives</a></li>
+                      <li><a href="#" th:href="@{/pej/candidats/tirage}">Tirage</a></li>
+                      <li><a href="#" th:href="@{/pej/cooperatives}">Grp. d'apprenants</a></li>
                        <li><a href="#" th:href="@{/pej/agents}">Agents recruteurs</a></li>
                       <li><a href="#" th:href="@{/pej/decoupement}">Découpement territoriale</a></li>
                       <li><a href="#" th:href="@{/pej/antennes}">Antennes</a></li>
                       <li><a href="#" th:href="@{/pej/statutcandidats}">Statuts</a></li>
+                       <li><a href="#" th:href="@{/pej/materiels}">Matériels</a></li>
+                        <li><a href="#" th:href="@{/pej/fournisseurs}">Fournisseurs</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> Gestion des formations <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
+                    <li><a href="#" th:href="@{/pej/lots}">Lots</a></li>
+                    <li><a href="#" th:href="@{/pej/cabinets}">Cabinets</a></li>
+                    <li><a href="#" th:href="@{/pej/typeformations}">Type formation</a></li>
                       <li><a href="#" th:href="@{/pej/formateurs}">Formateurs</a></li>
-                      <li><a href="#" th:href="@{/pej/formations}">Formations</a></li>
+                      <li><a href="#" th:href="@{/pej/formations}">Module de formation</a></li>
+                       <li><a href="#" th:href="@{/pej/fformations}">Formations formateurs</a></li>
                     </ul>
                   </li>
+                    <li><a><i class="fa fa-desktop"></i> Gestion des entreprises <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="#" th:href="@{/pej/entreprises}">Entreprises</a></li>
+
+                        </ul>
+                    </li>
                   <li><a><i class="fa fa-table"></i> Gestion des dons <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="#" >Suivi des dons</a></li>

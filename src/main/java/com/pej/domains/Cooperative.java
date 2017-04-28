@@ -36,10 +36,14 @@ public class Cooperative  implements java.io.Serializable {
      private String description;
      private Date datecreation;
      private String userlogin;
+     private String type;
+     private Integer nombre;
      @JsonIgnore
      private Departement departement;
+     @JsonIgnore
+     private  Lot lot;
      private Set<Beneficiairecooperative> beneficiairecooperatives = new HashSet<Beneficiairecooperative>(0);
-
+     private Set<Formationcooperative> formationcooperatives = new HashSet<Formationcooperative>(0);
     public Cooperative() {
     }
 
@@ -112,7 +116,27 @@ public class Cooperative  implements java.io.Serializable {
         return this.userlogin;
     }
     
-    public void setUserlogin(String userlogin) {
+    public void setType(String type) {
+        this.type = type;
+    }
+    @Column(name="TYPE", length=50)
+    public String getType() {
+        return this.type;
+    }
+    
+    
+    @Column(name="NOMBRE", nullable=true, precision=22, scale=0)
+    public Integer getNombre() {
+		return nombre;
+	}
+
+
+	public void setNombre(Integer nombre) {
+		this.nombre = nombre;
+	}
+
+
+	public void setUserlogin(String userlogin) {
         this.userlogin = userlogin;
     }
 
@@ -125,6 +149,33 @@ public class Cooperative  implements java.io.Serializable {
         this.beneficiairecooperatives = beneficiairecooperatives;
     }
 
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="IDLOT")
+	public Lot getLot() {
+		return lot;
+	}
+
+
+	public void setLot(Lot lot) {
+		this.lot = lot;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cooperative")
+	public Set<Formationcooperative> getFormationcooperatives() {
+		return this.formationcooperatives;
+	}
+
+	public void setFormationcooperatives(Set<Formationcooperative> formationcooperatives) {
+		this.formationcooperatives = formationcooperatives;
+	}
+	@Override
+	public String toString() {
+		return "Cooperative [idgroupe=" + idgroupe + ", libgroupe=" + libgroupe + ", description=" + description
+				+ ", datecreation=" + datecreation + ", userlogin=" + userlogin + ", departement=" + departement
+				+ ", lot=" + lot + ", beneficiairecooperatives=" + beneficiairecooperatives + "]";
+	}
+	
+	
 
 
 
