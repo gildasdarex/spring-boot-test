@@ -7,13 +7,14 @@ target/
 .project
 .settings
 .springBeans
+target
 
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
-
+PEJ.iml
 ### NetBeans ###
 nbproject/private/
 build/
@@ -21,3 +22,9 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+### Maven file ###
+.mvn
+bin
+mvnw
+mvnw.cmd

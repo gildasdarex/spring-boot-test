@@ -3,6 +3,7 @@ package com.pej.domains;
 
 
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -128,7 +129,23 @@ public class Candidat  implements java.io.Serializable {
 	 private String agentautre;
 	 private String autreslanguesparlees;
 	 private String autrequalifpersonelle;
-	 
+	 private String consentement;
+	 private String devicephonenum;
+	 private Timestamp starttime;
+	 private Timestamp endtime;
+	 private String lieupassagetemps;
+	 private String nomautoritelocale;
+	 private String titreautoritelocale;
+	 private String ilot;
+	 private String rue;
+	 private String parcelnomproprio;
+	 private String pointrepere1;
+	 private String pointrepere2;
+	 private Timestamp submissiondate;
+	 private String smid;
+	 private String subscriberid;
+	 private String key;
+	 private String metainstancename;
      private Set<Formationbeneficaire> formationbeneficaires = new HashSet<Formationbeneficaire>(0);
      @JsonIgnore
      private Set<Fichefinancement> fichefinancements = new HashSet<Fichefinancement>(0);
@@ -1016,6 +1033,176 @@ public class Candidat  implements java.io.Serializable {
 
 	public void setAutrequalifpersonelle(String autrequalifpersonelle) {
 		this.autrequalifpersonelle = autrequalifpersonelle;
+	}
+
+	@Column(name="consentement", length=50)
+	public String getConsentement() {
+		return consentement;
+	}
+
+
+	public void setConsentement(String consentement) {
+		this.consentement = consentement;
+	}
+
+	@Column(name="devicephonenum", length=50)
+	public String getDevicephonenum() {
+		return devicephonenum;
+	}
+
+
+	public void setDevicephonenum(String devicephonenum) {
+		this.devicephonenum = devicephonenum;
+	}
+
+	@Column(name="starttime")
+	public Timestamp getStarttime() {
+		return starttime;
+	}
+
+
+	public void setStarttime(Timestamp starttime) {
+		this.starttime = starttime;
+	}
+
+	@Column(name="endtime")
+	public Timestamp getEndtime() {
+		return endtime;
+	}
+
+
+	public void setEndtime(Timestamp endtime) {
+		this.endtime = endtime;
+	}
+
+	@Column(name="lieu_passage_temps", length=50)
+	public String getLieupassagetemps() {
+		return lieupassagetemps;
+	}
+
+
+	public void setLieupassagetemps(String lieupassagetemps) {
+		this.lieupassagetemps = lieupassagetemps;
+	}
+
+	@Column(name="nom_autorite_locale", length=50)
+	public String getNomautoritelocale() {
+		return nomautoritelocale;
+	}
+
+
+	public void setNomautoritelocale(String nomautoritelocale) {
+		this.nomautoritelocale = nomautoritelocale;
+	}
+
+	@Column(name="titre_autorite_locale", length=50)
+	public String getTitreautoritelocale() {
+		return titreautoritelocale;
+	}
+
+
+	public void setTitreautoritelocale(String titreautoritelocale) {
+		this.titreautoritelocale = titreautoritelocale;
+	}
+
+	@Column(name="ilot", length=50)
+	public String getIlot() {
+		return ilot;
+	}
+
+
+	public void setIlot(String ilot) {
+		this.ilot = ilot;
+	}
+
+	@Column(name="rue", length=50)
+	public String getRue() {
+		return rue;
+	}
+
+
+	public void setRue(String rue) {
+		this.rue = rue;
+	}
+
+	@Column(name="parcel_nom_proprio", length=50)
+	public String getParcelnomproprio() {
+		return parcelnomproprio;
+	}
+
+
+	public void setParcelnomproprio(String parcelnomproprio) {
+		this.parcelnomproprio = parcelnomproprio;
+	}
+
+	@Column(name="point_repere1", length=50)
+	public String getPointrepere1() {
+		return pointrepere1;
+	}
+
+
+	public void setPointrepere1(String pointrepere1) {
+		this.pointrepere1 = pointrepere1;
+	}
+
+	@Column(name="point_repere2", length=50)
+	public String getPointrepere2() {
+		return pointrepere2;
+	}
+
+
+	public void setPointrepere2(String pointrepere2) {
+		this.pointrepere2 = pointrepere2;
+	}
+
+	@Column(name="submissiondate")
+	public Timestamp getSubmissiondate() {
+		return submissiondate;
+	}
+
+
+	public void setSubmissiondate(Timestamp submissiondate) {
+		this.submissiondate = submissiondate;
+	}
+
+	@Column(name="smid", length=50)
+	public String getSmid() {
+		return smid;
+	}
+
+
+	public void setSmid(String smid) {
+		this.smid = smid;
+	}
+	
+	@Column(name="subscriberid", length=50)
+	public String getSubscriberid() {
+		return subscriberid;
+	}
+
+
+	public void setSubscriberid(String subscriberid) {
+		this.subscriberid = subscriberid;
+	}
+
+	@Column(name="key", length=50)
+	public String getKey() {
+		return key;
+	}
+
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	@Column(name="meta_instancename", length=50)
+	public String getMetainstancename() {
+		return metainstancename;
+	}
+
+
+	public void setMetainstancename(String metainstancename) {
+		this.metainstancename = metainstancename;
 	}
 	
 	

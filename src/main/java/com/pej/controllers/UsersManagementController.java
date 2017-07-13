@@ -39,7 +39,6 @@ import com.pej.repository.RolesRepository;
 import com.pej.repository.UserRoleRepository;
 import com.pej.repository.UsersRepository;
 
-import oracle.sql.DATE;
 
 @Controller
 public class UsersManagementController {

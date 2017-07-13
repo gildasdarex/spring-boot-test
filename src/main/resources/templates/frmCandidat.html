@@ -142,7 +142,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	                      </div>
 	                      <div id="step-2">
 	                        <h2 class="StepTitle">Step 2 Content</h2>
-			                          <div class="item form-group">
+			                          <!-- div class="item form-group">
 			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Département <span class="required">*</span>
 			                            </label>
 			                            <div class="col-md-6 col-sm-6 col-xs-12">
@@ -156,7 +156,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                            </label>
 			                            <div class="col-md-6 col-sm-6 col-xs-12">
 			                              	<select id="commune" name="commune" class="form-control">
-				                            	<!-- option data-th-each="commune : ${communes}" th:text="${commune.libcommune}" th:value="${commune.codecommune}"></option-->
+				                            	
 				                            	<option value=""></option>     
 				                           </select>
 			                            </div>
@@ -165,7 +165,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Arrondissement</label>
 			                             <div class="col-md-6 col-sm-6 col-xs-12">
 			                              		<select id="arrondissement" name="arrondissement" class="form-control">
-				                            		<!--option data-th-each="arrondissement : ${arrondissements}" th:text="${arrondissement.libarrondissement}" th:value="${arrondissement.codearrondissement}"></option-->      
+				                            		
 				                           			<option value=""></option>
 				                           		</select>
 			                             </div>
@@ -174,11 +174,53 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Quartier/Village</label>
 			                             <div class="col-md-6 col-sm-6 col-xs-12">
 			                              		<select id="quartier"   class="form-control"  th:field="*{quartier}">
-				                            		<!--option data-th-each="quartier : ${quartiers}" th:text="${quartier.libquartier}" th:value="${quartier.idquartier}"></option-->  
+				                            		
 				                            		<option value=""></option>    
 				                           		</select>
 			                             </div>
-			                          </div>
+			                          </div-->
+			                          <div class="item form-group">
+			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nommere">Département <span class="required">*</span>
+			                            </label>
+			                            <div class="col-md-6 col-sm-6 col-xs-12">
+				                              <input type="text" data-validate-minmax="10,100" id="localdepartement" th:field="*{localdepartement}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+			                            </div>
+		                          	 </div>
+		                          	  <div class="item form-group">
+			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nommere">Commune <span class="required">*</span>
+			                            </label>
+			                            <div class="col-md-6 col-sm-6 col-xs-12">
+				                              <input type="text" data-validate-minmax="10,100" id="localcommune" th:field="*{localcommune}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+			                            </div>
+		                          	 </div>
+		                          	 <div class="item form-group">
+			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nommere">Arrondissement <span class="required">*</span>
+			                            </label>
+			                            <div class="col-md-6 col-sm-6 col-xs-12">
+				                              <input type="text" data-validate-minmax="10,100" id="arrondissement" th:field="*{arrondissement}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+			                            </div>
+		                          	 </div>
+		                          	  <div class="item form-group">
+			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nommere">Village/Quartier <span class="required">*</span>
+			                            </label>
+			                            <div class="col-md-6 col-sm-6 col-xs-12">
+				                              <input type="text" data-validate-minmax="10,100" id="quartier" th:field="*{quartier}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+			                            </div>
+		                          	 </div>
+		                          	  <div class="item form-group">
+			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nommere">Autorité locale <span class="required">*</span>
+			                            </label>
+			                            <div class="col-md-6 col-sm-6 col-xs-12">
+				                              <input type="text" data-validate-minmax="10,100" id="nomautoritelocale" th:field="*{nomautoritelocale}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+			                            </div>
+		                          	 </div>
+		                          	  <div class="item form-group">
+			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nommere">Titre autorité <span class="required">*</span>
+			                            </label>
+			                            <div class="col-md-6 col-sm-6 col-xs-12">
+				                              <input type="text" data-validate-minmax="10,100" id="titreautoritelocale" th:field="*{titreautoritelocale}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+			                            </div>
+		                          	 </div>
 			                          <div class="item form-group">
 			                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Nom Candidat</label>
 			                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -510,7 +552,27 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				                              <input type="text" data-validate-minmax="10,100" id="numcarteagratter" th:field="*{numcarteagratter}" th:required="required" class="form-control col-md-7 col-xs-12"/>
 			                            </div>
 		                          	 </div>
-		                          	 
+		                          	   	 <div class="item form-group">
+			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nommere">Point repre 1 <span class="required">*</span>
+			                            </label>
+			                            <div class="col-md-6 col-sm-6 col-xs-12">
+				                              <input type="text" data-validate-minmax="10,100" id="pointrepere1" th:field="*{pointrepere1}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+			                            </div>
+		                          	 </div>
+		                          	  <div class="item form-group">
+			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nommere">Point repère 2 <span class="required">*</span>
+			                            </label>
+			                            <div class="col-md-6 col-sm-6 col-xs-12">
+				                              <input type="text" data-validate-minmax="10,100" id="pointrepere2" th:field="*{pointrepere2}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+			                            </div>
+		                          	 </div>
+		                          	 <div class="item form-group">
+			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nommere">SMID <span class="required">*</span>
+			                            </label>
+			                            <div class="col-md-6 col-sm-6 col-xs-12">
+				                              <input type="text" data-validate-minmax="10,100" id="smid" th:field="*{smid}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+			                            </div>
+		                          	 </div>
 		                       
 	                      </div>
                        </form>

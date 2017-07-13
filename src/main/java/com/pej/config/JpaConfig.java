@@ -14,7 +14,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 @Configuration
-@PropertySource("classpath:/data/hibernate.properties")
+@PropertySource("classpath:hibernate.properties")
 public class JpaConfig {
     
     @Autowired private Environment env;

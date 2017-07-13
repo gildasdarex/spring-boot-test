@@ -279,7 +279,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 							 <a style="margin-left: 8px;" href="#" th:href="@{'/pej/candidats/eligible'}" class="btn btn-info">Sélectionner Eligibles</a>
 					</div>
                     <div class="table-responsive">
-                      <table id="datatable-buttons" class="table table-striped table-bordered display nowrap"  cellspacing="0" width="100%">
+                      <table id="datatable-buttons1" class="table table-striped table-bordered display nowrap"  cellspacing="0" width="100%">
                        
                         <thead>
                           <tr class="headings">
@@ -290,7 +290,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             <th class="column-title">Candidat </th>
                             <th class="column-title">Photo </th>
                             <th class="column-title">Commune </th>
-                            <th class="column-title">Téléphone </th>
                             <th class="column-title">Sexe</th>
                             <th class="column-title">Date naissance </th>
                            
@@ -308,10 +307,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             <th class="column-title">Candidat </th>
                             <th class="column-title">Photo</th>
                             <th class="column-title">Commune </th>
-                            <th class="column-title">Téléphone </th>
-                            <th class="column-title">Sexe</th>
-                            <th class="column-title">Date naissance </th>                  
-                            <th class="column-title">Agent </th>
+                            <th class="column-title">Sexe </th>
+                            <th class="column-title">Date naissance</th>
+                            <th class="column-title">Agent enregistreur </th>                  
                             <th class="column-title">Statut </th>
                             <th class="column-title no-link last"><span class="nobr">Action</span>
                             </th>
@@ -341,9 +339,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 								
 		                        <td>
 		                        
-		                            <a class="btn btn-success btn-xs"  data-th-text="${candidat.statutcandidat.intitule}"></a>
-		                        </td>
-		                         <td>	                        
 		                            <a class="btn btn-success btn-xs"  data-th-text="${candidat.statutcandidat.intitule}"></a>
 		                        </td>
 	                            <td class=" ">
