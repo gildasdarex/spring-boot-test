@@ -66,11 +66,13 @@ public class AntenneController {
 
     	   antenneRepository.save(antenne);
     	   notifyService.addInfoMessage("Modification effectué avec succès");
-           return "redirect:/pej/decoupement";
+           return "redirect:/pej/antennes";
        }
-       antenneRepository.save(objAntenne);
-       notifyService.addInfoMessage("Enregistrement effectué avec succès");
-       return "redirect:/pej/antennes";
+       else{
+	       antenneRepository.save(objAntenne);
+	       notifyService.addInfoMessage("Enregistrement effectué avec succès");
+	       return "redirect:/pej/antennes";
+       }
     }
 
 }

@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/pej/users/**").permitAll()
                 .antMatchers("/pej/role").permitAll()
                 .antMatchers("/pej/permission/**").permitAll()
-                .antMatchers("/","/vendors/**","/build/**","/script/**","/img/**","/fonts/**","/resources/**","/images/**").permitAll()
+                .antMatchers("/","/vendors/**","/build/**","/script/**","/img/**","/fonts/**").permitAll()
                 .anyRequest().authenticated().withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
              public <O extends FilterSecurityInterceptor> O postProcess(
                      O fsi) {
@@ -72,9 +72,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             }
           })
                 .and().exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/pej/login")).and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/pej/logout")).logoutSuccessUrl("/pej/login").permitAll();
-
         http.formLogin()
-                .defaultSuccessUrl("/pej/agents", true)
+                .defaultSuccessUrl("/pej/candidats", true)
                 .loginPage("/pej/login")
                 .permitAll()
                 .and()

@@ -29,9 +29,13 @@ public interface CandidatRepository extends CrudRepository<Candidat, Integer>{
 	
 	
 	@Query("select ca from Candidat ca where ca.idcandidat  in (select pr.candidat.idcandidat from Presence pr where pr.formation.idformation=?1)" )
+	//@Query("select ca from Candidat ca where ca.idcandidat  in (select fb.candidat.idcandidat from beneficiairecooperative fb where fb.cooperative.idgroupe=?1) and ca.idcandidat  not in (select pr.candidat.idcandidat from Presence pr where pr.formation.idformation=?2)" )
 	Iterable<Candidat> getInPresenceCandidat(Integer id);
 	
-	@Query("select ca from Candidat ca where ca.idcandidat  in (select fb.candidat.idcandidat from Formationbeneficaire fb where fb.formation.idformation=?1) and ca.idcandidat  not in (select pr.candidat.idcandidat from Presence pr where pr.formation.idformation=?1)" )
+	//@Query("select ca from Candidat ca where ca.idcandidat  in (select fb.candidat.idcandidat from Formationbeneficaire fb where fb.formation.idformation=?1) and ca.idcandidat  not in (select pr.candidat.idcandidat from Presence pr where pr.formation.idformation=?1)" )
+	@Query("select ca from Candidat ca where ca.idcandidat  in (select fb.candidat.idcandidat from Beneficiairecooperative fb"
+        +" where fb.cooperative.idgroupe in (SELECT gr.idgroupe FROM Cooperative gr where gr.idgroupe in(select fc.cooperative.idgroupe from Formationcooperative fc WHERE fc.formation.idformation=?1)))" 
+        +" and ca.idcandidat  not in (select pr.candidat.idcandidat from Presence pr where pr.formation.idformation=?1)" )
 	Iterable<Candidat> getInAbsenceCandidat(Integer id);
 	
 

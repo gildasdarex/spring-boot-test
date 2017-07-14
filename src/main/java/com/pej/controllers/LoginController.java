@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.time.LocalDateTime;
 import com.pej.domains.Departement;
 import com.pej.domains.LoginForm;
+import com.pej.domains.UsersRole;
 import com.pej.domains.Utilisateur;
 import com.pej.domains.Commune;
+import com.pej.domains.Agent;
+import com.pej.domains.Antenne;
 import com.pej.domains.Arrondissement;
 import com.pej.repository.*;
 import com.pej.services.NotificationService;
@@ -42,44 +45,59 @@ public class LoginController {
     @Autowired
     private SecurityService securityService;
 	@Autowired private DepartementRepository departementRepository;
-	 @Autowired private UsersRepository userRepository;
-	 @Autowired private NotificationService notifyService;
-	 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	@Autowired private UsersRepository userRepository;
+	@Autowired private NotificationService notifyService;
+	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	
 	//@GetMapping("/pej/login")
 	@RequestMapping(value = {"/pej/login", "/pej/"}, method = RequestMethod.GET)
-    String index(Model model,@ModelAttribute("objDepartement") Departement objDepartement,LoginForm loginForm,String error, String logout,HttpServletRequest  request) {
+    String index(Model model, String logout,HttpServletRequest  request) {  
+		//String pass=passwordEncoder.encode("12");
+		//System.out.println("Mot de passe= "+pass);
+		model.addAttribute("loginForm", new LoginForm());
+		//model.addAttribute("password", "");
+		return "login";
+		
+		/*
 		if (error != null)
 	            model.addAttribute("error", "Your username and password is invalid.");
-
+	       
 
 	        if (logout != null)
 	            model.addAttribute("message", "You have been logged out successfully.");
-
-
 	        if(userService.authenticate(loginForm.getUsername(),loginForm.getPassword())==false) {
-
+	        	
 	            notifyService.addErrorMessage("Echec authentification");
-
+	           
 	            request.setAttribute("username", "dfggff");
-
+	            System.out.println("SHOWING LOGIN PAGE");
 	            return "login";
 	        }
 	        else {
-
-	            return "redirect:/agents";
-	        }
+	        	
+	        	Utilisateur user = userService.getAuthenticatedUser(loginForm.getUsername(),loginForm.getPassword());
+	        	System.out.println("Dimension "+user.getUsersRoles().size());
+	        	for (UsersRole role : user.getUsersRoles()) {
+						System.out.println("ROLE"+role.getRoles().getName());
+				}
+	        	System.out.println("redirect to agent page");
+	            return "redirect:/pej/agents";
+	        }*/
     }
 	
 	@PostMapping("/pej/auth")
-    String authPej(Model model, @ModelAttribute("objDepartement") Utilisateur user, LoginForm loginForm, String error, String logout) {
-       if(userService.authenticate(loginForm.getUsername(),loginForm.getPassword())==false) {
+	//@PostMapping("/pej/login")
+    String authPej(@ModelAttribute(value="loginForm")  LoginForm loginForm, BindingResult result,Model model) {
+		System.out.println("authPej start ok");
+		/*if(userService.authenticate(loginForm.getUsername(),loginForm.getPassword())==false) {
            notifyService.addErrorMessage("Echec d'authentification");
 
            return "home";
        }
         else {
            return "home";
-       }
+       }*/
+		return "";
     }
 
     @RequestMapping(value="pej/logout", method = RequestMethod.GET)
@@ -92,6 +110,7 @@ public class LoginController {
     }
 
     public static UserDetails currentUserDetails(){
+    	System.out.println("currentUserDetails Ok");
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
         if (authentication != null) {

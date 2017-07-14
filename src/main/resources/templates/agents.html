@@ -77,7 +77,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	                              <input type="checkbox" class="flat" name="table_records"/>
 	                            </td>
 								<td class=" " data-th-text="${agent.nom}"></td>
-								<td class=" " data-th-text="${agent?.antenne?.libantenne}"></td>
+								<td class=" " data-th-text="${agent.antenne.libantenne}"></td>
 								<td class=" "  data-th-text="${#dates.format(agent.datenaissance,'dd/MM/yyyy')}"></td>
 								<td class=" " data-th-text="${agent.sexe}"></td>
 								<td class=" " data-th-text="${agent.numeroagent}"></td>

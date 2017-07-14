@@ -49,9 +49,7 @@ public class UsersManagementController {
 	@Autowired private PermissionRoleRepository permissionRoleRepository;
 	@Autowired private UserRoleRepository usersRoleRepository;
 	@Autowired private AntenneRepository antenneRepository;
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
-    
+	@Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
 	@GetMapping("/pej/usermamagement")
@@ -146,7 +144,7 @@ public class UsersManagementController {
 	        else
 	        	System.out.println("ObjRole est null: ");
 	        
-	       if(ObjPermission.getIdpermission()!=null && ObjPermission.getIdpermission().intValue() > 0 ){
+	       if(ObjPermission.getIdpermission()!=null && ObjPermission.getIdpermission().intValue() >0 ){
 	    	   Permission permission=permissionRepository.findOne(ObjPermission.getIdpermission().intValue());
 	    	   permission.setName(ObjPermission.getName());
 	    	   permissionRepository.save(permission);
@@ -166,21 +164,19 @@ public class UsersManagementController {
 	       System.out.println("Lib permission: "+ObjUsers.getFirstname());
 	        else
 	        	System.out.println("ObjUsers est null: ");
-	        
+	       ObjUsers.setPassword(bCryptPasswordEncoder.encode(ObjUsers.getPassword()));
 	       if(ObjUsers.getIdusers()!=null && ObjUsers.getIdusers().intValue() >0 ){
 	    	   Utilisateur users=usersRepository.findOne(ObjUsers.getIdusers().intValue());
 	    	   users.setFirstname(ObjUsers.getFirstname());
 	    	   users.setLastname(ObjUsers.getLastname());
 	    	   users.setUsername(ObjUsers.getUsername());
-	    	   users.setPassword(ObjUsers.getPassword());
-			   users.setPassword(bCryptPasswordEncoder.encode(ObjUsers.getPassword()));
+	    	   users.setPassword(bCryptPasswordEncoder.encode(ObjUsers.getPassword()));
 	    	   //users.setDateModified(DATE.getCurrentDate());
 	           return "redirect:/pej/usermamagement";
 	       }
 	       //ObjUsers.setDateModified(DATE.getCurrentDate());
 	      // ObjUsers.setIdusers(2);
 	       ObjUsers.setEnabled(1);
-		   ObjUsers.setPassword(bCryptPasswordEncoder.encode(ObjUsers.getPassword()));
 	       System.out.println("Utilisateur: "+ObjUsers.toString());
 	       usersRepository.save(ObjUsers);
 	       

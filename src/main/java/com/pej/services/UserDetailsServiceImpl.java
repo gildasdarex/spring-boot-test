@@ -26,8 +26,8 @@ import com.pej.repository.UsersRepository;
 
 @Service()
 public class UserDetailsServiceImpl implements UserDetailsService{
-	public static final String USER_ROLE = "simpleuser";
-	public static final String USER_NAME = "PEJ USER";
+	public static final String USER_ROLE = "Administrateur";
+	public static final String USER_NAME = "Administrateur";
     @Autowired
     private UsersRepository userRepository;
     @Autowired
@@ -45,9 +45,12 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         System.out.println("Connected user "+user.getFirstname());
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         System.out.println("Nombre de role: "+user.getUsersRoles().size());
+       
         if(user.getUsersRoles().size()> 0){
         	System.out.println("Connected userole: "+user.getUsersRoles().stream().findAny().get().getRoles().getName());
             httpSession.setAttribute(USER_ROLE, user.getUsersRoles().stream().findAny().get().getRoles().getName());
+        }else{
+        	httpSession.setAttribute(USER_ROLE, "Administrateur");
         }
         
         httpSession.setAttribute(USER_NAME, user.getFirstname()+" "+user.getLastname());

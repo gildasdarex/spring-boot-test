@@ -118,7 +118,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 								<td class=" " data-th-text="${cooperative.type}"></td>
 								<td>
 									<div class="btn-group btn-group-xs">
-										<a class="btn btn-xs btn-info"  th:href="@{'/pej/formationgroupe/ + ${formation.idformation}+'/cooperative/'+${cooperative.idgroupe}}"><i class="fa fa-plus" data-toggle="tooltip" title="Ajouter participant"></i> Ajouter</a>				
+										<a class="btn btn-xs btn-info"  th:href="@{'/pej/formationgroupe/' + ${formation.idformation}+'/cooperative/'+${cooperative.idgroupe}}"><i class="fa fa-plus" data-toggle="tooltip" title="Ajouter participant"></i> Ajouter</a>				
 									</div>
 								</td>
 							</tr>

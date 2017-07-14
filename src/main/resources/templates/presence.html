@@ -120,7 +120,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	                              <input type="checkbox" class="flat" name="table_records"/>
 	                            </td>
 								<td class=" " data-th-text="${candidat.nom +' '+candidat.prenom}"></td>
-								<td class=" " data-th-text="${candidat.quartier.arrondissement.commune.libcommune}" ></td>
+								<td class=" " data-th-text="${candidat.localcommune}" ></td>
 								<td class=" " data-th-text="${candidat.telprincipal}"></td>
 								<td class=" " data-th-text="${candidat.sexe}"></td>
 								<td class=" "  data-th-text="${#dates.format(candidat.datenaissance,'dd/MM/yyyy')}"></td>
@@ -209,7 +209,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	                              <input type="checkbox" class="flat" name="table_records"/>
 	                            </td>
 								<td class=" " data-th-text="${presence.candidat.nom +' '+presence.candidat.prenom}"></td>
-								<td class=" " data-th-text="${presence.candidat.quartier.arrondissement.commune.libcommune}"></td>
+								<td class=" " data-th-text="${presence.candidat.localcommune}"></td>
 								<td class=" " data-th-text="${presence.candidat.telprincipal}"></td>
 								<td class=" " data-th-text="${presence.candidat.sexe}"></td>
 								<td class=" " data-th-text="${#dates.format(presence.candidat.datenaissance,'dd/MM/yyyy')}"></td>
