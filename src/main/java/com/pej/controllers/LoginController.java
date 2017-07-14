@@ -47,25 +47,25 @@ public class LoginController {
 	 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	//@GetMapping("/pej/login")
 	@RequestMapping(value = {"/pej/login", "/pej/"}, method = RequestMethod.GET)
-    String index(Model model,@ModelAttribute("objDepartement") Departement objDepartement,LoginForm loginForm,String error, String logout,HttpServletRequest  request) {  
-		String pass=passwordEncoder.encode("12");
-		System.out.println("Mot de passe= "+pass);
+    String index(Model model,@ModelAttribute("objDepartement") Departement objDepartement,LoginForm loginForm,String error, String logout,HttpServletRequest  request) {
 		if (error != null)
 	            model.addAttribute("error", "Your username and password is invalid.");
-	       
+
 
 	        if (logout != null)
 	            model.addAttribute("message", "You have been logged out successfully.");
+
+
 	        if(userService.authenticate(loginForm.getUsername(),loginForm.getPassword())==false) {
 
 	            notifyService.addErrorMessage("Echec authentification");
-	           
+
 	            request.setAttribute("username", "dfggff");
 
 	            return "login";
 	        }
 	        else {
-	          
+
 	            return "redirect:/agents";
 	        }
     }

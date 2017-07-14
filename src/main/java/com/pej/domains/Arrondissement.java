@@ -24,7 +24,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name="ARRONDISSEMENT"
-    ,schema="ADMINPEJ"
 )
 public class Arrondissement  implements java.io.Serializable {
 

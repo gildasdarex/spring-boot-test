@@ -20,7 +20,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="DEPARTEMENT"
-    ,schema="ADMINPEJ"
 )
 public class Departement  implements java.io.Serializable {
 

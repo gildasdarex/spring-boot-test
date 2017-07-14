@@ -33,7 +33,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @Entity
 @Table(name="CANDIDAT"
-    ,schema="ADMINPEJ"
 )
 @Proxy(lazy=false)
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

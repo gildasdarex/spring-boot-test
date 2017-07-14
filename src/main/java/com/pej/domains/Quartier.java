@@ -27,7 +27,6 @@ import com.pej.domains.Candidat;
  */
 @Entity
 @Table(name="QUARTIER"
-    ,schema="ADMINPEJ"
 )
 
 public class Quartier  implements java.io.Serializable {

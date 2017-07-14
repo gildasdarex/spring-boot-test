@@ -69,6 +69,7 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
         if(resourceMap == null) {
             resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
             List<Rolespermission> resources =(List<Rolespermission>) this.resourcesDao.findAll();
+            System.out.println("Chargement de resource");
             System.out.println("ressources="+resources);
             //Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -97,7 +98,7 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
 
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
-        System.out.println("requestUrl is " + requestUrl);
+        //System.out.println("requestUrl is " + requestUrl);
        // System.out.println("contole " +resourceMap.get("CONTROLE"));
        // System.out.println("formateur " +resourceMap.get("FORMATEUR"));
         if(resourceMap == null) {

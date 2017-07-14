@@ -22,7 +22,6 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="BENEFICIAIRE"
-    ,schema="ADMINPEJ"
 )
 public class Beneficiaire  implements java.io.Serializable {
 

@@ -26,7 +26,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name="COMMUNE"
-    ,schema="ADMINPEJ"
 )
 public class Commune  implements java.io.Serializable {
 

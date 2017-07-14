@@ -35,6 +35,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Utilisateur getAuthenticatedUser(String username, String password) {
+        Utilisateur user= usersRepository.verifExistantUser(username,password);
+        return user;
+    }
+
+    @Override
     public Utilisateur findByUsername(String username) {
         return usersRepository.findByUsername(username);
     }

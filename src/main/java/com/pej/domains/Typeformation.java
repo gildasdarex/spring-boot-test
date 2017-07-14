@@ -23,7 +23,6 @@ import com.pej.domains.Formation;
  */
 @Entity
 @Table(name="TYPEFORMATION"
-    ,schema="ADMINPEJ"
 )
 public class Typeformation  implements java.io.Serializable {
 

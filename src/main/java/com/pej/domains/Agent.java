@@ -30,7 +30,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @Entity
 @Table(name="AGENT"
-    ,schema="ADMINPEJ"
 )
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Agent  implements java.io.Serializable {

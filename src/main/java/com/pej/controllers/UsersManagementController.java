@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -48,6 +49,8 @@ public class UsersManagementController {
 	@Autowired private PermissionRoleRepository permissionRoleRepository;
 	@Autowired private UserRoleRepository usersRoleRepository;
 	@Autowired private AntenneRepository antenneRepository;
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
     
 
 
@@ -143,7 +146,7 @@ public class UsersManagementController {
 	        else
 	        	System.out.println("ObjRole est null: ");
 	        
-	       if(ObjPermission.getIdpermission()!=null && ObjPermission.getIdpermission().intValue() >0 ){
+	       if(ObjPermission.getIdpermission()!=null && ObjPermission.getIdpermission().intValue() > 0 ){
 	    	   Permission permission=permissionRepository.findOne(ObjPermission.getIdpermission().intValue());
 	    	   permission.setName(ObjPermission.getName());
 	    	   permissionRepository.save(permission);
@@ -170,12 +173,14 @@ public class UsersManagementController {
 	    	   users.setLastname(ObjUsers.getLastname());
 	    	   users.setUsername(ObjUsers.getUsername());
 	    	   users.setPassword(ObjUsers.getPassword());
+			   users.setPassword(bCryptPasswordEncoder.encode(ObjUsers.getPassword()));
 	    	   //users.setDateModified(DATE.getCurrentDate());
 	           return "redirect:/pej/usermamagement";
 	       }
 	       //ObjUsers.setDateModified(DATE.getCurrentDate());
-	       ObjUsers.setIdusers(2);
+	      // ObjUsers.setIdusers(2);
 	       ObjUsers.setEnabled(1);
+		   ObjUsers.setPassword(bCryptPasswordEncoder.encode(ObjUsers.getPassword()));
 	       System.out.println("Utilisateur: "+ObjUsers.toString());
 	       usersRepository.save(ObjUsers);
 	       

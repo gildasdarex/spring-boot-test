@@ -26,7 +26,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name="COOPERATIVE"
-    ,schema="ADMINPEJ"
 )
 public class Cooperative  implements java.io.Serializable {
 
