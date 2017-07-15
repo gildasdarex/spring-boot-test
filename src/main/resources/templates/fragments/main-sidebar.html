@@ -20,7 +20,7 @@
               </div>
               <div class="profile_info">
                 <span>Bienvenue,</span>
-                <h2><span th:text="${session[T(com.pej.services.UserDetailsServiceImpl).USER_NAME]}">USER_NAME</span></h2>
+                <!--<h2><span th:text="${session[T(com.pej.services.UserDetailsServiceImpl).USER_NAME]}">USER_NAME</span></h2>-->
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -30,15 +30,15 @@
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3><span th:text="${session.USER_ROLE}">US</span></h3>
+                <!--<h3><span th:text="${session.USER_ROLE}">US</span></h3>-->
                 <ul class="nav side-menu">
-                 <li th:if="${session[T(com.pej.services.UserDetailsServiceImpl).USER_ROLE]!='FORMATEUR'}"><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Tableau de bords<span class="label label-success pull-right">Graphes</span></a></li>
-                 <li th:if="${session[T(com.pej.services.UserDetailsServiceImpl).USER_ROLE]!='FORMATEUR'}"><a><i class="fa fa-home"></i> Accueil <span class="fa fa-chevron-down"></span></a>
+                 <li ><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Tableau de bords<span class="label label-success pull-right">Graphes</span></a></li>
+                 <li ><a><i class="fa fa-home"></i> Accueil <span class="fa fa-chevron-down"></span></a>
                     <!-- ul class="nav child_menu">
                       <li><a  href="#" th:href="@{/pej/dashboard}">Tableau de bord</a></li>
                     </ul-->
                   </li>
-                  <li th:if="${!session[T(com.pej.services.UserDetailsServiceImpl).USER_ROLE].equals('FORMATEUR')}"><a><i class="fa fa-edit"></i> Gestion des candidatures <span class="fa fa-chevron-down"></span></a>
+                  <li ><a><i class="fa fa-edit"></i> Gestion des candidatures <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="#" th:href="@{/pej/candidats}">Candidats</a></li>
                       <li><a href="#" th:href="@{/pej/candidats/upload}">Chargement de fichier</a></li>

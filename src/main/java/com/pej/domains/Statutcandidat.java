@@ -57,7 +57,7 @@ public class Statutcandidat implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "INTITULE", length = 50)
+	@Column(name = "INTITULE", length = 1024)
 	public String getIntitule() {
 		return this.intitule;
 	}

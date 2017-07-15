@@ -53,7 +53,7 @@ public class Arrondissement  implements java.io.Serializable {
   	@GeneratedValue(generator = "SEQ_CODEARRONDISSEMENT", strategy = GenerationType.SEQUENCE)
   	@SequenceGenerator(name = "SEQ_CODEARRONDISSEMENT", sequenceName = "SEQ_CODEARRONDISSEMENT",allocationSize=1)
     
-    @Column(name="CODEARRONDISSEMENT", unique=true, nullable=false, length=20)
+    @Column(name="CODEARRONDISSEMENT", unique=true, nullable=false, length=1024)
     public Integer getCodearrondissement() {
         return this.codearrondissement;
     }
@@ -73,7 +73,7 @@ public class Arrondissement  implements java.io.Serializable {
     }
 
     
-    @Column(name="LIBARRONDISSEMENT", nullable=false, length=20)
+    @Column(name="LIBARRONDISSEMENT", nullable=false, length=1024)
     public String getLibarrondissement() {
         return this.libarrondissement;
     }
@@ -83,7 +83,7 @@ public class Arrondissement  implements java.io.Serializable {
     }
 
     
-    @Column(name="DESCRIPTION", length=20)
+    @Column(name="DESCRIPTION", length=1024)
     public String getDescription() {
         return this.description;
     }

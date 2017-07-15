@@ -84,7 +84,7 @@ public class Quartier  implements java.io.Serializable {
     }
 
     
-    @Column(name="LIBQUARTIER", length=20)
+    @Column(name="LIBQUARTIER", length=1024)
     public String getLibquartier() {
         return this.libquartier;
     }

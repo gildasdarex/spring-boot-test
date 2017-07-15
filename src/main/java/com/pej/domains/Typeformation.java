@@ -62,7 +62,7 @@ public class Typeformation  implements java.io.Serializable {
  		this.idtypeformation = idtypeformation;
  	}
 
- 	@Column(name = "INTITULE", length = 20)
+ 	@Column(name = "INTITULE", length = 1024)
  	public String getIntitule() {
  		return this.intitule;
  	}

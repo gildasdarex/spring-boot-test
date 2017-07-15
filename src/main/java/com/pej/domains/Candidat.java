@@ -226,7 +226,7 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="NOM", length=50)
+    @Column(name="NOM", length=1024)
     public String getNom() {
         return this.nom;
     }
@@ -236,7 +236,7 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="PRENOM", length=50)
+    @Column(name="PRENOM", length=1024)
     public String getPrenom() {
         return this.prenom;
     }
@@ -246,7 +246,7 @@ public class Candidat  implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name="DATENAISSANCE", length=7)
+    @Column(name="DATENAISSANCE", length=1024)
     public Date getDatenaissance() {
         return this.datenaissance;
     }
@@ -256,7 +256,7 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="DOCIDENTITE", length=20)
+    @Column(name="DOCIDENTITE", length=1024)
     public String getDocidentite() {
         return this.docidentite;
     }
@@ -266,7 +266,7 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="NIVEAU", length=50)
+    @Column(name="NIVEAU", length=1024)
     public String getNiveau() {
         return this.niveau;
     }
@@ -276,7 +276,7 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="DIPLOME", length=50)
+    @Column(name="DIPLOME", length=1024)
     public String getDiplome() {
         return this.diplome;
     }
@@ -286,7 +286,7 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="CODEARRONDISSEMENT", length=20)
+    @Column(name="CODEARRONDISSEMENT", length=1024)
     public String getCodearrondissement() {
         return this.codearrondissement;
     }
@@ -296,7 +296,7 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="USERLOGIN", length=50)
+    @Column(name="USERLOGIN", length=1024)
     public String getUserlogin() {
         return this.userlogin;
     }
@@ -316,7 +316,7 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="REFDOCIDENTITE", length=50)
+    @Column(name="REFDOCIDENTITE", length=1024)
     public String getRefdocidentite() {
         return this.refdocidentite;
     }
@@ -326,7 +326,7 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="TELPRINCIPAL", length=20)
+    @Column(name="TELPRINCIPAL", length=1024)
     public String getTelprincipal() {
         return this.telprincipal;
     }
@@ -336,7 +336,7 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="TELALTERNATIF", length=20)
+    @Column(name="TELALTERNATIF", length=1024)
     public String getTelalternatif() {
         return this.telalternatif;
     }
@@ -356,7 +356,7 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="SEXE", length=20)
+    @Column(name="SEXE", length=1024)
     public String getSexe() {
         return this.sexe;
     }
@@ -366,7 +366,7 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="SITUATIONMATRIMONIALE", length=20)
+    @Column(name="SITUATIONMATRIMONIALE", length=1024)
     public String getSituationmatrimoniale() {
         return this.situationmatrimoniale;
     }
@@ -597,7 +597,7 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="DEPARTEMENT", length=20)
+    @Column(name="DEPARTEMENT", length=1024)
     public String getDepartement() {
         return this.departement;
     }
@@ -617,7 +617,7 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="NUMEROAGENT", length=20)
+    @Column(name="NUMEROAGENT", length=1024)
     public String getNumeroagent() {
         return this.numeroagent;
     }
@@ -627,7 +627,7 @@ public class Candidat  implements java.io.Serializable {
     }
 
     
-    @Column(name="NUMEROFICHE", length=20)
+    @Column(name="NUMEROFICHE", length=1024)
     public String getNumerofiche() {
         return this.numerofiche;
     }

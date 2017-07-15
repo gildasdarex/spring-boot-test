@@ -66,7 +66,7 @@ public class Utilisateur implements java.io.Serializable {
 		this.idusers = idusers;
 	}
 
-	@Column(name = "USERNAME", length = 20)
+	@Column(name = "USERNAME", length = 1024)
 	public String getUsername() {
 		return this.username;
 	}
@@ -84,7 +84,7 @@ public class Utilisateur implements java.io.Serializable {
 		this.password = password;
 	}
 
-	@Column(name = "FIRSTNAME", length = 20)
+	@Column(name = "FIRSTNAME", length = 1024)
 	public String getFirstname() {
 		return this.firstname;
 	}
@@ -93,7 +93,7 @@ public class Utilisateur implements java.io.Serializable {
 		this.firstname = firstname;
 	}
 
-	@Column(name = "LASTNAME", length = 20)
+	@Column(name = "LASTNAME", length = 1024)
 	public String getLastname() {
 		return this.lastname;
 	}
