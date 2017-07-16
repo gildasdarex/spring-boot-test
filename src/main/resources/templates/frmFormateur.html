@@ -13,7 +13,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Edition Formateur</h3>
+                <h3>EDITION DE FORMATEUR</h3>
               </div>
 
               <div class="title_right">
@@ -21,7 +21,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for..."/>
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
+                      <button class="btn btn-default" type="button">RECHERCHER!</button>
                     </span>
                   </div>
                 </div>
@@ -42,19 +42,19 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Formateur</h2>
+                    <h2>FORMATEUR</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
+                      <!--<li class="dropdown">-->
+                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>-->
+                        <!--<ul class="dropdown-menu" role="menu">-->
+                          <!--<li><a href="#">Settings 1</a>-->
+                          <!--</li>-->
+                          <!--<li><a href="#">Settings 2</a>-->
+                          <!--</li>-->
+                        <!--</ul>-->
+                      <!--</li>-->
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
@@ -65,7 +65,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 										
 					  <form id="frmFormateur" novalidate="true" class="frmPej form-horizontal form-label-left" action="#" th:action="@{/pej/formateurs}" th:object="${objFormateur}" method="post">
 				       <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Cabinet en charge <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">CABINET <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                <select id="cabinet" name="cabinet" class="select2_single form-control" th:field="*{cabinet}">
@@ -74,26 +74,26 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             </div>
                         </div>
 					    <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Nom</label>
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">NOM</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="nom" th:field="*{nom}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Prénom</label>
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">PRENOM</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="prenom" th:field="*{prenom}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Date naissance</label>
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">DATE DE NAISSANCE</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" data-inputmask="'mask': '99/99/9999'" id="datenaissance" th:field="*{datenaissance}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                        
                          <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">N° Téléphone</label>
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">N°TELEPHONE</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="telephone" th:field="*{telephone}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
@@ -105,22 +105,28 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             </div>
                         </div>
                           <div class="item form-group">
-                              <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Username</label>
+                              <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">USERNAME</label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
                                   <input type="text" id="username" th:field="*{username}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                               </div>
                           </div>
                           <div class="item form-group">
-                              <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Mot de passe</label>
+                              <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">MOT DE PASSE</label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
                                   <input type="password" id="password" th:field="*{password}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+                              </div>
+                          </div>
+                          <div class="item form-group" style="display:none;">
+                              <label for="idformateur" class="control-label col-md-3 col-sm-3 col-xs-12">ID FORMATEUR</label>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                  <input type="text" id="idformateur" th:field="*{idformateur}"  class="form-control col-md-7 col-xs-12"/>
                               </div>
                           </div>
 					    <div class="ln_solid"></div>
 					    <div class="form-group">
 					      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-					        <button type="reset" class="btn btn-primary">Annuler</button>
-					        <button type="submit" class="btn btn-success">Enregistrer</button>
+					        <button type="reset" class="btn btn-primary">ANNULER</button>
+					        <button type="submit" class="btn btn-success">ENREGISTRER</button>
 					      </div>
 					    </div>
 					

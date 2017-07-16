@@ -76,7 +76,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	                            </td>
 								<td class=" " data-th-text="${formateur.nom}"></td>
 								<td class=" " data-th-text="${formateur.prenom}"></td>
-								<td class=" " data-th-text="${formateur.datenaissance}"></td>
+                                <td class=" " data-th-text="${#dates.format(formateur.datenaissance,'dd/MM/yyyy')}"></td>
 								<td class=" " data-th-text="${formateur.cardid}"></td>
 								<td class=" " data-th-text="${formateur.telephone}"></td>
 								<td>
