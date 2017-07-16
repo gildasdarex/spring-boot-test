@@ -46,17 +46,16 @@ public class AntenneController {
 		 model.addAttribute("objAntenne", objAntenne); 
 		 return "frmAntenne";
 	}
+
+
     @PostMapping("/pej/antennes")
     public String saveagents(@ModelAttribute(value="objAgent")  Antenne objAntenne, BindingResult result,Model model) {
-    	System.out.println("Starting Save Ok");
-        if (result.hasErrors()) {
+
+		if (result.hasErrors()) {
         	notifyService.addErrorMessage("Echec enregistrement");
             return "frmAntenne";
         }
-        if(objAntenne!=null)
-       System.out.println("Nom Antenne: "+objAntenne.getLibantenne());
-        else
-        	System.out.println("objAgent est null: ");
+
         
        if(objAntenne.getIdantenne()!=null && objAntenne.getIdantenne().intValue() >0 ){
     	   Antenne antenne =antenneRepository.findOne(objAntenne.getIdantenne());

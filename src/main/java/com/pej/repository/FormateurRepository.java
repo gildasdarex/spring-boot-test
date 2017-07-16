@@ -13,5 +13,6 @@ public interface FormateurRepository extends  CrudRepository <Formateur, Integer
 	Iterable<Formateur> getInFormationformateur(Integer id);
 	@Query("select f from Formateur f  where f.nom=?1 and f.prenom=?2" )
 	Formateur findByFormateur(String nom,String prenom);
+	Formateur findOneByUsername(String username);
 	 
 }

@@ -1,8 +1,15 @@
 package com.pej.controllers;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import com.pej.services.CustomUserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -27,8 +34,28 @@ public class FormationController {
 	
 	@GetMapping("/pej/formations")
     String index(Model model,@ModelAttribute("objFormation") Formation objFormation) {
-    	System.out.println("Starting Index Ok");
-    	List<Formation> formations = (List<Formation>) formationRepository.findAll();  
+		User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Collection<GrantedAuthority> grantedAuthorities = principal.getAuthorities();
+		System.out.println("------------" + grantedAuthorities.size());
+		System.out.println("------------" + principal.getUsername());
+		List<String> roleNames = new ArrayList<>();
+		List<Formation> formations = new ArrayList<>();
+		for(GrantedAuthority grantedAuthority : grantedAuthorities){
+			System.out.println("role "+ grantedAuthority.getAuthority().toString());
+			roleNames.add(grantedAuthority.getAuthority().toString());
+		}
+
+		System.out.println("------------" + roleNames.contains("FORMATEUR"));
+
+		if(roleNames.size()== 1 && roleNames.contains("FORMATEUR")) {
+			String username = principal.getUsername();
+			System.out.println("in role" );
+			Formateur formateur = formateurRepository.findOneByUsername(username);
+			formations = (List<Formation>) formateur.getFormations();
+		}
+		else {
+			formations = (List<Formation>) formationRepository.findAll();
+		}
     	 
     	model.addAttribute("formations", formations);
         return "formations";
@@ -56,20 +83,16 @@ public class FormationController {
 	
     @PostMapping("/pej/formations")
     public String saveagents(@ModelAttribute(value="objFormation")  Formation objFormation, BindingResult result,Model model) {
-    	System.out.println("Starting Save Ok");
         if (result.hasErrors()) {
             return "frmFormation";
         }
-        if(objFormation!=null)
-       System.out.println("Nom Formation: "+objFormation.getIntitule());
-        else
-        	System.out.println("objFormation est null: ");
-        
+
+
+		//System.out.println("Nom Formation: "+objFormation.getFormateur());
        if(objFormation.getIdformation()!=null && objFormation.getIdformation().intValue() >0 ){
     	   Formation formation =formationRepository.findOne(objFormation.getIdformation());
     	   formation.setIntitule(objFormation.getIntitule());
     	   formation.setDateformation(objFormation.getDateformation());
-    	   formation.setFormateur(objFormation.getFormateur());
     	   objFormation.setHeuredebut(objFormation.getHeuredebut());
     	   objFormation.setHeurefin(objFormation.getHeurefin());
     	   objFormation.setRemarque(objFormation.getRemarque());
@@ -77,7 +100,17 @@ public class FormationController {
     	   formationRepository.save(formation);
            return "redirect:/pej/formations";
        }
-       formationRepository.save(objFormation);
+
+		objFormation = formationRepository.save(objFormation);
+
+		System.out.println("Nom Formation: "+objFormation.getFormateurs());
+		String formateurList = objFormation.getFormateurs();
+		String []formateurListSplit = formateurList.split(",");
+		for(String str: formateurListSplit){
+			Formateur formateur = formateurRepository.findOne(Integer.parseInt(str));
+			formateur.getFormations().add(objFormation);
+			formateurRepository.save(formateur);
+		}
        return "redirect:/pej/formations";
     }
 

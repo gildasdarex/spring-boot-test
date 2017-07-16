@@ -6,14 +6,14 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   <title>PEJ/D&eacute;coupage territoriale</title>
 </head>
 <body>
- 
+
   <div layout:fragment="content">
                  <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Edition Formation des formateurs</h3>
+                <h3>EDITION DES FORMATIONS DE FORMATEURS</h3>
               </div>
 
               <div class="title_right">
@@ -21,7 +21,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for..."/>
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
+                      <button class="btn btn-default" type="button">RECHERCHER!</button>
                     </span>
                   </div>
                 </div>
@@ -29,7 +29,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
             </div>
 
             <div class="clearfix"></div>
-			<div th:with="notifyMessages=${session[T(com.pej.services.NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY]}">	
+			<div th:with="notifyMessages=${session[T(com.pej.services.NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY]}">
 				  <div th:each="msg : ${notifyMessages}"  class="alert alert-success alert-dismissible fade in" th:classappend="'alert-'+${#strings.toLowerCase(msg.type)}" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
 					</button>
@@ -42,11 +42,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Formation</h2>
+                    <h2>FORMATION</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      <li class="dropdown">
+                      <!-- <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                         <ul class="dropdown-menu" role="menu">
                           <li><a href="#">Settings 1</a>
@@ -54,7 +54,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                           <li><a href="#">Settings 2</a>
                           </li>
                         </ul>
-                      </li>
+                      </li> -->
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
@@ -62,7 +62,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                   </div>
 
                   <div class="x_content">
-										
+
 					  <form id="frmFormation"  novalidate="true" class="frmPej form-horizontal form-label-left frmPej" action="#" th:action="@{/pej/fformations}" th:object="${objFormation}" method="post">
 				       <div class="item form-group" style="display:none">
                             <label for="numerofiche" class="control-label col-md-3 col-sm-3 col-xs-12">ID</label>
@@ -71,66 +71,66 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             </div>
                         </div>
 				       <div class="item form-group">
-                            <label for="numerofiche" class="control-label col-md-3 col-sm-3 col-xs-12">Intitulé</label>
+                            <label for="numerofiche" class="control-label col-md-3 col-sm-3 col-xs-12">INTITULE</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="intitule" th:field="*{intitule}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
 					    <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Thème</label>
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">THEME</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="theme" th:field="*{theme}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Date début</label>
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">DATE DE DEBUT</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" data-inputmask="'mask': '99/99/9999'" id="dateformation" th:field="*{datedebut}"  class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                          <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Date fin</label>
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">DATE DE FIN</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" data-inputmask="'mask': '99/99/9999'" id="datefin" th:field="*{datefin}"  class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Heure début</label>
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">HEURE DE DEBUT</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" data-inputmask="'mask' : '99:99'" id="heuredebut" th:field="*{heuredebut}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                          <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Heure fin</label>
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">HEURE DE FIN</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" data-inputmask="'mask' : '99:99'" id="heuredebut" th:field="*{heurefin}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
-                               
+
 					    <div class="ln_solid"></div>
 					    <div class="form-group">
 					      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-					        <button type="reset" class="btn btn-primary">Annuler</button>
-					        <button type="submit" class="btn btn-success">Enregistrer</button>
+					        <button type="reset" class="btn btn-primary">ANNULER</button>
+					        <button type="submit" class="btn btn-success">ENREGISTRER</button>
 					      </div>
 					    </div>
-					
+
 					  </form>
 
                   </div>
                 </div>
               </div>
             </div>
-           
+
           </div>
         </div>
-        <!-- /page content -->    
+        <!-- /page content -->
   </div>
 
   <footer>
     <p layout:fragment="custom-footer">This is some footer content from content page 1</p>
   </footer>
-  
-  
+
+
 </body>
 </html>

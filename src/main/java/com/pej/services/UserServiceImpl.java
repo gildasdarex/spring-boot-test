@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean authenticate(String username, String password) {
         Utilisateur user= usersRepository.verifExistantUser(username,password);
-        System.out.println("auth");
         if(user==null)
             return false;
         else

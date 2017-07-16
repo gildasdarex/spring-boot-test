@@ -13,5 +13,6 @@ public interface CommuneRepository  extends CrudRepository<Commune, Integer>{
 	 Iterable<Commune> getCommune( Integer id);
 	 @Query("select c  from Commune c where c.departement.codedepartement=?1" )
 	    ArrayList<Commune> getCommunes(Integer id);
+	 Commune findOneByLibcommune(String commune);
 	
 }

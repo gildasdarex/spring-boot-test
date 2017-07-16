@@ -2,23 +2,8 @@ package com.pej.domains;
 // Generated 3 janv. 2017 23:38:37 by Hibernate Tools 5.2.0.Beta1
 
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
+import java.util.*;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Proxy;
 
@@ -46,7 +31,7 @@ public class Formateur implements java.io.Serializable {
 	 private String username;
 	    private String password;
 	@JsonIgnore
-	private Set<Formation> formations = new HashSet<Formation>(0);
+	private List<Formation> formations = new ArrayList<Formation>();
 	private Set<Formationformateur> formationformateurs = new HashSet<Formationformateur>(0);
 	 @JsonIgnore
 	    private Set<EntrepriseFormateur> entrepriseFormateurs = new HashSet<EntrepriseFormateur>(0);
@@ -60,7 +45,7 @@ public class Formateur implements java.io.Serializable {
 	}
 
 	public Formateur(Integer idformateur, Cabinet cabinet, String nom, String prenom, Date datenaissance,
-			String cardid, String telephone, String datecreation, String userlogin, Set<Formation> formations) {
+			String cardid, String telephone, String datecreation, String userlogin, List<Formation> formations) {
 		this.idformateur = idformateur;
 		this.cabinet = cabinet;
 		this.nom = nom;
@@ -95,7 +80,7 @@ public class Formateur implements java.io.Serializable {
 		this.cabinet = cabinet;
 	}
 
-	@Column(name = "NOM", length = 20)
+	@Column(name = "NOM", length = 1024)
 	public String getNom() {
 		return this.nom;
 	}
@@ -104,7 +89,7 @@ public class Formateur implements java.io.Serializable {
 		this.nom = nom;
 	}
 
-	@Column(name = "PRENOM", length = 20)
+	@Column(name = "PRENOM", length = 1024)
 	public String getPrenom() {
 		return this.prenom;
 	}
@@ -123,7 +108,7 @@ public class Formateur implements java.io.Serializable {
 		this.datenaissance = datenaissance;
 	}
 
-	@Column(name = "CARDID", length = 20)
+	@Column(name = "CARDID", length = 1024)
 	public String getCardid() {
 		return this.cardid;
 	}
@@ -132,7 +117,7 @@ public class Formateur implements java.io.Serializable {
 		this.cardid = cardid;
 	}
 
-	@Column(name = "TELEPHONE", length = 20)
+	@Column(name = "TELEPHONE", length = 1024)
 	public String getTelephone() {
 		return this.telephone;
 	}
@@ -150,7 +135,7 @@ public class Formateur implements java.io.Serializable {
 		this.datecreation = datecreation;
 	}
 
-	@Column(name = "USERLOGIN", length = 50)
+	@Column(name = "USERLOGIN", length = 1024)
 	public String getUserlogin() {
 		return this.userlogin;
 	}
@@ -163,8 +148,8 @@ public class Formateur implements java.io.Serializable {
 	public String getPhotolink() {
 		return this.photolink;
 	}
-	
-	@Transient
+
+	@Column(name = "USERNAME")
 	public String getUsername() {
 		return username;
 	}
@@ -172,6 +157,7 @@ public class Formateur implements java.io.Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 	@Transient
 	public String getPassword() {
 		return password;
@@ -185,14 +171,16 @@ public class Formateur implements java.io.Serializable {
 		this.photolink = photolink;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "formateur")
-	public Set<Formation> getFormations() {
+	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "formateur")
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "FORMATEUR_GIVE_FORMATION", joinColumns = { @JoinColumn(name = "IDFORMATEUR") }, inverseJoinColumns = { @JoinColumn(name = "IDFORMATION") })
+	public List<Formation> getFormations() {
 		return this.formations;
 	}
-
-	public void setFormations(Set<Formation> formations) {
+	public void setFormations(List<Formation> formations) {
 		this.formations = formations;
 	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "formateur")
 	public Set<Formationformateur> getFormationformateurs() {
 		return this.formationformateurs;

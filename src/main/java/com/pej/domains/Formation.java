@@ -4,22 +4,8 @@ package com.pej.domains;
 
 import java.io.Serializable;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.util.*;
+import javax.persistence.*;
 
 import com.pej.domains.Formateur;
 import com.pej.domains.Formationbeneficaire;
@@ -34,7 +20,7 @@ public class Formation implements java.io.Serializable {
 
 	private Integer idformation;
 	private Typeformation typeformation;
-	private Formateur formateur;
+	private List<Formateur> formateurSet = new ArrayList<Formateur>();
 	private Date dateformation;
 	private Date datefin;
 	private String heuredebut;
@@ -43,6 +29,7 @@ public class Formation implements java.io.Serializable {
 	private Integer idgroupe;
 	private String intitule;
 	private String formateurs;
+	private String formateurSecondaire;
 	private String phase;
 	private Set<Formationbeneficaire> formationbeneficaires = new HashSet<Formationbeneficaire>(0);
 	private Set<Presence> presences = new HashSet<Presence>(0);
@@ -55,12 +42,13 @@ public class Formation implements java.io.Serializable {
 		this.idformation = idformation;
 	}
 
-	public Formation(Integer idformation, Typeformation typeformation, Formateur formateur, Date dateformation,
+	public Formation(Integer idformation, Typeformation typeformation, List<Formateur> formateurSet, Date dateformation,
 			String heuredebut, String heurefin, String remarque, Integer idgroupe, String intitule,
 			Set<Formationbeneficaire> formationbeneficaires) {
 		this.idformation = idformation;
 		this.typeformation = typeformation;
-		this.formateur = formateur;
+		this.formateurSet = formateurSet;
+		this.formateurSecondaire = formateurSecondaire;
 		this.dateformation = dateformation;
 		this.heuredebut = heuredebut;
 		this.heurefin = heurefin;
@@ -92,14 +80,18 @@ public class Formation implements java.io.Serializable {
 		this.typeformation = typeformation;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "IDFORMATEUR")
-	public Formateur getFormateur() {
-		return this.formateur;
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "IDFORMATEUR")
+//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinTable(name = "FORMATEUR_FORMATION", joinColumns = { @JoinColumn(name = "STUDENT_ID") }, inverseJoinColumns = { @JoinColumn(name = "COURSE_ID") })
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "formations")
+	public List<Formateur> getFormateurSet() {
+		return this.formateurSet;
 	}
 
-	public void setFormateur(Formateur formateur) {
-		this.formateur = formateur;
+	public void setFormateurSet(List<Formateur> formateurSet) {
+		this.formateurSet = formateurSet;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -122,7 +114,7 @@ public class Formation implements java.io.Serializable {
 		this.dateformation = dateformation;
 	}
 
-	@Column(name = "HEUREDEBUT", length = 20)
+	@Column(name = "HEUREDEBUT", length = 1024)
 	public String getHeuredebut() {
 		return this.heuredebut;
 	}
@@ -131,7 +123,7 @@ public class Formation implements java.io.Serializable {
 		this.heuredebut = heuredebut;
 	}
 
-	@Column(name = "HEUREFIN", length = 20)
+	@Column(name = "HEUREFIN", length = 1024)
 	public String getHeurefin() {
 		return this.heurefin;
 	}
@@ -158,7 +150,7 @@ public class Formation implements java.io.Serializable {
 		this.idgroupe = idgroupe;
 	}
 
-	@Column(name = "INTITULE", length = 50)
+	@Column(name = "INTITULE", length = 1024)
 	public String getIntitule() {
 		return this.intitule;
 	}
@@ -167,7 +159,7 @@ public class Formation implements java.io.Serializable {
 		this.intitule = intitule;
 	}
 	
-	@Column(name = "PHASE", length = 50)
+	@Column(name = "PHASE", length = 1024)
 	public String getPhase() {
 		return phase;
 	}
@@ -176,7 +168,7 @@ public class Formation implements java.io.Serializable {
 		this.phase = phase;
 	}
 
-	@Column(name = "FORMATEURS", length = 50)
+	@Transient
 	public String getFormateurs() {
 		return formateurs;
 	}
@@ -184,6 +176,7 @@ public class Formation implements java.io.Serializable {
 	public void setFormateurs(String formateurs) {
 		this.formateurs = formateurs;
 	}
+
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "formation")
 	public Set<Formationbeneficaire> getFormationbeneficaires() {

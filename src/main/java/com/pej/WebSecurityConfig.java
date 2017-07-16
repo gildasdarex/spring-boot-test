@@ -49,51 +49,85 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        //http.addFilterAfter(MyUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-        http
-                .csrf().disable()
-                .anonymous().disable()
-                .authorizeRequests()
-                .antMatchers("/**").authenticated()
-                .antMatchers("/pej/usermamagement").permitAll()
-                .antMatchers("/pej/roles/**").permitAll()
-                .antMatchers("/pej/users/**").permitAll()
-                .antMatchers("/pej/role").permitAll()
-                .antMatchers("/pej/permission/**").permitAll()
-                .antMatchers("/","/vendors/**","/build/**","/script/**","/img/**","/fonts/**").permitAll()
-                .anyRequest().authenticated().withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
-             public <O extends FilterSecurityInterceptor> O postProcess(
-                     O fsi) {
-                 fsi.setAuthenticationManager(authenticationManagerBean());
-                 fsi.setAccessDecisionManager(accessDecisionManager());
-                 fsi.setSecurityMetadataSource(mySecurityMetadataSource);
+//        //http.addFilterAfter(MyUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+//        http
+//                .csrf().disable()
+//                .anonymous().disable()
+//                .authorizeRequests()
+//                .antMatchers("/","/vendors/**","/build/**","/script/**","/img/**","/fonts/**").permitAll()
+//                .anyRequest().authenticated().withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+//             public <O extends FilterSecurityInterceptor> O postProcess(
+//                     O fsi) {
+//                 fsi.setAuthenticationManager(authenticationManagerBean());
+//                 //fsi.setAccessDecisionManager(accessDecisionManager());
+//                 fsi.setSecurityMetadataSource(mySecurityMetadataSource);
+//
+//                 return fsi;
+//
+//             }
+//          })
+//                .and().exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/pej/login")).and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/pej/logout")).logoutSuccessUrl("/pej/login").permitAll();
+//        http.formLogin()
+//                .defaultSuccessUrl("/pej/candidats", true)
+//                .loginPage("/pej/login")
+//                .permitAll()
+//                .and()
+//
+//                .logout()
+//                .permitAll()
+//
+//        ;
+//        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler()).and().authorizeRequests().anyRequest().authenticated().expressionHandler(webSecurityExpressionHandler());
+//        http.sessionManagement().maximumSessions(1);
 
-                 return fsi;
-                            }
-          })
-                .and().exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/pej/login")).and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/pej/logout")).logoutSuccessUrl("/pej/login").permitAll();
-        http.formLogin()
+        http
+                .authorizeRequests()
+                .antMatchers("/vendors/**","/build/**","/script/**","/img/**","/fonts/**").permitAll()
+//                .antMatchers("/pej/lots").hasAnyRole("ADMIN","STANDARD")
+//                .antMatchers("/pej/lots/add").hasRole("ADMIN")
+//                .antMatchers("/pej/agents").hasAnyRole("ADMIN","STANDARD")
+//                .antMatchers("/pej/agents/add").hasRole("ADMIN")
+//                .antMatchers("/pej/antennes").hasAnyRole("ADMIN","STANDARD")
+//                .antMatchers("/pej/antennes/add").hasRole("ADMIN")
+//                .antMatchers("/pej/cooperatives").hasAnyRole("ADMIN","STANDARD")
+//                .antMatchers("/pej/cooperatives/add").hasRole("ADMIN")
+//                .antMatchers("/pej/statutcandidats").hasAnyRole("ADMIN","STANDARD")
+//                .antMatchers("/pej/statutcandidats/add").hasRole("ADMIN")
+//                .antMatchers("/pej/cabinets").hasAnyRole("ADMIN","STANDARD")
+//                .antMatchers("/pej/cabinets/add").hasRole("ADMIN")
+//                .antMatchers("/pej/typeformations").hasAnyRole("ADMIN","STANDARD")
+//                .antMatchers("/pej/typeformations/add").hasRole("ADMIN")
+//                .antMatchers("/pej/formateurs").hasAnyRole("ADMIN","STANDARD")
+//                .antMatchers("/pej/formateurs/add").hasRole("ADMIN")
+//                .antMatchers("/pej/candidats").hasAnyRole("ADMIN","STANDARD")
+//                .antMatchers("/pej/candidats/add").hasRole("ADMIN")
+//                .antMatchers("/pej/candidats/tirage").hasRole("ADMIN")
+//                .antMatchers("/pej/usermamagement").hasAnyRole("ADMIN","STANDARD")
+//                .antMatchers("/pej/users").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
                 .defaultSuccessUrl("/pej/candidats", true)
                 .loginPage("/pej/login")
                 .permitAll()
                 .and()
-
                 .logout()
-                .permitAll()
-
-        ;
-        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler()).and().authorizeRequests().anyRequest().authenticated().expressionHandler(webSecurityExpressionHandler());
-        http.sessionManagement().maximumSessions(1);
+                .permitAll();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        auth.inMemoryAuthentication()
+                .withUser("pejadmin").password("pejadmin?000Dddd@123").authorities("ADMIN");
     }
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**", "/js/**","/fonts/**");
     }
+
+
     @Bean(name = "accessDecisionManager")
     public AccessDecisionManager accessDecisionManager() {
         List<AccessDecisionVoter<? extends Object>> decisionVoters = new ArrayList();
@@ -102,23 +136,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                  decisionVoters.add(webExpressionVoter());
                MyAccessDecisionManager accessDecisionManager =  new MyAccessDecisionManager(decisionVoters);
                return accessDecisionManager;
-             }
+
+    }
+
+
     @Bean(name = "authenticationManager")
      @Override
     public AuthenticationManager authenticationManagerBean(){
-                 AuthenticationManager authenticationManager = null;
-                 try {
-                        authenticationManager = super.authenticationManagerBean();
-                    } catch (Exception e) {
-                       e.printStackTrace();
-                   }
-                 return authenticationManager;
-             }
+
+         AuthenticationManager authenticationManager = null;
+         try {
+                authenticationManager = super.authenticationManagerBean();
+            } catch (Exception e) {
+               e.printStackTrace();
+           }
+         return authenticationManager;
+
+    }
+
+
+
     @Bean(name = "expressionHandler")
      public DefaultWebSecurityExpressionHandler webSecurityExpressionHandler() {
                  DefaultWebSecurityExpressionHandler webSecurityExpressionHandler = new DefaultWebSecurityExpressionHandler();
                 return webSecurityExpressionHandler;
-           }
+
+    }
+
+
+
     @Bean(name = "expressionVoter")
      public WebExpressionVoter webExpressionVoter() {
                 WebExpressionVoter webExpressionVoter = new WebExpressionVoter();

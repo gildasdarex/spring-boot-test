@@ -41,7 +41,6 @@ public class FormateurController {
 	    private Utilisateur usercourant;
 	@GetMapping("/pej/formateurs")
     String index(Model model,@ModelAttribute("objFormateur") Formateur objFormateur) {
-    	System.out.println("Starting Index Ok");
     	   try {
                List<Formateur> formateurs = (List<Formateur>) formateurRepository.findAll();
                model.addAttribute("formateurs", formateurs);
@@ -115,11 +114,8 @@ public class FormateurController {
         if (result.hasErrors()) {
             return "frmFormateur";
         }
-        if(objFormateur!=null)
-       System.out.println("Nom Formateur: "+objFormateur.getNom());
-        else
-        	System.out.println("objFormateur est null: ");
-        
+
+
        if(objFormateur.getIdformateur()!=null && objFormateur.getIdformateur().intValue() >0 ){
     	   Formateur formateur =formateurRepository.findOne(objFormateur.getIdformateur());
     	   formateur.setNom(objFormateur.getNom());
@@ -141,13 +137,15 @@ public class FormateurController {
        user.setPassword(bCryptPasswordEncoder.encode(objFormateur.getPassword()));
        user.setUsername(objFormateur.getUsername());
        userRepository.save(user);
-      Roles r=roleRepository.findByName("FORMATEUR");
+       Roles r=roleRepository.findByName("FORMATEUR");
        if(r!=null) {
            UsersRole userrole = new UsersRole();
            userrole.setRoles(r);
            userrole.setUtilisateur(user);
            userRoleRepository.save(userrole);
        }
+       else
+         System.out.println("role is null");
        return "redirect:/pej/formateurs";
     }
 

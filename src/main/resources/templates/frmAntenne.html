@@ -13,7 +13,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Edition Antenne</h3>
+                <h3>EDITION D'UNE ANTENNE</h3>
               </div>
 
               <div class="title_right">
@@ -21,7 +21,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for..."/>
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
+                      <button class="btn btn-default" type="button">RECHERCHER!</button>
                     </span>
                   </div>
                 </div>
@@ -42,19 +42,19 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Antenne</h2>
+                    <h2>ANTENNE</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
+                      <!--<li class="dropdown">-->
+                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>-->
+                        <!--<ul class="dropdown-menu" role="menu">-->
+                          <!--<li><a href="#">Settings 1</a>-->
+                          <!--</li>-->
+                          <!--<li><a href="#">Settings 2</a>-->
+                          <!--</li>-->
+                        <!--</ul>-->
+                      <!--</li>-->
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
@@ -65,7 +65,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 										
 					<form id="frmAgent" novalidate="true"  class="frmPej form-horizontal form-label-left" action="#" th:action="@{/pej/antennes}" th:object="${objAntenne}" method="post">
 				    	<div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Département <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">DEPARTEMENT <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                <select id="departement" name="departement" class="select2_single form-control" th:field="*{departement}">
@@ -74,19 +74,19 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             </div>
                         </div>
 				       <div class="item form-group">
-                            <label for="numerofiche" class="control-label col-md-3 col-sm-3 col-xs-12">Intitué</label>
+                            <label for="numerofiche" class="control-label col-md-3 col-sm-3 col-xs-12">INTITULE</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="libantenne" th:field="*{libantenne}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
 					    <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Nom</label>
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">NOM</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="responsable" th:field="*{responsable}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Téléphone</label>
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">TELEPHONE</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="numpresponsable" th:field="*{numresponsable}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
@@ -96,8 +96,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					    <div class="ln_solid"></div>
 					    <div class="form-group">
 					      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-					        <button type="reset" class="btn btn-primary">Annuler</button>
-					        <button type="submit" class="btn btn-success">Enregistrer</button>
+					        <button type="reset" class="btn btn-primary">ANNULER</button>
+					        <button type="submit" class="btn btn-success">ENREGISTRER</button>
 					      </div>
 					    </div>
 					

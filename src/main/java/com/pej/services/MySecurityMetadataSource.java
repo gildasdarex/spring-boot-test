@@ -69,11 +69,6 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
         if(resourceMap == null) {
             resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
             List<Rolespermission> resources =(List<Rolespermission>) this.resourcesDao.findAll();
-            System.out.println("Chargement de resource");
-            System.out.println("ressources="+resources);
-            //Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-
 
                 for (Roles resource : rolesRepository.findAll()) {
                     Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
@@ -89,7 +84,8 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
                 }
         Set<Map.Entry<String, Collection<ConfigAttribute>>> resourceSet = resourceMap.entrySet();
         Iterator<Map.Entry<String, Collection<ConfigAttribute>>> iterator = resourceSet.iterator();
-        }
+
+    }
 
 
 

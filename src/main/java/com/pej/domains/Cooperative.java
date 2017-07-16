@@ -38,7 +38,7 @@ public class Cooperative  implements java.io.Serializable {
      private String type;
      private Integer nombre;
      @JsonIgnore
-     private Departement departement;
+     private Commune commune;
      @JsonIgnore
      private  Lot lot;
      private Set<Beneficiairecooperative> beneficiairecooperatives = new HashSet<Beneficiairecooperative>(0);
@@ -101,16 +101,16 @@ public class Cooperative  implements java.io.Serializable {
         this.datecreation = datecreation;
     }
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="CODEDEPARTEMENT")
-    public Departement getDepartement() {
-        return this.departement;
+    @JoinColumn(name="CODECOMMUNE")
+    public Commune getCommune() {
+        return this.commune;
     }
     
-    public void setDepartement(Departement departement) {
-        this.departement = departement;
+    public void setCommune(Commune commune) {
+        this.commune = commune;
     }
     
-    @Column(name="USERLOGIN", length=50)
+    @Column(name="USERLOGIN", length=1024)
     public String getUserlogin() {
         return this.userlogin;
     }
@@ -118,7 +118,7 @@ public class Cooperative  implements java.io.Serializable {
     public void setType(String type) {
         this.type = type;
     }
-    @Column(name="TYPE", length=50)
+    @Column(name="TYPE", length=1024)
     public String getType() {
         return this.type;
     }
@@ -170,7 +170,7 @@ public class Cooperative  implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "Cooperative [idgroupe=" + idgroupe + ", libgroupe=" + libgroupe + ", description=" + description
-				+ ", datecreation=" + datecreation + ", userlogin=" + userlogin + ", departement=" + departement
+				+ ", datecreation=" + datecreation + ", userlogin=" + userlogin + ", commune=" + commune
 				+ ", lot=" + lot + ", beneficiairecooperatives=" + beneficiairecooperatives + "]";
 	}
 	

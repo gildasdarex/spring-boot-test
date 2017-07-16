@@ -6,6 +6,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,6 +53,9 @@ public class UsersManagementController {
 	@Autowired private UserRoleRepository usersRoleRepository;
 	@Autowired private AntenneRepository antenneRepository;
 	@Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
+	@Autowired private RolesRepository roleRepository;
+	@Autowired private UsersRepository userRepository;
+	@Autowired private UserRoleRepository userRoleRepository;
 
 
 	@GetMapping("/pej/usermamagement")
@@ -156,16 +162,10 @@ public class UsersManagementController {
 	
 	 @PostMapping("/pej/users")
 	    public String saveusers(@Valid @ModelAttribute(value="ObjUsers")  Utilisateur ObjUsers, BindingResult result,Model model) {
-	    	System.out.println("Starting Save Ok");
 	        if (result.hasErrors()) {
 	            return "frmUsers";
 	        }
-	        if(ObjUsers!=null)
-	       System.out.println("Lib permission: "+ObjUsers.getFirstname());
-	        else
-	        	System.out.println("ObjUsers est null: ");
-	       ObjUsers.setPassword(bCryptPasswordEncoder.encode(ObjUsers.getPassword()));
-	       if(ObjUsers.getIdusers()!=null && ObjUsers.getIdusers().intValue() >0 ){
+		  if(ObjUsers.getIdusers()!=null && ObjUsers.getIdusers().intValue() >0 ){
 	    	   Utilisateur users=usersRepository.findOne(ObjUsers.getIdusers().intValue());
 	    	   users.setFirstname(ObjUsers.getFirstname());
 	    	   users.setLastname(ObjUsers.getLastname());
@@ -174,13 +174,25 @@ public class UsersManagementController {
 	    	   //users.setDateModified(DATE.getCurrentDate());
 	           return "redirect:/pej/usermamagement";
 	       }
-	       //ObjUsers.setDateModified(DATE.getCurrentDate());
-	      // ObjUsers.setIdusers(2);
 	       ObjUsers.setEnabled(1);
-	       System.out.println("Utilisateur: "+ObjUsers.toString());
+		   ObjUsers.setPassword(bCryptPasswordEncoder.encode(ObjUsers.getPassword()));
+
 	       usersRepository.save(ObjUsers);
-	       
-	       return "redirect:/pej/usermamagement";
+
+		  Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+
+		  if(principal==null){
+			  Roles r=roleRepository.findByName("FORMATEUR");
+			  if(r!=null) {
+				  UsersRole userrole = new UsersRole();
+				  userrole.setRoles(r);
+				  userrole.setUtilisateur(ObjUsers);
+				  userRoleRepository.save(userrole);
+			  }
+		  }
+
+
+		 return "redirect:/pej/usermamagement";
 	    }
 	 	
 		@GetMapping("/pej/users/role/{id}")

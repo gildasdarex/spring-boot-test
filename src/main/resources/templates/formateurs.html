@@ -6,15 +6,15 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   <title>PEJ/Formateurs</title>
 </head>
 <body>
- 
+
   <div layout:fragment="content">
         <!-- page content -->
 			 <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
-		
+
             <div class="clearfix"></div>
-			<div th:with="notifyMessages=${session[T(com.pej.services.NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY]}">	
+			<div th:with="notifyMessages=${session[T(com.pej.services.NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY]}">
 				  <div th:each="msg : ${notifyMessages}"  class="alert alert-success alert-dismissible fade in" th:classappend="'alert-'+${#strings.toLowerCase(msg.type)}" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
 					</button>
@@ -23,15 +23,15 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				  <span th:if="${notifyMessages}" th:remove="all" th:text="${session.remove(T(com.pej.services.NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY)}"></span>
 			</div>
             <div class="row">
-            	  
+
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Liste des formateurs</h2>
+                    <h2>LISTE DES FORMATEURS</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      <li class="dropdown">
+                      <!-- <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                         <ul class="dropdown-menu" role="menu">
                           <li><a href="#">Settings 1</a>
@@ -39,7 +39,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                           <li><a href="#">Settings 2</a>
                           </li>
                         </ul>
-                      </li>
+                      </li> -->
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
@@ -47,7 +47,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                   </div>
                   <div class="x_content">
                      <div class="row" >
-							 <a style="margin-left: 8px;" href="#" th:href="@{/pej/formateurs/add}" class="btn btn-info"><i class="fa fa-plus"></i> Ajouter</a>
+							 <a style="margin-left: 8px;" href="#" th:href="@{/pej/formateurs/add}" class="btn btn-info"><i class="fa fa-plus"></i> AJOUTER</a>
 					</div>
                     <div class="table-responsive">
                       <table id="datatable-buttons" class="table table-striped table-bordered display nowrap"  cellspacing="0" width="100%">
@@ -56,12 +56,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             <th>
                               <input type="checkbox" id="check-all" class="flat"/>
                             </th>
-                            <th class="column-title">Nom</th>
-                            <th class="column-title">Prénom  </th>
-                            <th class="column-title">Date naissance </th>
-                            <th class="column-title">N°Carte identité </th>
-                            <th class="column-title">Téléphone</th>                            
-                            <th class="column-title no-link last"><span class="nobr">Action</span>
+                            <th class="column-title">NOM</th>
+                            <th class="column-title">PRENOM  </th>
+                            <th class="column-title">DATE DE NAISSANCE </th>
+                            <th class="column-title">N°CARTE D'IDENTITE </th>
+                            <th class="column-title">TELEPHONE</th>
+                            <th class="column-title no-link last"><span class="nobr">ACTION</span>
                             </th>
                             <th class="bulk-actions" colspan="7">
                               <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
@@ -85,9 +85,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 										<a class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> Supprimer</a>
 									</div>
 								</td>
-						
-		           
-                          
+
+
+
 							</tr>
                         </tbody>
                       </table>
@@ -99,13 +99,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
           </div>
         </div>
         <!-- /page content -->
-        <!-- /page content -->    
+        <!-- /page content -->
   </div>
 
   <footer>
     <p layout:fragment="custom-footer">This is some footer content from content page 1</p>
   </footer>
-  
+
 
 </body>
 </html>

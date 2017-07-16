@@ -1,9 +1,12 @@
 package com.pej.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import com.pej.domains.*;
+import com.pej.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -17,22 +20,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.pej.domains.Candidat;
-import com.pej.domains.Cooperative;
-import com.pej.domains.Departement;
-import com.pej.domains.Don;
-import com.pej.domains.DonCooperative;
-import com.pej.domains.Lot;
-import com.pej.repository.CooperativeRepository;
-import com.pej.repository.DepartementRepository;
-import com.pej.repository.DoncooperativeRepository;
-import com.pej.repository.LotRepository;
 import com.pej.services.NotificationService;
 
 @Controller
 public class CooperativeController {
 	@Autowired private CooperativeRepository cooperativeRepository;
 	@Autowired private DepartementRepository departementRepository;
+	@Autowired private CommuneRepository communeRepository;
 	@Autowired private DoncooperativeRepository doncooperativeRepository;
 	@Autowired private LotRepository lotRepository;
 	@Autowired private NotificationService notifyService;
@@ -47,13 +41,18 @@ public class CooperativeController {
 		
 		@GetMapping("/pej/cooperatives/add")
 		public String editCommune(@ModelAttribute("objCooperative") Cooperative objCooperative, ModelMap model){
-			List<Departement> departements = (List<Departement>) departementRepository.findAll();
-			model.addAttribute("departements", departements); 
+			List<Commune> communes = new ArrayList<>();
 			model.addAttribute("objCooperative", objCooperative);
 			
 			List<Lot> lots = (List<Lot>) lotRepository.findAll();
+			for(Lot lot : lots){
+				communes.add(communeRepository.findOne(Integer.parseInt(lot.getCommune())));
+			}
 			model.addAttribute("lots", lots);
-			 return "frmCooperative";
+			model.addAttribute("communes", communes);
+			System.out.println("------------ " + communes.size());
+			System.out.println("------------ " + communes.get(0));
+			return "frmCooperative";
 		}
 		
 		@GetMapping("/pej/cooperatives/{id}")

@@ -32,52 +32,64 @@
               <div class="menu_section">
                 <!--<h3><span th:text="${session.USER_ROLE}">US</span></h3>-->
                 <ul class="nav side-menu">
-                 <li ><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Tableau de bords<span class="label label-success pull-right">Graphes</span></a></li>
-                 <li ><a><i class="fa fa-home"></i> Accueil <span class="fa fa-chevron-down"></span></a>
+                 <li ><a href="javascript:void(0)"><i class="fa fa-laptop"></i> TABLEAU DE BORD<span class="label label-success pull-right">Graphes</span></a></li>
+                 <li ><a><i class="fa fa-home"></i> ACCEUIL <span class="fa fa-chevron-down"></span></a>
                     <!-- ul class="nav child_menu">
                       <li><a  href="#" th:href="@{/pej/dashboard}">Tableau de bord</a></li>
                     </ul-->
                   </li>
-                  <li ><a><i class="fa fa-edit"></i> Gestion des candidatures <span class="fa fa-chevron-down"></span></a>
+                  <li ><a><i class="fa fa-edit"></i> GESTION DES CANDIDATS <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="#" th:href="@{/pej/candidats}">Candidats</a></li>
-                      <li><a href="#" th:href="@{/pej/candidats/upload}">Chargement de fichier</a></li>
-                      <li><a href="#" th:href="@{/pej/candidats/tirage}">Tirage</a></li>
-                      <li><a href="#" th:href="@{/pej/cooperatives}">Grp. d'apprenants</a></li>
-                       <li><a href="#" th:href="@{/pej/agents}">Agents recruteurs</a></li>
-                      <li><a href="#" th:href="@{/pej/decoupement}">Découpement territoriale</a></li>
-                      <li><a href="#" th:href="@{/pej/antennes}">Antennes</a></li>
-                      <li><a href="#" th:href="@{/pej/statutcandidats}">Statuts</a></li>
-                       <li><a href="#" th:href="@{/pej/materiels}">Matériels</a></li>
-                        <li><a href="#" th:href="@{/pej/fournisseurs}">Fournisseurs</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-desktop"></i> Gestion des formations <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                    <li><a href="#" th:href="@{/pej/lots}">Lots</a></li>
-                    <li><a href="#" th:href="@{/pej/cabinets}">Cabinets</a></li>
-                    <li><a href="#" th:href="@{/pej/typeformations}">Type formation</a></li>
-                    <li><a href="#" th:href="@{/pej/formateurs}">Formateurs</a></li>
-                      <li><a href="#" th:href="@{/pej/formations}">Module de formation</a></li>
-                    <li ><a href="#" th:href="@{/pej/fformations}">Formations formateurs</a></li>
-                    </ul>
-                  </li>
-                    <li><a><i class="fa fa-desktop"></i> Gestion des entreprises <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="#" th:href="@{/pej/entreprises}">Entreprises</a></li>
+                      <li><a href="#" th:href="@{/pej/candidats}">CANDIDATS</a></li>
+                      <!--<li><a href="#" th:href="@{/pej/candidats/upload}">Chargement de fichier</a></li>-->
+                      <li><a href="#" th:href="@{/pej/candidats/tirage}">TIRAGE DES CANDIDATS</a></li>
+                      <li><a href="#" th:href="@{/pej/cooperatives}">GROUPEMENT DES APPRENANTS</a></li>
 
-                        </ul>
-                    </li>
-                  <li><a><i class="fa fa-table"></i> Gestion des dons <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="#" >Suivi des dons</a></li>
+                      <!--<li><a href="#" th:href="@{/pej/decoupement}">Découpement territoriale</a></li>-->
+
+                      <li><a href="#" th:href="@{/pej/statutcandidats}">STATUS DES CANDIDATS</a></li>
+                       <!--<li><a href="#" th:href="@{/pej/materiels}">Matériels</a></li>-->
+                        <!--<li><a href="#" th:href="@{/pej/fournisseurs}">Fournisseurs</a></li>-->
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-bar-chart-o"></i>Configuration <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-desktop"></i> GESTION DES FORMATIONS <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="#" th:href="@{/pej/usermamagement}">Utilisateurs</a></li>
+                    <li><a href="#" th:href="@{/pej/lots}">LOTS</a></li>
+                    <li><a href="#" th:href="@{/pej/cabinets}">CABINETS</a></li>
+                    <li><a href="#" th:href="@{/pej/typeformations}">TYPE DE FORMATION</a></li>
+
+                      <li><a href="#" th:href="@{/pej/formations}">FORMATIONS</a></li>
+                    <li ><a href="#" th:href="@{/pej/fformations}">FORMATION DES FORMATEURS</a></li>
                     </ul>
                   </li>
+                    <!--<li><a><i class="fa fa-desktop"></i> Gestion des entreprises <span class="fa fa-chevron-down"></span></a>-->
+                        <!--<ul class="nav child_menu">-->
+                            <!--<li><a href="#" th:href="@{/pej/entreprises}">Entreprises</a></li>-->
+
+                        <!--</ul>-->
+                    <!--</li>-->
+                  <!--<li><a><i class="fa fa-table"></i> Gestion des dons <span class="fa fa-chevron-down"></span></a>-->
+                    <!--<ul class="nav child_menu">-->
+                      <!--<li><a href="#" >Suivi des dons</a></li>-->
+                    <!--</ul>-->
+                  <!--</li>-->
+                  <li><a><i class="fa fa-bar-chart-o"></i>GESTION DES ACTEURS <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="#" th:href="@{/pej/usermamagement}">UTILISATEURS STANDARD</a></li>
+                        <li><a href="#" th:href="@{/pej/formateurs}">FORMATEURS</a></li>
+                        <li><a href="#" th:href="@{/pej/agents}">AGENTS RECRUTEUR</a></li>
+                    </ul>
+                  </li>
+
+                <li ><a><i class="fa fa-edit"></i> INFORMATIONS  CONNEXES <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="#" th:href="@{/pej/antennes}">ANTENNE</a></li>
+                        <li><a href="#" th:href="@{/pej/candidats/upload}">CHARGEMENT DE FICHIER</a></li>
+                        <li><a href="#" th:href="@{/pej/decoupement}">DECOUPEMENT TERRITORIAL</a></li>
+                        <li><a href="#" th:href="@{/pej/materiels}">MATERIELS</a></li>
+                        <li><a href="#" th:href="@{/pej/fournisseurs}">FOURNISSEUR</a></li>
+                    </ul>
+                </li>
         
                 </ul>
               </div>

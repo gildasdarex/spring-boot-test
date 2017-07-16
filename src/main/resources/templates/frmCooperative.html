@@ -13,7 +13,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Edition Grp. d'apprenants</h3>
+                <h3>EDITION DES GROUPEMENTS D'APPRENANTS</h3>
               </div>
 
               <div class="title_right">
@@ -21,7 +21,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for..."/>
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
+                      <button class="btn btn-default" type="button">RECHERCHER!</button>
                     </span>
                   </div>
                 </div>
@@ -42,19 +42,19 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Grp. d'apprenants</h2>
+                    <h2>GROUPEMENT D'APPRENANTS</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
+                      <!--<li class="dropdown">-->
+                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>-->
+                        <!--<ul class="dropdown-menu" role="menu">-->
+                          <!--<li><a href="#">Settings 1</a>-->
+                          <!--</li>-->
+                          <!--<li><a href="#">Settings 2</a>-->
+                          <!--</li>-->
+                        <!--</ul>-->
+                      <!--</li>-->
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
@@ -64,27 +64,28 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                   <div class="x_content">
 										
 					<form id="frmCooperative"  novalidate="true" class="frmPej form-horizontal form-label-left" action="#" th:action="@{/pej/cooperatives}" th:object="${objCooperative}" method="post">
-				    	<div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Département <span class="required">*</span>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">LOT D'AFFECTATION <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                               <select id="departement" name="departement" class="select2_single form-control" th:field="*{departement}">
-	                            	<option data-th-each="departement : ${departements}" th:text="${departement.libdeparteement}" th:value="${departement.codedepartement}"></option>      
-	                           </select>
+                                <select id="lot" name="lot" class="select2_single form-control" th:field="*{lot}">
+                                    <option data-th-each="lot : ${lots}" th:text="${lot.intitule}" th:value="${lot.idlot}"></option>
+                                </select>
                             </div>
                         </div>
+
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Lot d'affectation <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">COMMUNE <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                               <select id="lot" name="lot" class="select2_single form-control" th:field="*{lot}">
-	                            	<option data-th-each="lot : ${lots}" th:text="${lot.intitule}" th:value="${lot.idlot}"></option>      
+                               <select id="commune" name="commune" class="select2_single form-control" th:field="*{commune}">
+	                            	<option data-th-each="commune : ${communes}" th:text="${commune.libcommune}" th:value="${commune.libcommune}"></option>
 	                           </select>
                             </div>
                         </div>
                         
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">Type d'ensemble<span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">TYPE D'ENSEMBLE<span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                <select id="type" name="type" class="select2_single form-control" th:field="*{type}">
@@ -95,19 +96,19 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                         </div>
                         
 				       <div class="item form-group">
-                            <label for="numerofiche" class="control-label col-md-3 col-sm-3 col-xs-12">Intitué</label>
+                            <label for="numerofiche" class="control-label col-md-3 col-sm-3 col-xs-12">INTITULE</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="libgroupe" th:field="*{libgroupe}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label for="nombre" class="control-label col-md-3 col-sm-3 col-xs-12">Nombre max</label>
+                            <label for="nombre" class="control-label col-md-3 col-sm-3 col-xs-12">NOMBRE</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="nombre" th:field="*{nombre}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
 					    <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">DESCRIPTION</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="description" th:field="*{description}"  class="form-control col-md-7 col-xs-12"/>
                             </div>
@@ -116,8 +117,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					    <div class="ln_solid"></div>
 					    <div class="form-group">
 					      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-					        <button type="reset" class="btn btn-primary">Annuler</button>
-					        <button type="submit" class="btn btn-success">Enregistrer</button>
+					        <button type="reset" class="btn btn-primary">ANNULER</button>
+					        <button type="submit" class="btn btn-success">ENREGISTRER</button>
 					      </div>
 					    </div>
 					

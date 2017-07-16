@@ -71,19 +71,19 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2  data-th-text="${formation.intitule} +': Liste des formateurs non sélectionnés'"></h2>
+                      <h2  data-th-text=" 'LISTE DES FORMATEURS NON SELECTIONNESPOUR LA FORMATION' + ${formation.intitule}"></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
+                      <!--<li class="dropdown">-->
+                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>-->
+                        <!--<ul class="dropdown-menu" role="menu">-->
+                          <!--<li><a href="#">Settings 1</a>-->
+                          <!--</li>-->
+                          <!--<li><a href="#">Settings 2</a>-->
+                          <!--</li>-->
+                        <!--</ul>-->
+                      <!--</li>-->
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
@@ -98,12 +98,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             <th>
                               <input type="checkbox" id="check-all" class="flat"/>
                             </th>
-                            <th class="column-title">Nom</th>
-                            <th class="column-title">Prénom  </th>
-                            <th class="column-title">Date naissance </th>
-                            <th class="column-title">N° Carte identité </th>
-                            <th class="column-title">Téléphone</th>                            
-                            <th class="column-title no-link last"><span class="nobr">Action</span>
+                            <th class="column-title">NOM</th>
+                            <th class="column-title">PRENOM  </th>
+                            <th class="column-title">DATE DE NAISSANCE </th>
+                            <th class="column-title">N°CARTE D'IDENTITE </th>
+                            <th class="column-title">TELEPHONE</th>
+                            <th class="column-title no-link last"><span class="nobr">ACTION</span>
                             </th>
                             <th class="bulk-actions" colspan="7">
                               <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
@@ -147,19 +147,19 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2  data-th-text="${formation.intitule} +': Liste des formateurs  sélectionnés'"></h2>
+                      <h2  data-th-text=" 'LISTE DES FORMATEURS SELECTIONNESPOUR LA FORMATION' + ${formation.intitule}"></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
+                      <!--<li class="dropdown">-->
+                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>-->
+                        <!--<ul class="dropdown-menu" role="menu">-->
+                          <!--<li><a href="#">Settings 1</a>-->
+                          <!--</li>-->
+                          <!--<li><a href="#">Settings 2</a>-->
+                          <!--</li>-->
+                        <!--</ul>-->
+                      <!--</li>-->
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
@@ -173,12 +173,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             <th>
                               <input type="checkbox" id="check-all" class="flat"/>
                             </th>
-                            <th class="column-title">Nom</th>
-                            <th class="column-title">Prénom  </th>
-                            <th class="column-title">Date naissance </th>
-                            <th class="column-title">N° Carte identité </th>
-                            <th class="column-title">Téléphone</th>                            
-                            <th class="column-title no-link last"><span class="nobr">Action</span>
+                            <th class="column-title">NOM</th>
+                            <th class="column-title">PRENOM  </th>
+                            <th class="column-title">DATE DE NAISSANCE</th>
+                            <th class="column-title">N° CARTE D'IDENTITE</th>
+                            <th class="column-title">TELEPHONE</th>
+                            <th class="column-title no-link last"><span class="nobr">ACTION</span>
                             </th>
                             <th class="bulk-actions" colspan="7">
                               <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
@@ -198,7 +198,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 								<td class=" " data-th-text="${formateur.telephone}"></td>
 								<td>
 									<div class="btn-group btn-group-xs">
-										<a class="btn btn-warning" th:href="@{'/pej/formateurs/' + ${formateur.idformateur}}"><i class="fa fa-remove" data-toggle="tooltip" title="Edit"></i>Enlever</a>
+										<a class="btn btn-warning" th:href="@{'/pej/formateurs/' + ${formateur.idformateur}}"><i class="fa fa-remove" data-toggle="tooltip" title="Edit"></i>ENLEVER</a>
 									</div>
 								</td>
 							</tr>

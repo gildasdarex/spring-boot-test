@@ -58,7 +58,7 @@ public class Departement  implements java.io.Serializable {
     }
 
     
-    @Column(name="LIBDEPARTEEMENT", length=50)
+    @Column(name="LIBDEPARTEEMENT", length=256)
     public String getLibdeparteement() {
         return this.libdeparteement;
     }

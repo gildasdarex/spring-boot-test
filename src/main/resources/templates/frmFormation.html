@@ -127,7 +127,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
 	                            <select id="formateur" name="formateur" class="select2_single form-control" th:field="*{formateurs}" multiple="multiple">
-	                            	<option data-th-each="formateur : ${formateurs}" th:text="${formateur.nom}" th:value="${formateur.idformateur}"></option>      
+	                            	<option data-th-each="formateur : ${formateurs}" th:text="${formateur.nom + ' ' + formateur.prenom}" th:value="${formateur.idformateur}"></option>
 	                           </select>
 	                         </div>
                         </div>         

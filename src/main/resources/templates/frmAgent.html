@@ -13,7 +13,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Edition Agent</h3>
+                <h3>EDITION D'UN AGENT RECRUTEUR</h3>
               </div>
 
               <div class="title_right">
@@ -42,19 +42,19 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Agent</h2>
+                    <h2>AGENT RECRUTEUR</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
+                      <!--<li class="dropdown">-->
+                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>-->
+                        <!--<ul class="dropdown-menu" role="menu">-->
+                          <!--<li><a href="#">Settings 1</a>-->
+                          <!--</li>-->
+                          <!--<li><a href="#">Settings 2</a>-->
+                          <!--</li>-->
+                        <!--</ul>-->
+                      <!--</li>-->
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
@@ -65,7 +65,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 										
 					  <form id="frmAgent"  novalidate="true" class="frmPej form-horizontal form-label-left" action="#" th:action="@{/pej/agents}" th:object="${objAgent}" method="post">
 				       <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Antenne <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">ANTENNE <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                <select id="antenne" name="antenne" class="select2_single form-control" th:field="*{antenne}">
@@ -74,31 +74,31 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             </div>
                         </div>
 				       <div class="item form-group">
-                            <label for="numeroagent1" class="control-label col-md-3 col-sm-3 col-xs-12">N° Agent</label>
+                            <label for="numeroagent1" class="control-label col-md-3 col-sm-3 col-xs-12">N°AGENT</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="numeroagent1" th:field="*{numeroagent}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
 					    <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Nom</label>
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">NOM</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="nom" th:field="*{nom}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Prénom</label>
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">PRENOM</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="prenom" th:field="*{prenom}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">Date naissance</label>
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">DATE DE NAISSANCE</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="datenaissance" th:field="*{datenaissance}" th:required="required" class="form-control col-md-7 col-xs-12" data-inputmask="'mask': '99/99/9999'"/>
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Sexe <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">SEXE <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
 	                            <select id="sexe" name="scolarise" class="select2_single form-control"  th:field="*{sexe}">
@@ -108,13 +108,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	                         </div>
                          </div>
                          <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">N° Téléphone</label>
+                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">TELEPHONE</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" data-inputmask="'mask' : '(+229) 99 99 99 99'" id="telephone" th:field="*{telephone}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label for="cardid" class="control-label col-md-3 col-sm-3 col-xs-12">N° Carte d'identité</label>
+                            <label for="cardid" class="control-label col-md-3 col-sm-3 col-xs-12">N°CARTE D'IDENTITE</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="cardid" th:field="*{cardid}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
@@ -123,8 +123,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					    <div class="ln_solid"></div>
 					    <div class="form-group">
 					      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-					        <button type="reset" class="btn btn-primary">Annuler</button>
-					        <button type="submit" class="btn btn-success">Enregistrer</button>
+					        <button type="reset" class="btn btn-primary">ANNULER</button>
+					        <button type="submit" class="btn btn-success">ENREGISTRER</button>
 					      </div>
 					    </div>
 					

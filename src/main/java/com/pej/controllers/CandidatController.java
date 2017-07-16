@@ -95,6 +95,7 @@ public class CandidatController {
     Fichefinancement fiche=new Fichefinancement()
     		;
 	private static String UPLOAD_LOCATION="C:/FFOutput/";
+
 	@GetMapping("/pej/candidats")
     String index(Model model,@ModelAttribute("objDepartement") Departement objDepartement) {  
 		List<Candidat> candidats = (List<Candidat>) candidatRepository.findAll();
@@ -121,7 +122,6 @@ public class CandidatController {
     	model.addAttribute("objCritere", objCritere);
     	model.addAttribute("communes", communes);
     	model.addAttribute("statuts", statuts);
-    	System.out.println("Nbre candidats: "+candidats.size());
         return "candidats";
     }
 	
@@ -137,7 +137,13 @@ public class CandidatController {
 	@RequestMapping(value="/pej/candidats/add", method=RequestMethod.GET)
     String addCandidat(@ModelAttribute("objCandidat") Candidat objCandidat, ModelMap model) {
     	List<Departement> departements = (List<Departement>) departementRepository.findAll();
+		List<Commune> communes = (List<Commune>) communeRepository.findAll();
+		List<Arrondissement> arrondissements = (List<Arrondissement>) arrondissementRepository.findAll();
+		List<Quartier> quartiers = (List<Quartier>) quartierRepository.findAll();
     	model.addAttribute("departements", departements);
+		model.addAttribute("communes", communes);
+		model.addAttribute("arrondissements", arrondissements);
+		model.addAttribute("quartiers", quartiers);
         return "frmCandidat";
     }
 	
