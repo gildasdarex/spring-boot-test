@@ -22,7 +22,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>D&eacute;coupage territoriale</h3>
+                <h3>DECOUPAGE TERRITORIAL</h3>
               </div>
 
               <div class="title_right">
@@ -30,7 +30,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for..."/>
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
+                      <button class="btn btn-default" type="button">RECHERCHER!</button>
                     </span>
                   </div>
                 </div>
@@ -51,7 +51,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
              <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Liste des d&eacute;partements<small></small></h2>
+                    <h2>LISTE DES DEPARTEMENTS<small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -72,16 +72,16 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                   <div class="x_content">
                    <div class="table-responsive">
 						<div class="row">
-							 <a href="#" th:href="@{/pej/departement}" class="btn btn-info"><i class="fa fa-plus"></i> Ajouter</a>
+							 <a href="#" th:href="@{/pej/departement}" class="btn btn-info"><i class="fa fa-plus"></i> AJOUTER</a>
 			
 						</div>
 						<table id="datatable-departements" class="table table-striped table-bordered bulk_action">
 							<thead>
 								<tr>
-								  <th>Code</th>
-								  <th>Libelle</th>
-								  <th>Description</th>
-								   <th>Action</th>
+								  <th>CODE</th>
+								  <th>LIBELLE</th>
+								  <th>DESCRIPTION</th>
+								   <th>ACTION</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -91,8 +91,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 								<td data-th-text="${departement.description}"></td>
 								<td>
 									<div class="btn-group btn-group-xs">
-										<a class="btn btn-default" th:href="@{'/pej/departement/' + ${departement.codedepartement}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> Modifier</a>
-										<a class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> Supprimer</a>
+										<a class="btn btn-default" th:href="@{'/pej/departement/' + ${departement.codedepartement}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> MODIFIER</a>
+										<a class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> SUPPRIMER</a>
 									</div>
 								</td>
 							</tr>
@@ -106,7 +106,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Liste des communes<small></small></h2>
+                    <h2>LISTE DES COMMUNES<small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -128,7 +128,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					<div class="row">
 							
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">S&eacute;lectionner d&eacute;partement</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">SELECTIONNER DEPARTEMENT</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="select2_single form-control" tabindex="-1">
                             <option data-th-each="departement : ${departements}" th:text="${departement.libdeparteement}" th:value="${departement.codedepartement}"></option>
@@ -137,7 +137,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                         
                         </div>
                        <div class="col-md-3 col-sm-3 col-xs-12">
-                       <a href="#" th:href="@{/pej/commune}" class="btn btn-info"><i class="fa fa-plus"></i> Ajouter</a>
+                       <a href="#" th:href="@{/pej/commune}" class="btn btn-info"><i class="fa fa-plus"></i> AJOUTER</a>
                       </div>
 						</div>
 						</div>
@@ -145,11 +145,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						<table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%" id="datatable-communes">
 							<thead>
 								<tr>
-								  <th>Code</th>
-								  <th>Libelle</th>
-								  <th>Description</th>
-								   <th>Département</th>
-								   <th>Action</th>
+								  <th>CODE</th>
+								  <th>LIBELLE</th>
+								  <th>DESCRIPTION</th>
+								   <th>DEPARTEMENT</th>
+								   <th>ACTION</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -176,7 +176,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Liste des arrondissements<small></small></h2>
+                    <h2>LISTE DES ARRONDISSEMENTS<small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -198,7 +198,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					<div class="row">
 							
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">S&eacute;lectionner commune</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">SELECTIONNER COMMUNE</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="select2_single form-control" tabindex="-1" id="communelist">
                             <!-- option data-th-each="departement : ${departements}" th:text="${departement.libdeparteement}" th:value="${departement.codedepartement}"></option-->
@@ -207,7 +207,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                         
                         </div>
                        <div class="col-md-3 col-sm-3 col-xs-12">
-                       <a href="#" th:href="@{/pej/decoupement/arrondissement/add}" class="btn btn-info"><i class="fa fa-plus"></i> Ajouter</a>
+                       <a href="#" th:href="@{/pej/decoupement/arrondissement/add}" class="btn btn-info"><i class="fa fa-plus"></i> AJOUTER</a>
                       </div>
 						</div>
 						</div>
@@ -215,11 +215,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						<table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%" id="datatable-arrondissements">
 							<thead>
 								<tr>
-								  <th>Code</th>
-								  <th>Libelle</th>
-								  <th>Description</th>
-								   <th>Commune</th>
-								   <th>Action</th>
+								  <th>CODE</th>
+								  <th>LIBELLE</th>
+								  <th>DESCRIPTION</th>
+								   <th>COMMUNE</th>
+								   <th>ACTION</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -230,8 +230,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 								<td data-th-text="${arrondissement.commune.libcommune}"></td>
 								<td>
 									<div class="btn-group btn-group-xs">
-										<a class="btn btn-default" th:href="@{'/pej/arrondissement/' + ${arrondissement.codearrondissement}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> Modifier</a>
-										<a class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> Supprimer</a>
+										<a class="btn btn-default" th:href="@{'/pej/arrondissement/' + ${arrondissement.codearrondissement}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> MODIFIER</a>
+										<a class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> SUPPRIMER</a>
 									</div>
 								</td>
 							</tr>
@@ -246,7 +246,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Liste des Quartiers<small></small></h2>
+                    <h2>LISTE DES QUARTIERS<small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -268,7 +268,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					<div class="row">
 							
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">S&eacute;lectionner commune</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">SELECTIONNER COMMUNE</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="select2_single form-control" tabindex="-1" id="communelist">
                             <!-- option data-th-each="departement : ${departements}" th:text="${departement.libdeparteement}" th:value="${departement.codedepartement}"></option-->
@@ -284,11 +284,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						<table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%" id="datatable-arrondissements">
 							<thead>
 								<tr>
-								  <th>Code</th>
-								  <th>Libelle</th>
-								  <th>Description</th>
-								   <th>Arrondissement</th>
-								   <th>Action</th>
+								  <th>CODE</th>
+								  <th>LIBELLE</th>
+								  <th>DESCRIPTION</th>
+								   <th>ARRONDISSEMENT</th>
+								   <th>ACTION</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -299,8 +299,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 								<td data-th-text="${quartier.arrondissement.libarrondissement}"></td>
 								<td>
 									<div class="btn-group btn-group-xs">
-										<a class="btn btn-default" th:href="@{'/pej/quartier/' + ${quartier.idquartier}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> Modifier</a>
-										<a class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> Supprimer</a>
+										<a class="btn btn-default" th:href="@{'/pej/quartier/' + ${quartier.idquartier}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> MODIFIER</a>
+										<a class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> SUPPRIMER</a>
 									</div>
 								</td>
 							</tr>

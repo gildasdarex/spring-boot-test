@@ -189,7 +189,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 										  <label class="control-label col-md-3 col-sm-3 col-xs-12" >DEPARTEMENT <span class="required">*</span>
 										  </label>
 										  <div class="col-md-6 col-sm-6 col-xs-12">
-											  <select id="departement" name="localdepartement" class="select2_single form-control" th:required="required" th:field="*{localdepartement}">
+											  <select id="departement" name="localdepartement" class="form-control" th:required="required" th:field="*{localdepartement}">
 												  <option data-th-each="departement : ${departements}" th:text="${departement.libdeparteement}" th:value="${departement.libdeparteement}"></option>
 											  </select>
 										  </div>
@@ -198,7 +198,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 										  <label class="control-label col-md-3 col-sm-3 col-xs-12" >COMMUNE <span class="required">*</span>
 										  </label>
 										  <div class="col-md-6 col-sm-6 col-xs-12">
-											  <select id="commune" name="localcommune" class="select2_single form-control" th:required="required" th:field="*{localcommune}">
+											  <select id="commune" name="localcommune" class="form-control" th:required="required" th:field="*{localcommune}">
 												  <option data-th-each="commune : ${communes}" th:text="${commune.libcommune}" th:value="${commune.libcommune}"></option>
 											  </select>
 										  </div>
@@ -207,7 +207,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 										  <label class="control-label col-md-3 col-sm-3 col-xs-12" >ARRONDISSEMENT <span class="required">*</span>
 										  </label>
 										  <div class="col-md-6 col-sm-6 col-xs-12">
-											  <select id="arrondissement" name="arrondissement" class="select2_single form-control" th:required="required" th:field="*{arrondissement}">
+											  <select id="arrondissement" name="arrondissement" class="form-control" th:required="required" th:field="*{arrondissement}">
 												  <option data-th-each="arrondissement : ${arrondissements}" th:text="${arrondissement.libarrondissement}" th:value="${arrondissement.libarrondissement}"></option>
 											  </select>
 										  </div>
@@ -216,7 +216,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 										  <label class="control-label col-md-3 col-sm-3 col-xs-12" >VILLAGE/QUARTIER <span class="required">*</span>
 										  </label>
 										  <div class="col-md-6 col-sm-6 col-xs-12">
-											  <select id="quartier" name="quartier" class="select2_single form-control" th:required="required" th:field="*{quartier}">
+											  <select id="quartier" name="quartier" class="form-control" th:required="required" th:field="*{quartier}">
 												  <option data-th-each="quartier : ${quartierS}" th:text="${quartier.libquartier}" th:value="${quartier.libquartier}"></option>
 											  </select>
 										  </div>

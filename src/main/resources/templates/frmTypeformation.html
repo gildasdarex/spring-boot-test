@@ -76,14 +76,24 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                               <input type="text" id="intitule" th:field="*{intitule}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
-					    <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">NATURE</label>
-                             <div class="form-control col-md-7 col-xs-12">
-                                 <select id="nature" name="scolarise" class="form-control"  th:field="*{nature}">
-                                     <option value="1">OBLIGATOIRE</option>
-                                     <option value="0">NON OBLIGATOIRE</option>
-                                 </select>
-                              <!--<input type="text" id="nature" th:field="*{nature}" th:required="required" class="form-control col-md-7 col-xs-12"/>-->
+					    <!--<div class="item form-group">-->
+                            <!--<label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">NATURE</label>-->
+                             <!--<div class="form-control col-md-7 col-xs-12">-->
+                                 <!--<select id="nature" name="scolarise" class="form-control"  th:field="*{nature}">-->
+                                     <!--<option value="1">OBLIGATOIRE</option>-->
+                                     <!--<option value="0">NON OBLIGATOIRE</option>-->
+                                 <!--</select>-->
+                              <!--&lt;!&ndash;<input type="text" id="nature" th:field="*{nature}" th:required="required" class="form-control col-md-7 col-xs-12"/>&ndash;&gt;-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nature">NATURE <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select id="nature" name="nature" class="select2_single form-control"  th:field="*{nature}">
+                                    <option value="obligatoire">OBLIGATOIRE</option>
+                                    <option value="non obligatoire">NON OBLIGATOIRE</option>
+                                </select>
                             </div>
                         </div>
                         <div class="item form-group">

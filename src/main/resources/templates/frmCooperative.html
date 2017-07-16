@@ -65,7 +65,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 										
 					<form id="frmCooperative"  novalidate="true" class="frmPej form-horizontal form-label-left" action="#" th:action="@{/pej/cooperatives}" th:object="${objCooperative}" method="post">
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">LOT D'AFFECTATION <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="commune">LOT D'AFFECTATION <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select id="lot" name="lot" class="select2_single form-control" th:field="*{lot}">
@@ -75,11 +75,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                         </div>
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">COMMUNE <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="commune">COMMUNE <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                <select id="commune" name="commune" class="select2_single form-control" th:field="*{commune}">
-	                            	<option data-th-each="commune : ${communes}" th:text="${commune.libcommune}" th:value="${commune.libcommune}"></option>
+	                            	<option data-th-each="commune : ${communes}" th:text="${commune.libcommune}" th:value="${commune.codecommune}"></option>
 	                           </select>
                             </div>
                         </div>

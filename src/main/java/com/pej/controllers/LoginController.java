@@ -100,6 +100,15 @@ public class LoginController {
 		return "";
     }
 
+
+    @GetMapping("/pej/403")
+        //@PostMapping("/pej/login")
+    String deniedPage() {
+        //notifyService.addErrorMessage("Vous n'avez pas les droits necessaires. Connectez-vous en tant que administrateur");
+        return "403";
+    }
+
+
     @RequestMapping(value="pej/logout", method = RequestMethod.GET)
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

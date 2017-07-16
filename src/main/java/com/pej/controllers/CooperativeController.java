@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -57,21 +58,29 @@ public class CooperativeController {
 		
 		@GetMapping("/pej/cooperatives/{id}")
 		public String modifierCooperative(@PathVariable Integer id, ModelMap model){
-			List<Departement> departements = (List<Departement>) departementRepository.findAll();
-			model.addAttribute("departements", departements); 
-			System.out.println("START FIND COOPERATIVE OK");
-			Cooperative objCooperative=cooperativeRepository.findOne(id);
+			List<Commune> communes = new ArrayList<>();
 			List<Lot> lots = (List<Lot>) lotRepository.findAll();
+			for(Lot lot : lots){
+				communes.add(communeRepository.findOne(Integer.parseInt(lot.getCommune())));
+			}
+			//model.addAttribute("departements", departements);
+			//System.out.println("START FIND COOPERATIVE OK");
+			Cooperative objCooperative=cooperativeRepository.findOne(id);
 			model.addAttribute("lots", lots);
-			model.addAttribute("objCooperative", objCooperative); 
+			model.addAttribute("objCooperative", objCooperative);
+			model.addAttribute("communes", communes);
 			System.out.println("End find cooperative: "+objCooperative);
 			return "frmCooperative";
-			//return "redirect:/pej/cooperatives";
 		}
 	    @PostMapping("/pej/cooperatives")
 	    public String saveagents(@ModelAttribute(value="objCooperative")  Cooperative objCooperative, BindingResult result,Model model) {
 	    	System.out.println("Starting Save Ok");
 	        if (result.hasErrors()) {
+				System.out.println(result.getAllErrors());
+				List<ObjectError> errors = result.getAllErrors();
+				for(ObjectError error:  errors){
+					System.out.println(error.toString());
+				}
 	        	notifyService.addErrorMessage("Echec enregistrement");
 	            return "frmCooperative";
 	        }
@@ -84,11 +93,11 @@ public class CooperativeController {
 	    	   Cooperative cooperative =cooperativeRepository.findOne(objCooperative.getIdgroupe());
 	    	   cooperative.setDescription(objCooperative.getDescription());
 	    	   cooperative.setLibgroupe(objCooperative.getLibgroupe());
-	    	   cooperativeRepository.save(cooperative);
-	           return "redirect:/pej/decoupement";
+//	    	   cooperativeRepository.save(cooperative);
+//	           return "redirect:/pej/decoupement";
 	       }
 	       cooperativeRepository.save(objCooperative);
-	       notifyService.addInfoMessage("Enregistrement effectué avec succès");
+	       notifyService.addInfoMessage("Opération effectué avec succès");
 	       return "redirect:/pej/cooperatives";
 	    }
 	    /*Récupérer la page d'accord de don à un groupe*/

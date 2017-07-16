@@ -132,7 +132,7 @@
 		  	$('#numeroagent').blur(function(){
 		  		console.log('DEBUT RECHERCHE AGENT OK');
 		  		 $('#agent').empty();
-				  var url='/pej/candidats/agent/'+$( this ).val();
+				  var url='candidats/agent/'+$( this ).val();
 				  var setAgent=function(jqXHR){
 					  $('#agent').val('');
 					  try {
@@ -185,10 +185,9 @@
 		      
 		      
 		      function doGet(url, setCommune) {
-		      	console.log(window.location.origin + url);
 		    		 var data;
 		    		 $.ajax({
-		    			 url : window.location.origin  + url,
+		    			 url : url,
 		    			 type : 'GET' ,
 		    			 dataType : 'application/json' ,
 		    			 beforeSend : function() {

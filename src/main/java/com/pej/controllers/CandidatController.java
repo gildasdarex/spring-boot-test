@@ -361,11 +361,12 @@ public class CandidatController {
 	           
 	            System.out.println("Fetching file");
 	            MultipartFile multipartFile = fileBucket.getFile();
+	            System.out.println(multipartFile.getSize());
 
 	           // FileCopyUtils.copy(fileBucket.getFile().getBytes(), new File(UPLOAD_LOCATION + fileBucket.getFile().getOriginalFilename()));
 	            
 	            Candidat postulants=new Candidat();
-	            try{
+	            //try{
 	            	  ObjectMapper mapper = new ObjectMapper();
 	  	        	//Candidat[] postulant=mapper.readValue(fileBucket.getFile().getBytes(), Candidat[].class);
 	  	        	Odkcandidat[] odkCandidats=mapper.readValue(fileBucket.getFile().getBytes(), Odkcandidat[].class);
@@ -393,12 +394,12 @@ public class CandidatController {
 	  	            notifyService.addSucceesgMessage("Fichier envoyé sur le serveur avec succès. ");
 	  	            System.out.println("End copy file");
 	  	        	return "redirect:/pej/candidats";
-	            }
-	            catch (Exception ex){
-	            	System.out.println(ex.getMessage());
-	            	 notifyService.addErrorMessage("Echec récupération format de fichier incorrect. "+ex.getMessage());
-	            	 return "frmUploadCandidat";
-	            }
+//	            }
+//	            catch (Exception ex){
+//	            	System.out.println(ex.getMessage());
+//	            	 notifyService.addErrorMessage("Echec récupération format de fichier incorrect. "+ex.getMessage());
+//	            	 return "frmUploadCandidat";
+//	            }
 	          
 	        	
 	        	

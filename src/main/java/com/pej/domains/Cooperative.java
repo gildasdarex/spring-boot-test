@@ -169,12 +169,9 @@ public class Cooperative  implements java.io.Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Cooperative [idgroupe=" + idgroupe + ", libgroupe=" + libgroupe + ", description=" + description
-				+ ", datecreation=" + datecreation + ", userlogin=" + userlogin + ", commune=" + commune
-				+ ", lot=" + lot + ", beneficiairecooperatives=" + beneficiairecooperatives + "]";
-	}
-	
-	
+        return libgroupe;
+
+    }
 
 
 

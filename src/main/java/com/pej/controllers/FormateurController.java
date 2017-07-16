@@ -3,14 +3,17 @@ package com.pej.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.util.StringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -104,14 +107,52 @@ public class FormateurController {
 	        }
 		 List<Cabinet> cabinets = (List<Cabinet>) cabinetRepository.findAll();
 		 model.addAttribute("cabinets", cabinets); 
-		 return "frmFormateur";
+		 return "editformateurs";
 	}
-	
+
+
+	@GetMapping("/pej/profile")
+	public String setProfile(Model model){
+		User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Utilisateur user= userRepository.findByUsername(principal.getUsername());
+		user.setPassword("");
+		model.addAttribute("utilsateur", user);
+		return "setprofile";
+	}
+
+
+	@PostMapping("/pej/newProfile")
+	public String newProfile(@ModelAttribute(value="utilisateur")  Utilisateur utilisateur, BindingResult result,Model model){
+		User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Formateur formateur = formateurRepository.findOneByUsername(principal.getUsername());
+
+		String oldPass = principal.getPassword();
+
+		if(utilisateur.getPassword().equals("")|| utilisateur.getPassword()==null)
+			utilisateur.setPassword(bCryptPasswordEncoder.encode(oldPass));
+		else
+		  utilisateur.setPassword(bCryptPasswordEncoder.encode(utilisateur.getPassword()));
+
+		formateur.setUsername(utilisateur.getUsername());
+
+
+		userRepository.save(utilisateur);
+		formateurRepository.save(formateur);
+		//User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//Utilisateur user= userRepository.findByUsername(principal.getUsername());
+		//model.addAttribute("utilsateur", user);
+		return "redirect:/pej/login";
+	}
+
 	
     @PostMapping("/pej/formateurs")
     public String saveagents(@ModelAttribute(value="objFormateur")  Formateur objFormateur, BindingResult result,Model model) {
-    	System.out.println("Starting Save Ok");
         if (result.hasErrors()) {
+        	System.out.println(result.getAllErrors());
+			List<ObjectError> errors = result.getAllErrors();
+			for(ObjectError error:  errors){
+				System.out.println(error.toString());
+			}
             return "frmFormateur";
         }
 
@@ -121,12 +162,10 @@ public class FormateurController {
     	   formateur.setNom(objFormateur.getNom());
     	   formateur.setPrenom(objFormateur.getPrenom());
     	   formateur.setCardid(objFormateur.getCardid());
-    	   formateur.setDatenaissance(objFormateur.getDatenaissance());    	   
+    	   //formateur.setDatenaissance(objFormateur.getDatenaissance());
     	   formateur.setTelephone(objFormateur.getTelephone());
     	   formateur.setCabinet(objFormateur.getCabinet());
-    	   Utilisateur utilisateur= userRepository.findOne(usercourant.getIdusers());
-           utilisateur.setUsername(objFormateur.getUsername());
-           utilisateur.setPassword(bCryptPasswordEncoder.encode(objFormateur.getPassword()));
+    	   formateur.setUsername(objFormateur.getUsername());
     	   formateurRepository.save(formateur);
            return "redirect:/pej/formateurs";
        }

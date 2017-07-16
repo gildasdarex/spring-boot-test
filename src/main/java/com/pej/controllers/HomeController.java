@@ -147,8 +147,9 @@ class HomeController  {
        departementRepository.save(objDepartement);
        return "redirect:/pej/decoupement";
     }
-    
-    @PostMapping("/pej/commune")
+
+
+	@PostMapping("/pej/commune")
     public String savecommune(@Valid @ModelAttribute(value="objCommune")  Commune objCommune, BindingResult result,Model model) {
     	System.out.println("Starting Save Ok");
         if (result.hasErrors()) {
