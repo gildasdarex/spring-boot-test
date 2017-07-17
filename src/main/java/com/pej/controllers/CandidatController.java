@@ -1,15 +1,14 @@
 package com.pej.controllers;
 
-import org.apache.catalina.mapper.Mapper;
+import com.pej.pojo.OdkCandidat;
+import com.poiji.internal.Poiji;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.GsonJsonParser;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -23,15 +22,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 //import org.apache.camel.*;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDateTime;
+
 import com.pej.domains.Departement;
 import com.pej.domains.Don;
 import com.pej.domains.Dossiers;
@@ -41,35 +37,24 @@ import com.pej.domains.Quartier;
 import com.pej.domains.Statutcandidat;
 import com.pej.filtres.FCandidat;
 import com.pej.domains.Commune;
-import com.pej.domains.Critere;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pej.domains.Agent;
 import com.pej.domains.Arrondissement;
-import com.pej.domains.Cabinet;
 import com.pej.domains.Candidat;
 import com.pej.domains.Fichefinancement;
 import com.pej.domains.Fournisseur;
 import com.pej.domains.Materiel;
-import com.pej.domains.Odkcandidat;
 import com.pej.repository.*;
 import com.pej.services.NotificationService;
-import com.pej.services.NotificationServiceImpl.NotificationMessageType;
 import com.pej.utils.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.HeaderColumnNameTranslateMappingStrategy;
 
 
 @Controller
@@ -90,11 +75,13 @@ public class CandidatController {
 	@Autowired private FournisseurRepository fournisseurRepository;
     @Autowired private MaterielRepository materielRepository;
     @Autowired private FicheFinancementRepository ficheFinancementRepository;
+	@Autowired
+	private org.dozer.Mapper mapper;
     
    
     Fichefinancement fiche=new Fichefinancement()
     		;
-	private static String UPLOAD_LOCATION="C:/FFOutput/";
+	@Value("${tmp.location}") String tempLocation;
 
 	@GetMapping("/pej/candidats")
     String index(Model model,@ModelAttribute("objDepartement") Departement objDepartement) {  
@@ -149,12 +136,9 @@ public class CandidatController {
 	
 	
 	
-	/*Récupérer la liste des commmune d'un département*/
 	@RequestMapping(value = "/pej/candidats/commune/{id}", method = RequestMethod.GET)
 	public @ResponseBody ArrayList<Commune> findCommune(@PathVariable Integer id) {
 		Departement departement=departementRepository.findOne(id);
-	    //return (List<Commune>)communeRepository.getCommune(id);
-		//return (List<Commune>)departement.getCommunes()();
 		return new ArrayList<Commune>(departement.getCommunes());
 	}
 	
@@ -357,53 +341,26 @@ public class CandidatController {
 	 
 	    @RequestMapping(value="/pej/candidats/upload", method = RequestMethod.POST)
 	    public String singleFileUpload(@Valid FileBucket fileBucket, BindingResult result, ModelMap model) throws IOException {
-	 
-	           
-	            System.out.println("Fetching file");
-	            MultipartFile multipartFile = fileBucket.getFile();
-	            System.out.println(multipartFile.getSize());
 
-	           // FileCopyUtils.copy(fileBucket.getFile().getBytes(), new File(UPLOAD_LOCATION + fileBucket.getFile().getOriginalFilename()));
-	            
-	            Candidat postulants=new Candidat();
-	            //try{
-	            	  ObjectMapper mapper = new ObjectMapper();
-	  	        	//Candidat[] postulant=mapper.readValue(fileBucket.getFile().getBytes(), Candidat[].class);
-	  	        	Odkcandidat[] odkCandidats=mapper.readValue(fileBucket.getFile().getBytes(), Odkcandidat[].class);
-	  	        	//Quartier quartier=quartierRepository.findOne(42);
-	  	        	
-	  	        	//postulants.setQuartier(quartier);
-	  	            System.out.println(odkCandidats[0].getNom_candidat());
-	  	            //candidatRepository.save(postulants.getPostulant());
-	  	            Mapper map=new Mapper();
-	  	           Statutcandidat st= statutcandidatRepository.findOne(1);
-	  	            for (int i = 0; i < odkCandidats.length; i++) {
-	  	            	
-	  	            	System.out.println(odkCandidats[i].getNom_candidat()); 	
-	  	            	Candidat cd=new Candidat();
-	  	            	DozerBeanMapper mapper1 = new DozerBeanMapper();
-	  	            	mapper1.map(odkCandidats[i], cd);
-	  	            	System.out.println("Nom candidat: "+cd.getNom());
-	  	                //postulant[i].setQuartier(quartier);
-	  	            	cd.setStatutcandidat(st);
-	  	                candidatRepository.save(cd);
-	  	       
-	  				}
-	  	            String fileName = multipartFile.getOriginalFilename();
-	  	            model.addAttribute("fileName", fileName);
-	  	            notifyService.addSucceesgMessage("Fichier envoyé sur le serveur avec succès. ");
-	  	            System.out.println("End copy file");
-	  	        	return "redirect:/pej/candidats";
-//	            }
-//	            catch (Exception ex){
-//	            	System.out.println(ex.getMessage());
-//	            	 notifyService.addErrorMessage("Echec récupération format de fichier incorrect. "+ex.getMessage());
-//	            	 return "frmUploadCandidat";
-//	            }
-	          
-	        	
-	        	
-	       // }
+			MultipartFile multipartFile = fileBucket.getFile();
+
+			File convFile = new File(tempLocation+ "/"+multipartFile.getOriginalFilename());
+			convFile.createNewFile();
+			FileOutputStream fos = new FileOutputStream(convFile);
+			fos.write(multipartFile.getBytes());
+			fos.close();
+			List<OdkCandidat> odkCandidats = Poiji.fromExcel(convFile, OdkCandidat.class);
+			List<Candidat> candidats= new ArrayList<>();
+			for(OdkCandidat odkCandidat :odkCandidats){
+				candidats.add(mapper.map(odkCandidat, Candidat.class));
+			}
+			System.out.println(odkCandidats.size());
+			System.out.println(candidats.size());
+			for(Candidat candidat :candidats){
+				candidatRepository.save(candidat);
+			}
+			return "redirect:/pej/formations";
+
 	    }
 	    
 	    @GetMapping("/pej/candidats/tirage")
@@ -418,6 +375,8 @@ public class CandidatController {
 	    	System.out.println("Nbre candidats: "+candidats.size());
 	        return "tirages";
 	    }
+
+
 	    @PostMapping("/pej/candidats/tirage")
 	    String tirer(Model model,@ModelAttribute("objTirage") Tirage objTirage) {  
 	    	Sort.Direction ordre=(objTirage.getOrdre().equalsIgnoreCase("Croissant"))? Sort.Direction.ASC: Sort.Direction.DESC;

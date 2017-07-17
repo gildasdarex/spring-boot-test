@@ -217,31 +217,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 										  </label>
 										  <div class="col-md-6 col-sm-6 col-xs-12">
 											  <select id="quartier" name="quartier" class="form-control" th:required="required" th:field="*{quartier}">
-												  <option data-th-each="quartier : ${quartierS}" th:text="${quartier.libquartier}" th:value="${quartier.libquartier}"></option>
+												  <option data-th-each="quartier : ${quartiers}" th:text="${quartier.libquartier}" th:value="${quartier.libquartier}"></option>
 											  </select>
 										  </div>
 									  </div>
-		                          	  <!--<div class="item form-group">-->
-			                            <!--<label class="control-label col-md-3 col-sm-3 col-xs-12" for="nommere">Commune <span class="required">*</span>-->
-			                            <!--</label>-->
-			                            <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
-				                              <!--<input type="text" data-validate-minmax="10,100" id="localcommune" th:field="*{localcommune}" th:required="required" class="form-control col-md-7 col-xs-12"/>-->
-			                            <!--</div>-->
-		                          	 <!--</div>-->
-		                          	 <!--<div class="item form-group">-->
-			                            <!--<label class="control-label col-md-3 col-sm-3 col-xs-12" for="nommere">Arrondissement <span class="required">*</span>-->
-			                            <!--</label>-->
-			                            <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
-				                              <!--<input type="text" data-validate-minmax="10,100" id="arrondissement" th:field="*{arrondissement}" th:required="required" class="form-control col-md-7 col-xs-12"/>-->
-			                            <!--</div>-->
-		                          	 <!--</div>-->
-		                          	  <!--<div class="item form-group">-->
-			                            <!--<label class="control-label col-md-3 col-sm-3 col-xs-12" for="nommere">Village/Quartier <span class="required">*</span>-->
-			                            <!--</label>-->
-			                            <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
-				                              <!--<input type="text" data-validate-minmax="10,100" id="quartier" th:field="*{quartier}" th:required="required" class="form-control col-md-7 col-xs-12"/>-->
-			                            <!--</div>-->
-		                          	 <!--</div>-->
+
 		                          	  <div class="item form-group">
 			                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nommere">AUTORITE LOCALE <span class="required">*</span>
 			                            </label>

@@ -1,6 +1,8 @@
 package com.pej;
 
 
+import org.dozer.spring.DozerBeanMapperFactoryBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -16,6 +18,14 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         // registry.addViewController("/").setViewName("login");
          registry.addViewController("pej/login").setViewName("login");
          registry.addViewController("/login").setViewName("login");
+    }
+
+    @Bean
+    public DozerBeanMapperFactoryBean getDozerMapper() throws Exception{
+        DozerBeanMapperFactoryBean returnValue= new DozerBeanMapperFactoryBean();/*
+        Resource[] resources = new PathMatchingResourcePatternResolver().getResources("classpath*:dozer-bean-mappings.xml");
+        returnValue.setMappingFiles(resources);*/
+        return returnValue;
     }
    
 }
