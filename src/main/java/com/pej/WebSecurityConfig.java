@@ -49,37 +49,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-//        //http.addFilterAfter(MyUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-//        http
-//                .csrf().disable()
-//                .anonymous().disable()
-//                .authorizeRequests()
-//                .antMatchers("/","/vendors/**","/build/**","/script/**","/img/**","/fonts/**").permitAll()
-//                .anyRequest().authenticated().withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
-//             public <O extends FilterSecurityInterceptor> O postProcess(
-//                     O fsi) {
-//                 fsi.setAuthenticationManager(authenticationManagerBean());
-//                 //fsi.setAccessDecisionManager(accessDecisionManager());
-//                 fsi.setSecurityMetadataSource(mySecurityMetadataSource);
-//
-//                 return fsi;
-//
-//             }
-//          })
-//                .and().exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/pej/login")).and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/pej/logout")).logoutSuccessUrl("/pej/login").permitAll();
-//        http.formLogin()
-//                .defaultSuccessUrl("/pej/candidats", true)
-//                .loginPage("/pej/login")
-//                .permitAll()
-//                .and()
-//
-//                .logout()
-//                .permitAll()
-//
-//        ;
-//        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler()).and().authorizeRequests().anyRequest().authenticated().expressionHandler(webSecurityExpressionHandler());
-//        http.sessionManagement().maximumSessions(1);
-
         http
                 .authorizeRequests()
                 .antMatchers("/vendors/**","/build/**","/script/**","/img/**","/fonts/**").permitAll()
@@ -97,8 +66,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/pej/cabinets/add").hasAuthority("ADMIN")
                 .antMatchers("/pej/typeformations").hasAuthority("ADMIN")
                 .antMatchers("/pej/typeformations/add").hasAuthority("ADMIN")
-                .antMatchers("/pej/formateurs").hasAuthority("ADMIN")
-                .antMatchers("/pej/formateurs/add").hasAuthority("ADMIN")
+                .antMatchers("/pej/formateurs").permitAll()
+                .antMatchers("/pej/formateurs/add").permitAll()
                 .antMatchers("/pej/candidats").hasAuthority("ADMIN")
                 .antMatchers("/pej/candidats/add").hasAuthority("ADMIN")
                 .antMatchers("/pej/candidats/tirage").hasAuthority("ADMIN")

@@ -3,6 +3,9 @@ package com.pej.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pej.services.FormateurService;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -28,6 +31,8 @@ import com.pej.repository.RolesRepository;
 
 @Controller
 public class FormateurController {
+    Logger logger = LogManager.getLogger(FormateurController.class);
+
     @Autowired
     private FormateurRepository formateurRepository;
     @Autowired
@@ -41,51 +46,46 @@ public class FormateurController {
     @Autowired
     private NotificationService notifyService;
     @Autowired
+    private FormateurService formateurService;
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private Utilisateur usercourant;
 
     @GetMapping("/pej/formateurs")
-    String index(Model model, @ModelAttribute("objFormateur") Formateur objFormateur) {
+    String index(Model model) {
+        List<Formateur> formateurs = new ArrayList<>();
         try {
-            List<Formateur> formateurs = (List<Formateur>) formateurRepository.findAll();
-            model.addAttribute("formateurs", formateurs);
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (principal instanceof UserDetails) {
-                String username = ((UserDetails) principal).getUsername();
-                model.addAttribute("username", username);
-            } else {
-                String username = principal.toString();
-                model.addAttribute("username", username);
-            }
+            formateurs = (List<Formateur>) formateurRepository.findAll();
+            User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal != null)
+                model.addAttribute("username", principal.getUsername());
         } catch (Exception ex) {
-            List<Formateur> formateurs = new ArrayList<>();
-            model.addAttribute("formateurs", formateurs);
+           logger.debug("error for /pej/formateurs request");
         }
+
+        model.addAttribute("formateurs", formateurs);
+
         return "formateurs";
     }
 
     @GetMapping("/pej/formateurs/add")
     public String editFormateur(@ModelAttribute("objFormateur") Formateur objFormateur, ModelMap model) {
-        model.addAttribute("objFormateur", objFormateur);
         List<Cabinet> cabinets = (List<Cabinet>) cabinetRepository.findAll();
+        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal != null)
+            model.addAttribute("username", principal.getUsername());
         model.addAttribute("cabinets", cabinets);
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            String username = ((UserDetails) principal).getUsername();
-            model.addAttribute("username", username);
-        } else {
-            String username = principal.toString();
-            model.addAttribute("username", username);
-        }
+        model.addAttribute("objFormateur", objFormateur);
+
         return "frmFormateur";
     }
 
 
     @GetMapping("/pej/delete/formateurs/{id}")
-    public String deleteFormateur(@PathVariable Integer id, ModelMap model) {
-        Formateur formateur = formateurRepository.findOne(id);
-        formateurRepository.delete(formateur);
+    public String deleteFormateur(@PathVariable Integer id) {
+        formateurService.deleteFormateur(id);
         return "redirect:/pej/formateurs";
     }
 
@@ -93,8 +93,7 @@ public class FormateurController {
     @PostMapping("/pej/delete/multiple/formateurs")
     public String deleteAllFormateurs(@RequestParam("table_records") List<String> table_records) {
         for(String id : table_records){
-            Formateur formateur = formateurRepository.findOne(Integer.parseInt(id));
-            formateurRepository.delete(formateur);
+            formateurService.deleteFormateur(Integer.parseInt(id));
         }
 
         return "redirect:/pej/formateurs";
@@ -103,31 +102,27 @@ public class FormateurController {
 
     @GetMapping("/pej/formateurs/{id}")
     public String editFormateur(@PathVariable Integer id, ModelMap model) {
+        Formateur formateur = new Formateur();
+        Utilisateur user = new Utilisateur();
+
         try {
-            Formateur formateur = formateurRepository.findOne(id);
-            Utilisateur user = userRepository.findUserByfristlast(formateur.getNom(), formateur.getPrenom());
-            model.addAttribute("objFormateur", formateur);
-            model.addAttribute("objUtilisateur", user);
-            usercourant = user;
-            List<Cabinet> cabinets = (List<Cabinet>) cabinetRepository.findAll();
-            model.addAttribute("cabinets", cabinets);
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (principal instanceof UserDetails) {
-                String username = ((UserDetails) principal).getUsername();
-                model.addAttribute("username", username);
-            } else {
-                String username = principal.toString();
-                model.addAttribute("username", username);
-            }
+            formateur = formateurRepository.findOne(id);
+            user = userRepository.findUserByfristlast(formateur.getNom(), formateur.getPrenom());
+
+            User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal != null)
+                model.addAttribute("username", principal.getUsername());
         } catch (Exception ex) {
-            Formateur formateur = new Formateur();
-            Utilisateur user = new Utilisateur();
-            model.addAttribute("objFormateur", formateur);
-            model.addAttribute("objUtilisateur", user);
-            usercourant = user;
+            logger.debug("error for /pej/formateurs/{id} request");
         }
+
         List<Cabinet> cabinets = (List<Cabinet>) cabinetRepository.findAll();
         model.addAttribute("cabinets", cabinets);
+        model.addAttribute("objFormateur", formateur);
+        model.addAttribute("objUtilisateur", user);
+
+        usercourant = user;
+
         return "editformateurs";
     }
 
@@ -143,7 +138,7 @@ public class FormateurController {
 
 
     @PostMapping("/pej/newProfile")
-    public String newProfile(@ModelAttribute(value = "utilisateur") Utilisateur utilisateur, BindingResult result, Model model) {
+    public String newProfile(@ModelAttribute(value = "utilisateur") Utilisateur utilisateur) {
         User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Formateur formateur = formateurRepository.findOneByUsername(principal.getUsername());
 
@@ -159,52 +154,54 @@ public class FormateurController {
 
         userRepository.save(utilisateur);
         formateurRepository.save(formateur);
-        //User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //Utilisateur user= userRepository.findByUsername(principal.getUsername());
-        //model.addAttribute("utilsateur", user);
+
         return "redirect:/pej/logout";
     }
 
 
     @PostMapping("/pej/formateurs")
-    public String saveagents(@ModelAttribute(value = "objFormateur") Formateur objFormateur, BindingResult result, Model model) {
+    public String saveagents(@ModelAttribute(value = "objFormateur") Formateur objFormateur, BindingResult result) {
+
         if (result.hasErrors()) {
-            System.out.println(result.getAllErrors());
             List<ObjectError> errors = result.getAllErrors();
             for (ObjectError error : errors) {
-                System.out.println(error.toString());
+                logger.debug("error to create new formateur " + error.toString());
             }
             return "frmFormateur";
         }
 
-
-        if (objFormateur.getIdformateur() != null && objFormateur.getIdformateur().intValue() > 0) {
+        if (objFormateur.getIdformateur() != null && objFormateur.getIdformateur().intValue() > 0){
             Formateur formateur = formateurRepository.findOne(objFormateur.getIdformateur());
-            formateur.setNom(objFormateur.getNom());
-            formateur.setPrenom(objFormateur.getPrenom());
-            formateur.setCardid(objFormateur.getCardid());
-            //formateur.setDatenaissance(objFormateur.getDatenaissance());
-            formateur.setTelephone(objFormateur.getTelephone());
-            formateur.setCabinet(objFormateur.getCabinet());
-            formateur.setUsername(objFormateur.getUsername());
-            formateurRepository.save(formateur);
-            return "redirect:/pej/formateurs";
+            objFormateur.setUsername(formateur.getUsername());
+            objFormateur.setDatenaissance(formateur.getDatenaissance());
         }
+
         formateurRepository.save(objFormateur);
-        Utilisateur user = new Utilisateur();
+
+        Utilisateur user = userRepository.findByUsername(objFormateur.getUsername());
+
+        if(user == null){
+            user = new Utilisateur();
+            user.setUsername(objFormateur.getUsername());
+            user.setPassword(bCryptPasswordEncoder.encode(objFormateur.getPassword()));
+        }
+
         user.setFirstname(objFormateur.getNom());
         user.setLastname(objFormateur.getPrenom());
-        user.setPassword(bCryptPasswordEncoder.encode(objFormateur.getPassword()));
-        user.setUsername(objFormateur.getUsername());
+        user.setEmail(objFormateur.getEmail());
+
         userRepository.save(user);
-        Roles r = roleRepository.findByName("FORMATEUR");
-        if (r != null) {
+
+        UsersRole usersRole = userRoleRepository.findByUtilisateurUsername(user.getUsername());
+
+        if(usersRole == null){
+            Roles roles = roleRepository.findByName("FORMATEUR");
             UsersRole userrole = new UsersRole();
-            userrole.setRoles(r);
+            userrole.setRoles(roles);
             userrole.setUtilisateur(user);
             userRoleRepository.save(userrole);
-        } else
-            System.out.println("role is null");
+        }
+
         return "redirect:/pej/formateurs";
     }
 

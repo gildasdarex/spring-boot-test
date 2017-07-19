@@ -46,15 +46,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      <!--<li class="dropdown">-->
-                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>-->
-                        <!--<ul class="dropdown-menu" role="menu">-->
-                          <!--<li><a href="#">Settings 1</a>-->
-                          <!--</li>-->
-                          <!--<li><a href="#">Settings 2</a>-->
-                          <!--</li>-->
-                        <!--</ul>-->
-                      <!--</li>-->
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
@@ -66,25 +57,31 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					<form id="frmCabinet" novalidate="true"  class="frmPej form-horizontal form-label-left" action="#" th:action="@{/pej/cabinets}" th:object="${objCabinet}" method="post">
 				    	
 				       <div class="item form-group">
-                            <label for="numerofiche" class="control-label col-md-3 col-sm-3 col-xs-12">INTITULE</label>
+                            <label for="intitule" class="control-label col-md-3 col-sm-3 col-xs-12">INTITULE</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="intitule" th:field="*{intitule}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
 					    <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">RESPONSABLE</label>
+                            <label for="responsable" class="control-label col-md-3 col-sm-3 col-xs-12">RESPONSABLE</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="responsable" th:field="*{responsable}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">TELEPHONE</label>
+                            <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">EMAIL</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="email" th:field="*{email}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label for="telephone" class="control-label col-md-3 col-sm-3 col-xs-12">TELEPHONE</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="telephone" th:field="*{telephone}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                          <div class="item form-group" style="display:none;">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">CABINET</label>
+                            <label for="idcabinet" class="control-label col-md-3 col-sm-3 col-xs-12">CABINET</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="idcabinet" th:field="*{idcabinet}"  class="form-control col-md-7 col-xs-12"/>
                             </div>

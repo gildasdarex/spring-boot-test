@@ -22,6 +22,7 @@ public class Formateur implements java.io.Serializable {
 	private Cabinet cabinet;
 	private String nom;
 	private String prenom;
+	private String email;
 	private Date datenaissance;
 	private String cardid;
 	private String telephone;
@@ -156,6 +157,15 @@ public class Formateur implements java.io.Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	@Column(name = "EMAIL", length = 1024)
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Transient

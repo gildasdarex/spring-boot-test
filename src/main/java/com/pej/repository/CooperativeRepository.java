@@ -7,6 +7,9 @@ import com.pej.domains.Lot;
 public interface CooperativeRepository extends CrudRepository<Cooperative, Integer> {
 	@Query("SELECT co FROM Cooperative co WHERE co.lot.idlot is not null)" )
 	Iterable<Cooperative> getNotInLotCooperative();
+
+	@Query("SELECT co FROM Cooperative co WHERE co.lot.idlot is null)" )
+	Iterable<Cooperative> getCooperativeNotInLot();
 	
 	@Query("SELECT co FROM Cooperative co WHERE co.lot.idlot =?1)" )
 	Iterable<Cooperative> getInLotCooperative(Integer id);

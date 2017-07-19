@@ -59,6 +59,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             <th class="column-title">#</th>
                             <th class="column-title">INTITULE </th>
                             <th class="column-title">RESPONSABLE</th>
+                              <th class="column-title">EMAIL</th>
                             <th class="column-title">TELEPHONE</th>
                             <th class="column-title no-link last"><span class="nobr">ACTION</span>
                             </th>
@@ -76,7 +77,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	                            <td class=" " data-th-text="${cabinet.idcabinet}"></td>
 								<td class=" " data-th-text="${cabinet.intitule}"></td>
 								<td class=" " data-th-text="${cabinet.responsable}"></td>
-
+                                <td class=" " data-th-text="${cabinet.email}"></td>
 								<td class=" " data-th-text="${cabinet.telephone}"></td>
 								<td>
 									<div class="btn-group btn-group-xs">

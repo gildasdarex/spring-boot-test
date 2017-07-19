@@ -63,6 +63,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             <th class="column-title">PRENOM  </th>
                             <th class="column-title">DATE DE NAISSANCE </th>
                             <th class="column-title">N°CARTE D'IDENTITE </th>
+                              <th class="column-title">EMAIL</th>
                             <th class="column-title">TELEPHONE</th>
                             <th class="column-title no-link last"><span class="nobr">ACTION</span>
                             </th>
@@ -81,6 +82,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 								<td class=" " data-th-text="${formateur.prenom}"></td>
                                 <td class=" " data-th-text="${#dates.format(formateur.datenaissance,'dd/MM/yyyy')}"></td>
 								<td class=" " data-th-text="${formateur.cardid}"></td>
+                                <td class=" " data-th-text="${formateur.email}"></td>
 								<td class=" " data-th-text="${formateur.telephone}"></td>
 								<td>
 									<div class="btn-group btn-group-xs">

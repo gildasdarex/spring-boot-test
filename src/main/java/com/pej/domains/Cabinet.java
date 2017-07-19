@@ -24,6 +24,7 @@ public class Cabinet implements java.io.Serializable {
 	private Integer idcabinet;
 	private String intitule;
 	private String responsable;
+	private String email;
 	private String telephone;
 	private Set<Lot> lots = new HashSet<Lot>(0);
 	private Set<Formateur> formateurs = new HashSet<Formateur>(0);
@@ -82,6 +83,15 @@ public class Cabinet implements java.io.Serializable {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+
+	@Column(name = "EMAIL", length = 1024)
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cabinet")

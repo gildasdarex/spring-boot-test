@@ -71,32 +71,38 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">PRENOM</label>
+                            <label for="prenom" class="control-label col-md-3 col-sm-3 col-xs-12">PRENOM</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="prenom" th:field="*{prenom}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">DATE DE NAISSANCE</label>
+                            <label for="datenaissance" class="control-label col-md-3 col-sm-3 col-xs-12">DATE DE NAISSANCE</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" data-inputmask="'mask': '99/99/9999'" id="datenaissance" th:field="*{datenaissance}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
+                          <div class="item form-group">
+                              <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">EMAIL</label>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                  <input type="text" id="email" th:field="*{email}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+                              </div>
+                          </div>
                        
                          <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">N°TELEPHONE</label>
+                            <label for="telephone" class="control-label col-md-3 col-sm-3 col-xs-12">N°TELEPHONE</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="telephone" th:field="*{telephone}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                          <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">N° CI</label>
+                            <label for="cardid" class="control-label col-md-3 col-sm-3 col-xs-12">N° CI</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="cardid" th:field="*{cardid}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                           <div class="item form-group">
-                              <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">USERNAME</label>
+                              <label for="username" class="control-label col-md-3 col-sm-3 col-xs-12">USERNAME</label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
                                   <input type="text" id="username" th:field="*{username}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                               </div>

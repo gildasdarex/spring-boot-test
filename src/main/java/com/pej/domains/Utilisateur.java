@@ -29,6 +29,7 @@ public class Utilisateur implements java.io.Serializable {
 	private String password;
 	private String firstname;
 	private String lastname;
+	private String email;
 	private Integer enabled;
 	private Date datecreated;
 	private Date datemodified;
@@ -100,6 +101,15 @@ public class Utilisateur implements java.io.Serializable {
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
+	}
+
+	@Column(name = "EMAIL", length = 1024)
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Column(name = "ENABLED", precision = 22, scale = 0)

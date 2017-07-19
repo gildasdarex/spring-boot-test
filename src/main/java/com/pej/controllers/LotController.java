@@ -2,19 +2,14 @@ package com.pej.controllers;
 
 import java.util.List;
 
+import com.pej.services.LotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.pej.domains.Cabinet;
 import com.pej.domains.Commune;
 import com.pej.domains.Cooperative;
@@ -37,6 +32,8 @@ public class LotController {
     private CommuneRepository communeRepository;
     @Autowired
     private NotificationService notifyService;
+    @Autowired
+    private LotService lotService;
 
     @GetMapping("/pej/lots")
     String index(Model model, @ModelAttribute("objLot") Lot objLot) {
@@ -74,11 +71,11 @@ public class LotController {
 
     @PostMapping("/pej/lots")
     public String savelots(@ModelAttribute(value = "objLot") Lot objLot, BindingResult result) {
-
         if (result.hasErrors()) {
-            notifyService.addErrorMessage("Echec enregistrement.");
+            notifyService.addErrorMessage("ECHEC DE L'ENREGISTREMENT.");
             return "frmLot";
         }
+
         lotRepository.save(objLot);
         notifyService.addInfoMessage("OPERATION EFFECTUEE AVEC SUCCESS.");
         return "redirect:/pej/lots";
@@ -86,9 +83,9 @@ public class LotController {
 
     @RequestMapping(value = "/pej/lots/cooperative/add/{id}", method = RequestMethod.GET)
     String index(Model model, @PathVariable Integer id) {
-        List<Cooperative> cooperatives = (List<Cooperative>) cooperativeRepository.getNotInLotCooperative();
-        Lot lot = lotRepository.findOne(id);
+        List<Cooperative> cooperatives = (List<Cooperative>) cooperativeRepository.getCooperativeNotInLot();
         List<Cooperative> cooperativelots = (List<Cooperative>) cooperativeRepository.getInLotCooperative(id);
+        Lot lot = lotRepository.findOne(id);
 
         model.addAttribute("cooperatives", cooperatives);
         model.addAttribute("lot", lot);
@@ -97,13 +94,40 @@ public class LotController {
         return "lotcooperatives";
     }
 
-    @RequestMapping(value = "/pej/lots/cooperative/setlot/{idcooperative}/{idlot}", method = RequestMethod.GET)
-    String setLot(@PathVariable Integer idcooperative, @PathVariable Integer idlot) {
-        Cooperative cooperative = cooperativeRepository.findOne(idcooperative);
-        Lot lot = lotRepository.findOne(idlot);
-        cooperative.setLot(lot);
-        cooperativeRepository.save(cooperative);
 
-        return "redirect:/pej/lots/cooperative/add/" + lot.getIdlot();
+
+    @RequestMapping(value = "/pej/lots/cooperative/add/{idcooperative}/{idlot}", method = RequestMethod.GET)
+    String addOneCooperativeToLot(@PathVariable Integer idcooperative, @PathVariable Integer idlot) {
+        lotService.addCooperativeToLot(idcooperative, idlot);
+
+        return "redirect:/pej/lots/cooperative/add/" + idlot;
+    }
+
+
+    @PostMapping("/pej/lots/cooperative/multiple/add/{idlot}")
+    String addMultipleCooperativeToLot(@PathVariable Integer idlot, @RequestParam("table_records") List<String> table_records) {
+
+        for(String id : table_records){
+            lotService.addCooperativeToLot(Integer.parseInt(id), idlot);
+        }
+        return "redirect:/pej/lots/cooperative/add/" + idlot;
+    }
+
+
+    @RequestMapping(value = "/pej/lots/cooperative/remove/{idcooperative}/{idlot}", method = RequestMethod.GET)
+    String removeOneCooperativeToLot(@PathVariable Integer idcooperative, @PathVariable Integer idlot) {
+        lotService.removeCooperativeToLot(idcooperative);
+
+        return "redirect:/pej/lots/cooperative/add/" + idlot;
+    }
+
+
+    @PostMapping("/pej/lots/cooperative/multiple/remove/{idlot}")
+    String removeMultipleCooperativeToLot(@PathVariable Integer idlot, @RequestParam("table_records") List<String> table_records) {
+
+        for(String id : table_records){
+            lotService.removeCooperativeToLot(Integer.parseInt(id));
+        }
+        return "redirect:/pej/lots/cooperative/add/" + idlot;
     }
 }

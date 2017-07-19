@@ -87,6 +87,13 @@
                                 </div>
 
                                 <div class="item form-group">
+                                    <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">EMAIL</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="email" th:field="*{email}" th:required="required" class="form-control col-md-7 col-xs-12"/>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
                                     <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">N°TELEPHONE</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" id="telephone" th:field="*{telephone}" th:required="required" class="form-control col-md-7 col-xs-12"/>
@@ -98,19 +105,29 @@
                                         <input type="text" id="cardid" th:field="*{cardid}" th:required="required" class="form-control col-md-7 col-xs-12"/>
                                     </div>
                                 </div>
-                                <div class="item form-group">
-                                    <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">USERNAME</label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" id="username" th:field="*{username}" th:required="required" class="form-control col-md-7 col-xs-12"/>
-                                    </div>
-                                </div>
+
+                                <!--<div class="item form-group" style="display:none;">-->
+                                    <!--<label for="username" class="control-label col-md-3 col-sm-3 col-xs-12">USERNAME FORMATEUR</label>-->
+                                    <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
+                                        <!--<input type="text" id="username" th:field="*{username}"  class="form-control col-md-7 col-xs-12"/>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                                <!--<div class="item form-group" style="display:none;">-->
+                                    <!--<label for="datenaissance" class="control-label col-md-3 col-sm-3 col-xs-12">DATE DE NAISSANCE FORMATEUR</label>-->
+                                    <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
+                                        <!--<input type="text" id="datenaissance" th:field="*{datenaissance}"  class="form-control col-md-7 col-xs-12"/>-->
+                                    <!--</div>-->
+                                <!--</div>-->
 
                                 <div class="item form-group" style="display:none;">
-                                 <label for="idformateur" class="control-label col-md-3 col-sm-3 col-xs-12">ID FORMATEUR</label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="idformateur" th:field="*{idformateur}"  class="form-control col-md-7 col-xs-12"/>
+                                  <label for="idformateur" class="control-label col-md-3 col-sm-3 col-xs-12">ID FORMATEUR</label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                  <input type="text" id="idformateur" th:field="*{idformateur}"  class="form-control col-md-7 col-xs-12"/>
+                                  </div>
                                 </div>
-                                </div>
+
+
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
