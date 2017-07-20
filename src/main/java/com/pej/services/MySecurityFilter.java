@@ -23,12 +23,6 @@ public class MySecurityFilter extends AbstractSecurityInterceptor implements Fil
     }
 
     private void invoke(FilterInvocation fi) throws IOException, ServletException {
-        //Object as a FilterInvocation object making
-        //super.beforeInvocation(fi);Source making
-        //1 to obtain the requested resource permissions making
-        //Implementation of Collection<ConfigAttribute> attributes = SecurityMetadataSource.getAttributes(object);
-        //2 have the authority making
-        //this.accessDecisionManager.decide(authenticated, object, attributes);
         InterceptorStatusToken token = super.beforeInvocation(fi);
         try {
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());

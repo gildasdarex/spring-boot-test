@@ -94,9 +94,6 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
 
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
-        //System.out.println("requestUrl is " + requestUrl);
-       // System.out.println("contole " +resourceMap.get("CONTROLE"));
-       // System.out.println("formateur " +resourceMap.get("FORMATEUR"));
         if(resourceMap == null) {
             loadResourceDefine();
 

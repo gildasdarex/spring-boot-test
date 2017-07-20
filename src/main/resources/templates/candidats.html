@@ -309,7 +309,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             <th class="column-title">PHOTO</th>
                             <th class="column-title">COMMUNE </th>
                             <th class="column-title">SEXE </th>
-                            <th class="column-title">DATE DE NAISSANCE</th>
+                            <th class="column-title">AGE</th>
                             <th class="column-title">AGENT ENREGISTREUR </th>
                             <th class="column-title">STATUT </th>
                             <th class="column-title no-link last"><span class="nobr">ACTION</span>
@@ -335,11 +335,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 								<td class=" " ><img th:src="@{/images/nopicture.PNG}" alt="" class="img-circle profile_img" style="width:100px;height:100px;"/></td>
 								<td class=" " data-th-text="${candidat.localcommune}"></td>
 								<td class=" " data-th-text="${candidat.sexe}"></td>
-								<td class=" " data-th-text="${#dates.format(candidat.datenaissance,'dd/MM/yyyy')}" ></td>
+								<td class=" " data-th-text="${candidat.age}" ></td>
 								<td class=" " data-th-text="${candidat.agent.nom + ' '+candidat.agent.prenom}"></td>
 
 		                        <td>
-
 		                            <a class="btn btn-success btn-xs"  data-th-text="${candidat.statutcandidat.intitule}"></a>
 		                        </td>
 	                            <td class=" ">

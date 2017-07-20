@@ -5,6 +5,12 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.pej.domains.*;
+import com.pej.repository.*;
+import com.pej.services.NotificationService;
+import com.pej.services.UtilisateurService;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,198 +29,112 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.pej.domains.Antenne;
-import com.pej.domains.Arrondissement;
-import com.pej.domains.Commune;
-import com.pej.domains.Departement;
-import com.pej.domains.Permission;
-import com.pej.domains.Quartier;
-import com.pej.domains.Roles;
-import com.pej.domains.Rolespermission;
-import com.pej.domains.Utilisateur;
-import com.pej.domains.UsersRole;
-import com.pej.repository.AntenneRepository;
-import com.pej.repository.ArrondissementRepository;
-import com.pej.repository.CommuneRepository;
-import com.pej.repository.DepartementRepository;
-import com.pej.repository.PermissionRepository;
-import com.pej.repository.PermissionRoleRepository;
-import com.pej.repository.QuartierRepository;
-import com.pej.repository.RolesRepository;
-import com.pej.repository.UserRoleRepository;
-import com.pej.repository.UsersRepository;
-
 
 @Controller
 public class UsersManagementController {
+	Logger logger = LogManager.getLogger(UsersManagementController.class);
+
 	@Autowired private UsersRepository usersRepository;
-	@Autowired private RolesRepository rolesRepository;
-	@Autowired private PermissionRepository permissionRepository;
-	@Autowired private PermissionRoleRepository permissionRoleRepository;
-	@Autowired private UserRoleRepository usersRoleRepository;
-	@Autowired private AntenneRepository antenneRepository;
-	@Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
-	@Autowired private RolesRepository roleRepository;
-	@Autowired private UsersRepository userRepository;
 	@Autowired private UserRoleRepository userRoleRepository;
+	@Autowired private UtilisateurService utilisateurService;
+	@Autowired private FormateurRepository formateurRepository;
+	@Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
+	@Autowired private NotificationService notifyService;
+
 
 
 	@GetMapping("/pej/usermamagement")
     String index(Model model,@ModelAttribute("objUser") Utilisateur objUsers) {
-    	System.out.println("Starting Index Ok");
     	List<Utilisateur> users = (List<Utilisateur>) usersRepository.findAll();
-    	List<Roles> roles = (List<Roles>) rolesRepository.findAll();
-    	List<Permission> permissions = (List<Permission>) permissionRepository.findAll();    	
-    	List<UsersRole> usersRoles = (List<UsersRole>) usersRoleRepository.findAll();
-    	List<Rolespermission> rolespermission = (List<Rolespermission>) permissionRoleRepository.findAll();
-    	
+
     	model.addAttribute("users", users);
-    	model.addAttribute("roles", roles);
-    	model.addAttribute("permissions", permissions);
-    	model.addAttribute("usersRoles", usersRoles);
-    	model.addAttribute("rolespermission", rolespermission);
+
         return "usermanagement";
     }
-	
 
-	@GetMapping("/pej/roles")
-	public String editRoles(@ModelAttribute("ObjRole") Roles ObjRole){
-		 return "frmRole";
-	}
-	@GetMapping("/pej/accessdenied")
-    public String accessDenied(){
-
-        return "page404";
-    }
-	@GetMapping("/pej/roles/{id}")
-	public String editRoles(@PathVariable Integer id, ModelMap model){
-		 Roles objRole=rolesRepository.findOne(id);
-		 model.addAttribute("ObjRole", objRole);
-		 return "frmRole";
-	}
-	@GetMapping("/pej/permissions")
-	public String editPermissions(@ModelAttribute("ObjPermission") Permission objPermission){
-		 return "frmPermission";
-	}
-	@GetMapping("/pej/permissions/{id}")
-	public String editPermissions(@PathVariable Integer id, ModelMap model){
-		 Permission objPermission=permissionRepository.findOne(id);
-		 model.addAttribute("ObjPermission", objPermission);
-		 return "frmPermission";
-	}
 	
 	
 	@GetMapping("/pej/users")
-	public String editUsers(@ModelAttribute("ObjUsers") Utilisateur ObjUsers, ModelMap model){
-		List<Antenne> antennes = (List<Antenne>) antenneRepository.findAll();
-		model.addAttribute("antennes", antennes);
-		 return "frmUsers";
+	public String createUser(@ModelAttribute("ObjUsers") Utilisateur ObjUsers){
+		return "frmUsers";
 	}
+
+
 	@GetMapping("/pej/users/{id}")
 	public String editUsers(@PathVariable Integer id, ModelMap model){
 		Utilisateur objUsers=usersRepository.findOne(id);
-		 model.addAttribute("ObjUsers", objUsers);
-		List<Antenne> antennes = (List<Antenne>) antenneRepository.findAll();
-		model.addAttribute("antennes", antennes);
-		 return "frmUsers";
+
+		UsersRole usersRole = userRoleRepository.findByUtilisateurUsername(objUsers.getUsername());
+
+		objUsers.setRoleName(usersRole.getRoles().getName());
+
+		model.addAttribute("ObjUsers", objUsers);
+		return "frmEditUsers";
 	}
-	
-	 @PostMapping("/pej/role")
-	    public String saverole(@Valid @ModelAttribute(value="ObjRole")  Roles ObjRole, BindingResult result,Model model) {
-	    	System.out.println("Starting Save Ok");
-	        if (result.hasErrors()) {
-	            return "frmRole";
-	        }
-	        if(ObjRole!=null)
-	       System.out.println("Lib role: "+ObjRole.getName());
-	        else
-	        	System.out.println("ObjRole est null: ");
-	        
-	       if(ObjRole.getIdrole()!=null && ObjRole.getIdrole().intValue() >0 ){
-	    	   Roles roles=rolesRepository.findOne(ObjRole.getIdrole().intValue());
-	    	   roles.setName(ObjRole.getName());
-	    	   rolesRepository.save(roles);
-	           return "redirect:/pej/usermamagement";
-	       }
-	       rolesRepository.save(ObjRole);
-	       return "redirect:/pej/usermamagement";
-	    }
-	
-	 @PostMapping("/pej/permission")
-	    public String savepermission(@Valid @ModelAttribute(value="ObjPermission")  Permission ObjPermission, BindingResult result,Model model) {
-	    	System.out.println("Starting Save Ok");
-	        if (result.hasErrors()) {
-	            return "frmPermission";
-	        }
-	        if(ObjPermission!=null)
-	       System.out.println("Lib permission: "+ObjPermission.getName());
-	        else
-	        	System.out.println("ObjRole est null: ");
-	        
-	       if(ObjPermission.getIdpermission()!=null && ObjPermission.getIdpermission().intValue() >0 ){
-	    	   Permission permission=permissionRepository.findOne(ObjPermission.getIdpermission().intValue());
-	    	   permission.setName(ObjPermission.getName());
-	    	   permissionRepository.save(permission);
-	           return "redirect:/pej/usermamagement";
-	       }
-	       permissionRepository.save(ObjPermission);
-	       return "redirect:/pej/usermamagement";
-	    }
-	
-	 @PostMapping("/pej/users")
-	    public String saveusers(@Valid @ModelAttribute(value="ObjUsers")  Utilisateur ObjUsers, BindingResult result,Model model) {
-	        if (result.hasErrors()) {
-	            return "frmUsers";
-	        }
-		  if(ObjUsers.getIdusers()!=null && ObjUsers.getIdusers().intValue() >0 ){
-	    	   Utilisateur users=usersRepository.findOne(ObjUsers.getIdusers().intValue());
-	    	   users.setFirstname(ObjUsers.getFirstname());
-	    	   users.setLastname(ObjUsers.getLastname());
-	    	   users.setUsername(ObjUsers.getUsername());
-	    	   users.setPassword(bCryptPasswordEncoder.encode(ObjUsers.getPassword()));
-	    	   //users.setDateModified(DATE.getCurrentDate());
-	           return "redirect:/pej/usermamagement";
-	       }
-	       ObjUsers.setEnabled(1);
-		   ObjUsers.setPassword(bCryptPasswordEncoder.encode(ObjUsers.getPassword()));
-
-	       usersRepository.save(ObjUsers);
-
-		  Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-
-		  if(principal==null){
-			  Roles r=roleRepository.findByName("FORMATEUR");
-			  if(r!=null) {
-				  UsersRole userrole = new UsersRole();
-				  userrole.setRoles(r);
-				  userrole.setUtilisateur(ObjUsers);
-				  userRoleRepository.save(userrole);
-			  }
-		  }
 
 
-		 return "redirect:/pej/usermamagement";
-	    }
-	 	
-		@GetMapping("/pej/users/role/{id}")
-		public String usersAddRole(@PathVariable Integer id, ModelMap model){
-			
-			Utilisateur objUsers=usersRepository.findOne(id);
-			 model.addAttribute("ObjUsers", objUsers);
-			List<Roles> roles = (List<Roles>) usersRepository.getNotInRoleUser(id);
-			List<Roles> inRoles = (List<Roles>) usersRepository.getInRoleUser(id);
-			model.addAttribute("roles", roles);
-			model.addAttribute("inRoles", inRoles);
-			 return "frmUserRoles";
+	@GetMapping("/pej/profile")
+	public String setProfile(Model model) {
+		User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Utilisateur user = usersRepository.findByUsername(principal.getUsername());
+		user.setPassword("");
+		model.addAttribute("utilsateur", user);
+		return "setprofile";
+	}
+
+
+	@PostMapping("/pej/newProfile")
+	public String newProfile(@ModelAttribute(value = "utilisateur") Utilisateur utilisateur) {
+		User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Formateur formateur = formateurRepository.findOneByUsername(principal.getUsername());
+
+		String oldPass = principal.getPassword();
+
+		try{
+			if (utilisateur.getPassword().equals("") || utilisateur.getPassword() == null)
+				utilisateur.setPassword(bCryptPasswordEncoder.encode(oldPass));
+			else
+				utilisateur.setPassword(bCryptPasswordEncoder.encode(utilisateur.getPassword()));
+
+			usersRepository.save(utilisateur);
+
+
+			if(formateur != null){
+				formateur.setUsername(utilisateur.getUsername());
+				formateurRepository.save(formateur);
+			}
 		}
-		
-		@GetMapping("/pej/permission/role/{id}")
-		public String permissionAddRole(@PathVariable Integer id, ModelMap model){
-			Utilisateur objUsers=usersRepository.findOne(id);
-			 model.addAttribute("ObjUsers", objUsers);
-			List<Antenne> antennes = (List<Antenne>) antenneRepository.findAll();
-			model.addAttribute("antennes", antennes);
-			 return "frmUsers";
+		catch (Exception ex){
+			notifyService.addErrorMessage("ECHEC DE L'ENREGSTREMENT. VERFIER S'IL N'EXISTE PAS D'ENREGISTREMENT AVEC LE MEME USERNAME OU EMAIL");
 		}
+
+
+		return "redirect:/pej/logout";
+	}
+
+
+	@PostMapping("/pej/users")
+	public String saveagents(@ModelAttribute(value = "ObjUsers") Utilisateur ObjUsers , BindingResult result) {
+		boolean success = true;
+
+		if (result.hasErrors()) {
+			List<ObjectError> errors = result.getAllErrors();
+			for (ObjectError error : errors) {
+				logger.debug("error to create new user " + error.toString());
+			}
+		}
+		else{
+			if (ObjUsers.getIdusers()!=null && ObjUsers.getIdusers().intValue() >0 )
+				success = utilisateurService.editUtilisateur(ObjUsers);
+			else
+				success = utilisateurService.createUtilisateur(ObjUsers);
+		}
+
+		if(!success)
+			notifyService.addErrorMessage("ECHEC DE L'ENREGSTREMENT. VERFIER S'IL N'EXISTE PAS D'ENREGISTREMENT AVEC LE MEME USERNAME OU EMAIL");
+
+
+		return "redirect:/pej/usermamagement";
+	}
 
 }

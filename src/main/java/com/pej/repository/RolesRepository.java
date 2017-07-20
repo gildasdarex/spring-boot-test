@@ -7,5 +7,5 @@ import com.pej.domains.Roles;
 
 public interface RolesRepository  extends  CrudRepository <Roles, Integer> {
 	 @Query("select r from Roles r  where r.name=?1" )
-	    Roles findByName(String name);
+	 Roles findByName(String name);
 }

@@ -11,194 +11,202 @@ import java.util.Date;
 public class OdkCandidat {
 
     @ExcelCell(0)
-    private String ae_submissionDate;
+    public String ae_submissionDate;
     @ExcelCell(1)//no mapping
-    private String ae_date_enregistrement;
+    public String ae_date_enregistrement;
     @ExcelCell(2)
-    private String deviceid;
+    public String deviceid;
     @ExcelCell(3)
-    private String ae_starttime;
+    public String ae_starttime;
     @ExcelCell(4)
-    private String ae_endtime;
+    public String ae_endtime;
     @ExcelCell(5)
-    private String subscriberid;
+    public String subscriberid;
     @ExcelCell(6)
-    private String devicephonenum;
+    public String simid;
     @ExcelCell(7)
-    @Mapping("agentenregistreur")//A créer
-    private String ae;
+    public String devicephonenum;
     @ExcelCell(8)
-    private String ae_autre;
-    @Mapping("enqueteur")
+    @Mapping("agentenregistreur")//A créer
+    public String ae;
     @ExcelCell(9)
-    private String enqueteur;
-    @Mapping("consentement")
+    public String ae_autre;
+    @Mapping("enqueteur")
     @ExcelCell(10)
-    private String consentement;
+    public String enqueteur;
+    @Mapping("consentement")
     @ExcelCell(11)
-    @Mapping("localdepartement")//departement
-    private String departement;
-    @Mapping("localcommune")
+    public String consentement;
     @ExcelCell(12)
-    private String commune;
-    @Mapping("arrondissement")
+    @Mapping("localdepartement")//departement
+    public String departement;
+    @Mapping("localcommune")
     @ExcelCell(13)
-    private String arrondissement;
-    @Mapping("village")
+    public String commune;
+    @Mapping("arrondissement")
     @ExcelCell(14)
-    private String village;
-    @Mapping("nom")
+    public String arrondissement;
+    @Mapping("village")
     @ExcelCell(15)
-    private String candidat_nom;
-    @Mapping("prenom")
+    public String village;
+    @Mapping("nom")
     @ExcelCell(16)
-    private String candidat_prenom;
+    public String candidat_nom;
+    @Mapping("prenom")
     @ExcelCell(17)
-    private String candidat_surnom;
-    @Mapping("nompere")
+    public String candidat_prenom;
     @ExcelCell(18)
-    private String candidat_nom_du_pere;
-    @Mapping("nommere")
+    public String candidat_surnom;
+    @Mapping("nompere")
     @ExcelCell(19)
-    private String candidat_nom_mere;
+    public String candidat_nom_du_pere;
+    @Mapping("nommere")
     @ExcelCell(20)
-    private String candidat_document_identite;
+    public String candidat_nom_mere;
     @ExcelCell(21)
-    private String candidat_document_identite_au;
+    public String candidat_document_identite;
     @ExcelCell(22)
-    @Mapping("refdocidentite")
-    private String candidat_numero_piece;
+    public String candidat_document_identite_au;
     @ExcelCell(23)
-    @Mapping("telprincipal")
-    private String candidat_telephone_principal;
+    @Mapping("refdocidentite")
+    public String candidat_numero_piece;
+    @Mapping("titreautoritelocale")
     @ExcelCell(24)
-    @Mapping("telalternatif")
-    private String candidat_telephone_alternatif;
+    public String titre_authorite_local;
+    @Mapping("nomautoritelocale")
     @ExcelCell(25)
-    private String ac;
+    public String nom_authorite_local;
     @ExcelCell(26)
-    @Mapping("lieupassagetemps")
-    private String candidat_lieu_passage_temps;
+    @Mapping("telprincipal")
+    public String candidat_telephone_principal;
     @ExcelCell(27)
-    @Mapping("rue")
-    private String candidat_nom_rue;
+    @Mapping("telalternatif")
+    public String candidat_telephone_alternatif;
     @ExcelCell(28)
-    private String candidat_ilot;
+    public String ac;
     @ExcelCell(29)
-    @Mapping("parcelnomproprio")
-    private String candidat_num_parcel_nom_propr;
+    @Mapping("lieupassagetemps")
+    public String candidat_lieu_passage_temps;
     @ExcelCell(30)
-    @Mapping("pointrepere1")
-    private String candidat_point_repere_1;
+    @Mapping("rue")
+    public String candidat_nom_rue;
     @ExcelCell(31)
-    @Mapping("pointrepere2")
-    private String candidat_point_repere_2;
+    public String candidat_ilot;
     @ExcelCell(32)
-    private String candidat_personne_ice;
+    @Mapping("parcelnomproprio")
+    public String candidat_num_parcel_nom_propr;
     @ExcelCell(33)
-    private String candidat_ice_lien_ice;
+    @Mapping("pointrepere1")
+    public String candidat_point_repere_1;
     @ExcelCell(34)
-    private String candidat_ice_contact1;
-    @ExcelCell(34)
-    private String candidat_ice_contact2;
+    @Mapping("pointrepere2")
+    public String candidat_point_repere_2;
     @ExcelCell(35)
-    private String is_sexe;
-    @Mapping("age")
+    public String candidat_personne_ice;
     @ExcelCell(36)
-    private int is_age;
-    @Mapping("nourrison")//A créer
+    public String candidat_ice_lien_ice;
     @ExcelCell(37)
-    private String is_bebe2ans;
-    @ExcelCell(38)//no mapping
-    private String langue_parlee;
-    @ExcelCell(39)//no mapping
-    private String langue_parlee_autre;
-    @ExcelCell(40)//no mapping
-    private String is_situation_matri;
-    @Mapping("beneficiairepsdcc")//A créer
+    public String candidat_ice_contact1;
+    @ExcelCell(38)
+    public String candidat_ice_contact2;
+    @ExcelCell(39)
+    public String is_sexe;
+    @Mapping("age")
+    @ExcelCell(40)
+    public int is_age;
     @ExcelCell(41)
-    private String beneficiaire_psdcc;
-    @Mapping("liencm")//A créer
-    @ExcelCell(42)
-    private String is_lien_cm;
-    @Mapping("nbpersonnemenage")
-    @ExcelCell(43)
-    private int is_effectif_menage;
-    @Mapping("scolarise")
-    @ExcelCell(44)
-    private String isq_ecole_formelle;
-    @Mapping("dernierniveauetude")
+    @Mapping("nourrison")//A créer
+    public String is_bebe2ans;
+    @ExcelCell(42)//no mapping
+    public String langue_parlee;
+    @ExcelCell(43)//no mapping
+    public String langue_parlee_autre;
+    @ExcelCell(44)//no mapping
+    public String is_situation_matri;
+    @Mapping("beneficiairepsdcc")//A créer
     @ExcelCell(45)
-    private String isq_niveau_scolaire;
-    @ExcelCell(46)//no mapping
-    private String isq_niveau_scolaire_autre;
-    @ExcelCell(47)//no mapping
-    private String isq_niveau_alphabet_fr;
-    @ExcelCell(48)//no mapping
-    private String isq_niveau_alphabet_local;
+    public String beneficiaire_psdcc;
+    @Mapping("liencm")//A créer
+    @ExcelCell(46)
+    public String is_lien_cm;
+    @Mapping("nbpersonnemenage")
+    @ExcelCell(47)
+    public int is_effectif_menage;
+    @Mapping("scolarise")
+    @ExcelCell(48)
+    public String isq_ecole_formelle;
+    @Mapping("dernierniveauetude")
     @ExcelCell(49)
-    @Mapping("qualificationpersonelle")
-    private String isq_qual_prof;
-    @ExcelCell(50)
-    @Mapping("autrequalifpersonelle")
-    private String isq_qual_prof_autre;
-    @ExcelCell(51)
-    private String isq_formation_entrepreunariat;
-    @Mapping("worklastmonth")
-    @ExcelCell(52)
-    private String travailer_3_der_mois;
+    public String isq_niveau_scolaire;
+    @ExcelCell(50)//no mapping
+    public String isq_niveau_scolaire_autre;
+    @ExcelCell(51)//no mapping
+    public String isq_niveau_alphabet_fr;
+    @ExcelCell(52)//no mapping
+    public String isq_niveau_alphabet_local;
     @ExcelCell(53)
+    @Mapping("qualificationpersonelle")
+    public String isq_qual_prof;
+    @ExcelCell(54)
+    @Mapping("autrequalifpersonelle")
+    public String isq_qual_prof_autre;
+    @ExcelCell(55)
+    public String isq_formation_entrepreunariat;
+    @Mapping("worklastmonth")
+    @ExcelCell(56)
+    public String travailer_3_der_mois;
+    @ExcelCell(57)
     @Mapping("recherchetravail")
-    private String chercher_travail_3_der_mois;
-    @ExcelCell(54)//no mapping
-    private String raison_chercher_travail;
-    @ExcelCell(55)//no mapping
-    private String raison_chercher_travail_autre;
-    @ExcelCell(56)//no mapping
-    private String activite_principale;
-    @ExcelCell(57)//no mapping
-    private String activite_principale_autre;
+    public String chercher_travail_3_der_mois;
     @ExcelCell(58)//no mapping
-    private String employeur;
+    public String raison_chercher_travail;
+    @ExcelCell(59)//no mapping
+    public String raison_chercher_travail_autre;
+    @ExcelCell(60)//no mapping
+    public String activite_principale;
+    @ExcelCell(61)//no mapping
+    public String activite_principale_autre;
+    @ExcelCell(62)//no mapping
+    public String employeur;
     @Mapping("nbmoistravail")
-    @ExcelCell(59)
-    private int nb_mois_travail_par_an;
-    @Mapping("nbjoursmoyen")
-    @ExcelCell(60)
-    private int nb_jour_travail_par_mois;
-    @Mapping("nbheuremoyen")
-    @ExcelCell(61)
-    private int nb_heure_travail_par_jour;
-    @Mapping("revenumoyen")
-    @ExcelCell(62)
-    private String revenu_mensuel;
-    @Mapping("domainesouhait")
     @ExcelCell(63)
-    private String domaine_activite;
+    public int nb_mois_travail_par_an;
+    @Mapping("nbjoursmoyen")
     @ExcelCell(64)
-    private String domaine_activite_autre;
-    @Mapping("travailgroupe")
+    public int nb_jour_travail_par_mois;
+    @Mapping("nbheuremoyen")
     @ExcelCell(65)
-    private String travail_en_cooperative;
+    public int nb_heure_travail_par_jour;
+    @Mapping("revenumoyen")
     @ExcelCell(66)
-    private String source_info_pej;
-    @Mapping("nomradio")
+    public String revenu_mensuel;
+    @Mapping("domainesouhait")
     @ExcelCell(67)
-    private String nomradio;
-    @Mapping("numeroserie")
+    public String domaine_activite;
     @ExcelCell(68)
-    private String numero_serie;
-    @Mapping("numerocandidat")
+    public String domaine_activite_autre;
+    @Mapping("travailgroupe")
     @ExcelCell(69)
-    private String numero_candidat;
+    public String travail_en_cooperative;
     @ExcelCell(70)
-    @Mapping("commentaire")//commentaire
-    private String commentaire;
+    public String source_info_pej;
+    @Mapping("nomradio")
     @ExcelCell(71)
-    //@Mapping("meta_instanceName")//A créer
-    private String meta_instanceName;
+    public String nomradio;
+    @Mapping("numeroserie")
     @ExcelCell(72)
-    private String statut;
+    public String numero_serie;
+    @Mapping("numerocandidat")
+    @ExcelCell(73)
+    public String numero_candidat;
+    @ExcelCell(74)
+    @Mapping("commentaire")//commentaire
+    public String commentaire;
+    @ExcelCell(75)
+    //@Mapping("meta_instanceName")//A créer
+    public String meta_instanceName;
+    @ExcelCell(76)//Ce champ existe pas dans mon fichier
+    public String statut;
 
 
     public String getAe_submissionDate() {

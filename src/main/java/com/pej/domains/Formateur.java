@@ -15,206 +15,209 @@ import com.pej.domains.Formationformateur;
  */
 @Entity
 @Table(name = "FORMATEUR")
-@Proxy(lazy=false)
+@Proxy(lazy = false)
 public class Formateur implements java.io.Serializable {
 
-	private Integer idformateur;
-	private Cabinet cabinet;
-	private String nom;
-	private String prenom;
-	private String email;
-	private Date datenaissance;
-	private String cardid;
-	private String telephone;
-	private String datecreation;
-	private String userlogin;
-	private String photolink;
-	 private String username;
-	    private String password;
-	@JsonIgnore
-	private List<Formation> formations = new ArrayList<Formation>();
-	private Set<Formationformateur> formationformateurs = new HashSet<Formationformateur>(0);
-	 @JsonIgnore
-	    private Set<EntrepriseFormateur> entrepriseFormateurs = new HashSet<EntrepriseFormateur>(0);
-	    @JsonIgnore
-	    private Set<Suivie> suivies = new HashSet<Suivie>(0);
-	public Formateur() {
-	}
+    private Integer idformateur;
+    private Cabinet cabinet;
+    private String nom;
+    private String prenom;
+    private String email;
+    private Date datenaissance;
+    private String cardid;
+    private String telephone;
+    private String datecreation;
+    private String userlogin;
+    private String photolink;
+    private String username;
+    private String password;
+    @JsonIgnore
+    private List<Formation> formations = new ArrayList<Formation>();
+    private Set<Formationformateur> formationformateurs = new HashSet<Formationformateur>(0);
+    @JsonIgnore
+    private Set<EntrepriseFormateur> entrepriseFormateurs = new HashSet<EntrepriseFormateur>(0);
+    @JsonIgnore
+    private Set<Suivie> suivies = new HashSet<Suivie>(0);
 
-	public Formateur(Integer idformateur) {
-		this.idformateur = idformateur;
-	}
+    public Formateur() {
+    }
 
-	public Formateur(Integer idformateur, Cabinet cabinet, String nom, String prenom, Date datenaissance,
-			String cardid, String telephone, String datecreation, String userlogin, List<Formation> formations) {
-		this.idformateur = idformateur;
-		this.cabinet = cabinet;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.datenaissance = datenaissance;
-		this.cardid = cardid;
-		this.telephone = telephone;
-		this.datecreation = datecreation;
-		this.userlogin = userlogin;
-		this.formations = formations;
-	}
+    public Formateur(Integer idformateur) {
+        this.idformateur = idformateur;
+    }
 
-	@Id 
-  	@GeneratedValue(generator = "SEQ_IDFORMATEUR", strategy = GenerationType.SEQUENCE)
-  	@SequenceGenerator(name = "SEQ_IDFORMATEUR", sequenceName = "SEQ_IDFORMATEUR",allocationSize=1)
-    @Column(name="IDFORMATEUR", unique=true, nullable=false, precision=22, scale=0)
-	public Integer getIdformateur() {
-		return this.idformateur;
-	}
+    public Formateur(Integer idformateur, Cabinet cabinet, String nom, String prenom, Date datenaissance,
+                     String cardid, String telephone, String datecreation, String userlogin, List<Formation> formations) {
+        this.idformateur = idformateur;
+        this.cabinet = cabinet;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.datenaissance = datenaissance;
+        this.cardid = cardid;
+        this.telephone = telephone;
+        this.datecreation = datecreation;
+        this.userlogin = userlogin;
+        this.formations = formations;
+    }
 
-	public void setIdformateur(Integer idformateur) {
-		this.idformateur = idformateur;
-	}
+    @Id
+    @GeneratedValue(generator = "SEQ_IDFORMATEUR", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "SEQ_IDFORMATEUR", sequenceName = "SEQ_IDFORMATEUR", allocationSize = 1)
+    @Column(name = "IDFORMATEUR", unique = true, nullable = false, precision = 22, scale = 0)
+    public Integer getIdformateur() {
+        return this.idformateur;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "IDCABINET")
-	public Cabinet getCabinet() {
-		return this.cabinet;
-	}
+    public void setIdformateur(Integer idformateur) {
+        this.idformateur = idformateur;
+    }
 
-	public void setCabinet(Cabinet cabinet) {
-		this.cabinet = cabinet;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "IDCABINET")
+    public Cabinet getCabinet() {
+        return this.cabinet;
+    }
 
-	@Column(name = "NOM", length = 1024)
-	public String getNom() {
-		return this.nom;
-	}
+    public void setCabinet(Cabinet cabinet) {
+        this.cabinet = cabinet;
+    }
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
+    @Column(name = "NOM", length = 1024)
+    public String getNom() {
+        return this.nom;
+    }
 
-	@Column(name = "PRENOM", length = 1024)
-	public String getPrenom() {
-		return this.prenom;
-	}
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
+    @Column(name = "PRENOM", length = 1024)
+    public String getPrenom() {
+        return this.prenom;
+    }
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "DATENAISSANCE", length = 7)
-	public Date getDatenaissance() {
-		return this.datenaissance;
-	}
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
 
-	public void setDatenaissance(Date datenaissance) {
-		this.datenaissance = datenaissance;
-	}
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DATENAISSANCE", length = 7)
+    public Date getDatenaissance() {
+        return this.datenaissance;
+    }
 
-	@Column(name = "CARDID", length = 1024)
-	public String getCardid() {
-		return this.cardid;
-	}
+    public void setDatenaissance(Date datenaissance) {
+        this.datenaissance = datenaissance;
+    }
 
-	public void setCardid(String cardid) {
-		this.cardid = cardid;
-	}
+    @Column(name = "CARDID", length = 1024)
+    public String getCardid() {
+        return this.cardid;
+    }
 
-	@Column(name = "TELEPHONE", length = 1024)
-	public String getTelephone() {
-		return this.telephone;
-	}
+    public void setCardid(String cardid) {
+        this.cardid = cardid;
+    }
 
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
+    @Column(name = "TELEPHONE", length = 1024)
+    public String getTelephone() {
+        return this.telephone;
+    }
 
-	@Column(name = "DATECREATION", length = 20)
-	public String getDatecreation() {
-		return this.datecreation;
-	}
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
-	public void setDatecreation(String datecreation) {
-		this.datecreation = datecreation;
-	}
+    @Column(name = "DATECREATION", length = 20)
+    public String getDatecreation() {
+        return this.datecreation;
+    }
 
-	@Column(name = "USERLOGIN", length = 1024)
-	public String getUserlogin() {
-		return this.userlogin;
-	}
+    public void setDatecreation(String datecreation) {
+        this.datecreation = datecreation;
+    }
 
-	public void setUserlogin(String userlogin) {
-		this.userlogin = userlogin;
-	}
-	
-	@Column(name = "PHOTOLINK")
-	public String getPhotolink() {
-		return this.photolink;
-	}
+    @Column(name = "USERLOGIN", length = 1024)
+    public String getUserlogin() {
+        return this.userlogin;
+    }
 
-	@Column(name = "USERNAME")
-	public String getUsername() {
-		return username;
-	}
+    public void setUserlogin(String userlogin) {
+        this.userlogin = userlogin;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    @Column(name = "PHOTOLINK")
+    public String getPhotolink() {
+        return this.photolink;
+    }
 
-	@Column(name = "EMAIL", length = 1024)
-	public String getEmail() {
-		return email;
-	}
+    @Column(name = "USERNAME", unique = true, nullable = false)
+    public String getUsername() {
+        return username;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	@Transient
-	public String getPassword() {
-		return password;
-	}
+    @Column(name = "EMAIL", unique = true, nullable = false, length = 1024)
+    public String getEmail() {
+        return email;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setPhotolink(String photolink) {
-		this.photolink = photolink;
-	}
-	
-	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "formateur")
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "FORMATEUR_GIVE_FORMATION", joinColumns = { @JoinColumn(name = "IDFORMATEUR") }, inverseJoinColumns = { @JoinColumn(name = "IDFORMATION") })
-	public List<Formation> getFormations() {
-		return this.formations;
-	}
-	public void setFormations(List<Formation> formations) {
-		this.formations = formations;
-	}
+    @Transient
+    public String getPassword() {
+        return password;
+    }
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "formateur")
-	public Set<Formationformateur> getFormationformateurs() {
-		return this.formationformateurs;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setFormationformateurs(Set<Formationformateur> formationformateurs) {
-		this.formationformateurs = formationformateurs;
-	}
-	   @OneToMany(fetch=FetchType.LAZY, mappedBy="formateur")
-	    public Set<EntrepriseFormateur> getEntrepriseFormateurs() {
-	        return this.entrepriseFormateurs;
-	    }
+    public void setPhotolink(String photolink) {
+        this.photolink = photolink;
+    }
 
-	    public void setEntrepriseFormateurs(Set<EntrepriseFormateur> entrepriseFormateurs) {
-	        this.entrepriseFormateurs = entrepriseFormateurs;
-	    }
-	    @OneToMany(fetch=FetchType.LAZY, mappedBy="formateur")
-	    public Set<Suivie> getSuivies() {
-	        return this.suivies;
-	    }
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "FORMATEUR_GIVE_FORMATION", joinColumns = {@JoinColumn(name = "IDFORMATEUR")}, inverseJoinColumns = {@JoinColumn(name = "IDFORMATION")})
+    public List<Formation> getFormations() {
+        return this.formations;
+    }
 
-	    public void setSuivies(Set<Suivie> suivies) {
-	        this.suivies = suivies;
-	    }
+    public void setFormations(List<Formation> formations) {
+        this.formations = formations;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "formateur")
+    public Set<Formationformateur> getFormationformateurs() {
+        return this.formationformateurs;
+    }
+
+    public void setFormationformateurs(Set<Formationformateur> formationformateurs) {
+        this.formationformateurs = formationformateurs;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "formateur")
+    public Set<EntrepriseFormateur> getEntrepriseFormateurs() {
+        return this.entrepriseFormateurs;
+    }
+
+    public void setEntrepriseFormateurs(Set<EntrepriseFormateur> entrepriseFormateurs) {
+        this.entrepriseFormateurs = entrepriseFormateurs;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "formateur")
+    public Set<Suivie> getSuivies() {
+        return this.suivies;
+    }
+
+    public void setSuivies(Set<Suivie> suivies) {
+        this.suivies = suivies;
+    }
 
 
 }

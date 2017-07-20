@@ -41,7 +41,7 @@ public class Candidat  implements java.io.Serializable {
 
 
      /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer idcandidat;
@@ -99,7 +99,7 @@ public class Candidat  implements java.io.Serializable {
      private String nompere;
  	 private String nommere;
  	 private String photolink;
- 	 
+
  	 //New property
  	 private String deviceid;
 	 private String agentenregistreur;
@@ -153,7 +153,7 @@ public class Candidat  implements java.io.Serializable {
     public Candidat() {
     }
 
-	
+
     public Candidat(Integer idcandidat) {
         this.idcandidat = idcandidat;
     }
@@ -200,17 +200,17 @@ public class Candidat  implements java.io.Serializable {
        this.dateenregistrement = dateenregistrement;
        this.numeroagent = numeroagent;
        this.numerofiche = numerofiche;
-      
+
     }
-   
-	@Id 
+
+	@Id
 	@GeneratedValue(generator = "SEQ_IDCANDIDAT", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "SEQ_IDCANDIDAT", sequenceName = "SEQ_IDCANDIDAT",allocationSize=1)
 	@Column(name="IDCANDIDAT", unique=true, nullable=false, precision=22, scale=0)
     public Integer getIdcandidat() {
         return this.idcandidat;
     }
-    
+
     public void setIdcandidat(Integer idcandidat) {
         this.idcandidat = idcandidat;
     }
@@ -220,27 +220,27 @@ public class Candidat  implements java.io.Serializable {
     public Agent getAgent() {
         return this.agent;
     }
-    
+
     public void setAgent(Agent agent) {
         this.agent = agent;
     }
 
-    
+
     @Column(name="NOM", length=1024)
     public String getNom() {
         return this.nom;
     }
-    
+
     public void setNom(String nom) {
         this.nom = nom;
     }
 
-    
+
     @Column(name="PRENOM", length=1024)
     public String getPrenom() {
         return this.prenom;
     }
-    
+
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
@@ -250,57 +250,57 @@ public class Candidat  implements java.io.Serializable {
     public Date getDatenaissance() {
         return this.datenaissance;
     }
-    
+
     public void setDatenaissance(Date datenaissance) {
         this.datenaissance = datenaissance;
     }
 
-    
+
     @Column(name="DOCIDENTITE", length=1024)
     public String getDocidentite() {
         return this.docidentite;
     }
-    
+
     public void setDocidentite(String docidentite) {
         this.docidentite = docidentite;
     }
 
-    
+
     @Column(name="NIVEAU", length=1024)
     public String getNiveau() {
         return this.niveau;
     }
-    
+
     public void setNiveau(String niveau) {
         this.niveau = niveau;
     }
 
-    
+
     @Column(name="DIPLOME", length=1024)
     public String getDiplome() {
         return this.diplome;
     }
-    
+
     public void setDiplome(String diplome) {
         this.diplome = diplome;
     }
 
-    
+
     @Column(name="CODEARRONDISSEMENT", length=1024)
     public String getCodearrondissement() {
         return this.codearrondissement;
     }
-    
+
     public void setCodearrondissement(String codearrondissement) {
         this.codearrondissement = codearrondissement;
     }
 
-    
+
     @Column(name="USERLOGIN", length=1024)
     public String getUserlogin() {
         return this.userlogin;
     }
-    
+
     public void setUserlogin(String userlogin) {
         this.userlogin = userlogin;
     }
@@ -310,127 +310,127 @@ public class Candidat  implements java.io.Serializable {
     public Date getDatecreation() {
         return this.datecreation;
     }
-    
+
     public void setDatecreation(Date datecreation) {
         this.datecreation = datecreation;
     }
 
-    
+
     @Column(name="REFDOCIDENTITE", length=1024)
     public String getRefdocidentite() {
         return this.refdocidentite;
     }
-    
+
     public void setRefdocidentite(String refdocidentite) {
         this.refdocidentite = refdocidentite;
     }
 
-    
+
     @Column(name="TELPRINCIPAL", length=1024)
     public String getTelprincipal() {
         return this.telprincipal;
     }
-    
+
     public void setTelprincipal(String telprincipal) {
         this.telprincipal = telprincipal;
     }
 
-    
+
     @Column(name="TELALTERNATIF", length=1024)
     public String getTelalternatif() {
         return this.telalternatif;
     }
-    
+
     public void setTelalternatif(String telalternatif) {
         this.telalternatif = telalternatif;
     }
 
-    
+
     @Column(name="AGE", precision=22, scale=0)
     public Integer getAge() {
         return this.age;
     }
-    
+
     public void setAge(Integer age) {
         this.age = age;
     }
 
-    
+
     @Column(name="SEXE", length=1024)
     public String getSexe() {
         return this.sexe;
     }
-    
+
     public void setSexe(String sexe) {
         this.sexe = sexe;
     }
 
-    
+
     @Column(name="SITUATIONMATRIMONIALE", length=1024)
     public String getSituationmatrimoniale() {
         return this.situationmatrimoniale;
     }
-    
+
     public void setSituationmatrimoniale(String situationmatrimoniale) {
         this.situationmatrimoniale = situationmatrimoniale;
     }
 
-    
+
     @Column(name="PARENTECHEFMENAGE", length=128)
     public String getParentechefmenage() {
         return this.parentechefmenage;
     }
-    
+
     public void setParentechefmenage(String parentechefmenage) {
         this.parentechefmenage = parentechefmenage;
     }
 
-    
+
     @Column(name="NBPERSONNEMENAGE", precision=22, scale=0)
     public Integer getNbpersonnemenage() {
         return this.nbpersonnemenage;
     }
-    
+
     public void setNbpersonnemenage(Integer nbpersonnemenage) {
         this.nbpersonnemenage = nbpersonnemenage;
     }
 
-    
+
     @Column(name="MENAGEBENEFICIAIRE")
     public String getMenagebeneficiaire() {
         return this.menagebeneficiaire;
     }
-    
+
     public void setMenagebeneficiaire(String menagebeneficiaire) {
         this.menagebeneficiaire = menagebeneficiaire;
     }
 
-    
+
     @Column(name="SCOLARISE", precision=22, scale=0)
     public String getScolarise() {
         return this.scolarise;
     }
-    
+
     public void setScolarise(String scolarise) {
         this.scolarise = scolarise;
     }
 
-    
+
     @Column(name="DERNIERNIVEAUETUDE", length=128)
     public String getDernierniveauetude() {
         return this.dernierniveauetude;
     }
-    
+
     public void setDernierniveauetude(String dernierniveauetude) {
         this.dernierniveauetude = dernierniveauetude;
     }
 
-    
+
     @Column(name="LECTURE", precision=22, scale=0)
     public String getLecture() {
         return this.lecture;
     }
-    
+
     public void setLecture(String lecture) {
         this.lecture =lecture;
     }
@@ -439,169 +439,169 @@ public class Candidat  implements java.io.Serializable {
     public String getEcriture() {
         return this.ecriture;
     }
-    
+
     public void setEcriture(String ecriture) {
         this.ecriture = ecriture;
     }
-    
+
     @Column(name="QUALIFICATIONPERSONELLE", length=128)
     public String getQualificationpersonelle() {
         return this.qualificationpersonelle;
     }
-    
+
     public void setQualificationpersonelle(String qualificationpersonelle) {
         this.qualificationpersonelle = qualificationpersonelle;
     }
 
-    
+
     @Column(name="WORKLASTMONTH")
     public String getWorklastmonth() {
         return this.worklastmonth;
     }
-    
+
     public void setWorklastmonth(String worklastmonth) {
         this.worklastmonth = worklastmonth;
     }
 
-    
+
     @Column(name="RECHERCHETRAVAIL")
     public String getRecherchetravail() {
         return this.recherchetravail;
     }
-    
+
     public void setRecherchetravail(String recherchetravail) {
         this.recherchetravail = recherchetravail;
     }
 
-    
+
     @Column(name="MOTIFNONRECHERCHE")
     public String getMotifnonrecherche() {
         return this.motifnonrecherche;
     }
-    
+
     public void setMotifnonrecherche(String motifnonrecherche) {
         this.motifnonrecherche = motifnonrecherche;
     }
 
-    
+
     @Column(name="ACTIVITEACTUELLE")
     public String getActiviteactuelle() {
         return this.activiteactuelle;
     }
-    
+
     public void setActiviteactuelle(String activiteactuelle) {
         this.activiteactuelle = activiteactuelle;
     }
 
-    
+
     @Column(name="ASONCOMPTE", length=128)
     public String getAsoncompte() {
         return this.asoncompte;
     }
-    
+
     public void setAsoncompte(String asoncompte) {
         this.asoncompte = asoncompte;
     }
 
-    
+
     @Column(name="NBMOISTRAVAIL", precision=22, scale=0)
     public Integer getNbmoistravail() {
         return this.nbmoistravail;
     }
-    
+
     public void setNbmoistravail(Integer nbmoistravail) {
         this.nbmoistravail = nbmoistravail;
     }
 
-    
+
     @Column(name="NBJOURSMOYEN", precision=22, scale=0)
     public Integer getNbjoursmoyen() {
         return this.nbjoursmoyen;
     }
-    
+
     public void setNbjoursmoyen(Integer nbjoursmoyen) {
         this.nbjoursmoyen = nbjoursmoyen;
     }
 
-    
+
     @Column(name="NBHEUREMOYEN", precision=22, scale=0)
     public Integer getNbheuremoyen() {
         return this.nbheuremoyen;
     }
-    
+
     public void setNbheuremoyen(Integer nbheuremoyen) {
         this.nbheuremoyen = nbheuremoyen;
     }
 
-    
+
     @Column(name="REVENUMOYEN", precision=22, scale=0)
     public String getRevenumoyen() {
         return this.revenumoyen;
     }
-    
+
     public void setRevenumoyen(String revenumoyen) {
         this.revenumoyen = revenumoyen;
     }
 
-    
+
     @Column(name="DOMAINESOUHAIT")
     public String getDomainesouhait() {
         return this.domainesouhait;
     }
-    
+
     public void setDomainesouhait(String domainesouhait) {
         this.domainesouhait = domainesouhait;
     }
 
-    
+
     @Column(name="TRAVAILGROUPE")
     public String getTravailgroupe() {
         return this.travailgroupe;
     }
-    
+
     public void setTravailgroupe(String travailgroupe) {
         this.travailgroupe = travailgroupe;
     }
 
-    
+
     @Column(name="NUMCARTEAGRATTER", length=20)
     public String getNumcarteagratter() {
         return this.numcarteagratter;
     }
-    
+
     public void setNumcarteagratter(String numcarteagratter) {
         this.numcarteagratter = numcarteagratter;
     }
 
-    
 
-    
+
+
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="IDQUARTIER")
     public Quartier getQuartier() {
         return this.quartier;
     }
-    
+
     public void setQuartier(Quartier quartier) {
         this.quartier = quartier;
     }
 
-    
+
     @Column(name="COMMUNE", length=128)
     public String getCommune() {
         return this.commune;
     }
-    
+
     public void setCommune(String commune) {
         this.commune = commune;
     }
 
-    
+
     @Column(name="DEPARTEMENT", length=1024)
     public String getDepartement() {
         return this.departement;
     }
-    
+
     public void setDepartement(String departement) {
         this.departement = departement;
     }
@@ -611,27 +611,27 @@ public class Candidat  implements java.io.Serializable {
     public Date getDateenregistrement() {
         return this.dateenregistrement;
     }
-    
+
     public void setDateenregistrement(Date dateenregistrement) {
         this.dateenregistrement = dateenregistrement;
     }
 
-    
+
     @Column(name="NUMEROAGENT", length=1024)
     public String getNumeroagent() {
         return this.numeroagent;
     }
-    
+
     public void setNumeroagent(String numeroagent) {
         this.numeroagent = numeroagent;
     }
 
-    
+
     @Column(name="NUMEROFICHE", length=1024)
     public String getNumerofiche() {
         return this.numerofiche;
     }
-    
+
     public void setNumerofiche(String numerofiche) {
         this.numerofiche = numerofiche;
     }
@@ -641,7 +641,7 @@ public class Candidat  implements java.io.Serializable {
     public String getLanguesparlees() {
         return this.languesparlees;
     }
-    
+
     public void setLanguesparlees(String languesparlees) {
         this.nom = languesparlees;
     }
@@ -653,7 +653,7 @@ public class Candidat  implements java.io.Serializable {
 	public void setNommere(String nommere) {
 		this.nommere = nommere;
 	}
-	
+
 	 @Column(name = "NOMPERE")
 	public String getNompere() {
 		return this.nompere;
@@ -675,7 +675,7 @@ public class Candidat  implements java.io.Serializable {
     public String getPrecisionactivite() {
         return this.precisionactivite;
     }
-    
+
     public void setPrecisionactivite(String precisionactivite) {
         this.precisionactivite = precisionactivite;
     }
@@ -683,11 +683,11 @@ public class Candidat  implements java.io.Serializable {
     public String getPrecisionactivitesouhaiter() {
         return this.precisionactivitesouhaiter;
     }
-    
+
     public void setPrecisionactivitesouhaiter(String precisionactivitesouhaiter) {
         this.precisionactivitesouhaiter = precisionactivitesouhaiter;
     }
-	
+
     @ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "IDSTATUT")
 	public Statutcandidat getStatutcandidat() {
@@ -697,9 +697,9 @@ public class Candidat  implements java.io.Serializable {
 	public void setStatutcandidat(Statutcandidat statutcandidat) {
 		this.statutcandidat = statutcandidat;
 	}
-	
-	
-	
+
+
+
 	@Column(name="NIVEAUVALIDATION", precision=22, scale=0)
 	public int getNiveauvalidation() {
 		return niveauvalidation;
@@ -714,7 +714,7 @@ public class Candidat  implements java.io.Serializable {
     public Set<Formationbeneficaire> getFormationbeneficaires() {
         return this.formationbeneficaires;
     }
-    
+
     public void setFormationbeneficaires(Set<Formationbeneficaire> formationbeneficaires) {
         this.formationbeneficaires = formationbeneficaires;
     }
@@ -734,9 +734,9 @@ public class Candidat  implements java.io.Serializable {
     public void setEntreprises(Set<Entreprise> entreprises) {
         this.entreprises = entreprises;
     }
-    
-    
-    
+
+
+
 	@Override
 	public String toString() {
 		return "Candidat [idcandidat=" + idcandidat + ", agent=" + agent + ", nom=" + nom + ", prenom=" + prenom
@@ -944,7 +944,7 @@ public class Candidat  implements java.io.Serializable {
 		return employeur;
 	}
 
-	
+
 	public void setEmployeur(String employeur) {
 		this.employeur = employeur;
 	}
@@ -1009,7 +1009,7 @@ public class Candidat  implements java.io.Serializable {
 		return agentautre;
 	}
 
-	
+
 	public void setAgentautre(String agentautre) {
 		this.agentautre = agentautre;
 	}
@@ -1173,7 +1173,7 @@ public class Candidat  implements java.io.Serializable {
 	public void setSmid(String smid) {
 		this.smid = smid;
 	}
-	
+
 	@Column(name="subscriberid", length=50)
 	public String getSubscriberid() {
 		return subscriberid;
@@ -1203,9 +1203,9 @@ public class Candidat  implements java.io.Serializable {
 	public void setMetainstancename(String metainstancename) {
 		this.metainstancename = metainstancename;
 	}
-	
-	
-	
+
+
+
 
 }
 

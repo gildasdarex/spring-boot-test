@@ -2,9 +2,13 @@ package com.pej.services;
 
 import com.pej.domains.*;
 import com.pej.repository.*;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,6 +18,7 @@ import java.util.List;
 
 @Service()
 public class FormateurService {
+    Logger logger = LogManager.getLogger(FormateurService.class);
 
     @Autowired
     private FormateurRepository formateurRepository;
@@ -45,23 +50,35 @@ public class FormateurService {
     }
 
 
-
+    @Transactional(propagation= Propagation.REQUIRED)
     public boolean createFormateur(Formateur formateur){
-        formateur = formateurRepository.save(formateur);
-        Utilisateur user = setFormateurUser(formateur);
-        setFormateurRole(user);
+        try {
+            formateur = formateurRepository.save(formateur);
+            Utilisateur user = setFormateurUser(formateur);
+            setFormateurRole(user);
+        }
+        catch (Exception ex){
+            logger.debug("error when create new user " + ex.getMessage());
+            return false ;
+        }
 
         return true;
     }
 
-
+    @Transactional(propagation= Propagation.REQUIRED)
     public boolean editFormateur(Formateur updateFormateur){
-        Formateur formateur = formateurRepository.findOne(updateFormateur.getIdformateur());
+        try{
+            Formateur formateur = formateurRepository.findOne(updateFormateur.getIdformateur());
 
-        updateFormateur.setUsername(formateur.getUsername());
-        updateFormateur.setDatenaissance(formateur.getDatenaissance());
+            updateFormateur.setUsername(formateur.getUsername());
+            updateFormateur.setDatenaissance(formateur.getDatenaissance());
 
-        formateurRepository.save(updateFormateur);
+            formateurRepository.save(updateFormateur);
+        }
+        catch (Exception ex){
+            logger.debug("error when edit  user " + ex.getMessage());
+            return false ;
+        }
 
         return true;
     }

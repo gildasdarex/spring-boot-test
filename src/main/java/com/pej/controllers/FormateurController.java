@@ -33,22 +33,11 @@ import com.pej.repository.RolesRepository;
 public class FormateurController {
     Logger logger = LogManager.getLogger(FormateurController.class);
 
-    @Autowired
-    private FormateurRepository formateurRepository;
-    @Autowired
-    private CabinetRepository cabinetRepository;
-    @Autowired
-    private UserRoleRepository userRoleRepository;
-    @Autowired
-    private RolesRepository roleRepository;
-    @Autowired
-    private UsersRepository userRepository;
-    @Autowired
-    private NotificationService notifyService;
-    @Autowired
-    private FormateurService formateurService;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired private FormateurRepository formateurRepository;
+    @Autowired private CabinetRepository cabinetRepository;
+    @Autowired private UsersRepository userRepository;
+    @Autowired private FormateurService formateurService;
+    @Autowired private NotificationService notifyService;
 
     private Utilisateur usercourant;
 
@@ -127,40 +116,12 @@ public class FormateurController {
     }
 
 
-    @GetMapping("/pej/profile")
-    public String setProfile(Model model) {
-        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Utilisateur user = userRepository.findByUsername(principal.getUsername());
-        user.setPassword("");
-        model.addAttribute("utilsateur", user);
-        return "setprofile";
-    }
-
-
-    @PostMapping("/pej/newProfile")
-    public String newProfile(@ModelAttribute(value = "utilisateur") Utilisateur utilisateur) {
-        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Formateur formateur = formateurRepository.findOneByUsername(principal.getUsername());
-
-        String oldPass = principal.getPassword();
-
-        if (utilisateur.getPassword().equals("") || utilisateur.getPassword() == null)
-            utilisateur.setPassword(bCryptPasswordEncoder.encode(oldPass));
-        else
-            utilisateur.setPassword(bCryptPasswordEncoder.encode(utilisateur.getPassword()));
-
-        formateur.setUsername(utilisateur.getUsername());
-
-
-        userRepository.save(utilisateur);
-        formateurRepository.save(formateur);
-
-        return "redirect:/pej/logout";
-    }
 
 
     @PostMapping("/pej/formateurs")
     public String saveagents(@ModelAttribute(value = "objFormateur") Formateur objFormateur, BindingResult result) {
+
+        boolean success = true;
 
         if (result.hasErrors()) {
             List<ObjectError> errors = result.getAllErrors();
@@ -170,37 +131,13 @@ public class FormateurController {
             return "frmFormateur";
         }
 
-        if (objFormateur.getIdformateur() != null && objFormateur.getIdformateur().intValue() > 0){
-            Formateur formateur = formateurRepository.findOne(objFormateur.getIdformateur());
-            objFormateur.setUsername(formateur.getUsername());
-            objFormateur.setDatenaissance(formateur.getDatenaissance());
-        }
+        if (objFormateur.getIdformateur() != null && objFormateur.getIdformateur().intValue() > 0)
+            success = formateurService.editFormateur(objFormateur);
+        else
+            success = formateurService.createFormateur(objFormateur);
 
-        formateurRepository.save(objFormateur);
-
-        Utilisateur user = userRepository.findByUsername(objFormateur.getUsername());
-
-        if(user == null){
-            user = new Utilisateur();
-            user.setUsername(objFormateur.getUsername());
-            user.setPassword(bCryptPasswordEncoder.encode(objFormateur.getPassword()));
-        }
-
-        user.setFirstname(objFormateur.getNom());
-        user.setLastname(objFormateur.getPrenom());
-        user.setEmail(objFormateur.getEmail());
-
-        userRepository.save(user);
-
-        UsersRole usersRole = userRoleRepository.findByUtilisateurUsername(user.getUsername());
-
-        if(usersRole == null){
-            Roles roles = roleRepository.findByName("FORMATEUR");
-            UsersRole userrole = new UsersRole();
-            userrole.setRoles(roles);
-            userrole.setUtilisateur(user);
-            userRoleRepository.save(userrole);
-        }
+        if(!success)
+            notifyService.addErrorMessage("ECHEC DE L'ENREGSTREMENT. VERFIER S'IL N'EXISTE PAS D'ENREGISTREMENT AVEC LE MEME USERNAME OU EMAIL   ");
 
         return "redirect:/pej/formateurs";
     }

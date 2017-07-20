@@ -2,14 +2,12 @@ package com.pej.controllers;
 
 import java.util.List;
 
+import com.pej.services.CooperativeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import com.pej.domains.Candidat;
 import com.pej.domains.Cooperative;
@@ -25,56 +23,76 @@ import com.pej.repository.PresenceRepository;
 
 @Controller
 public class FormationCooperativeController {
-	@Autowired private CooperativeRepository cooperativeRepository;
-	@Autowired private FormationCooperativeRepository formationcooperativeRepository;
-	@Autowired private FormationRepository formationRepository;
-	@Autowired private PresenceRepository presenceRepository;
-	@Autowired private CandidatRepository candidatRepository;
-		
+    @Autowired
+    private CooperativeRepository cooperativeRepository;
+    @Autowired
+    private FormationCooperativeRepository formationcooperativeRepository;
+    @Autowired
+    private FormationRepository formationRepository;
+    @Autowired
+    private CooperativeService cooperativeService;
+    @Autowired
+    private CandidatRepository candidatRepository;
 
-		@RequestMapping(value = "/pej/formationgroupe/formation/{id}", method = RequestMethod.GET)	
-	    String index(Model model,@PathVariable Integer id) {
-	    	System.out.println("Starting formation cooperative Index Ok");
-	    	List<Cooperative> cooperatives = (List<Cooperative>) cooperativeRepository.getNotInFormationCooperative(id);
-	    	Formation formation=formationRepository.findOne(id);
-	    	model.addAttribute("formation", formation);
-	    	model.addAttribute("cooperatives", cooperatives);
-	    	List<Cooperative> cooperativeformation = (List<Cooperative>) cooperativeRepository.getInFormationCooperative(id);
-	    	model.addAttribute("cooperativeformation", cooperativeformation);
-	    	
-	    	System.out.println("cooperatives: "+cooperatives.size());
-	    	System.out.println("candidatsformation: "+cooperativeformation.size());
-	        return "formationcooperatives";
-	    }
-		
-		@GetMapping("/pej/formationgroupe/{idformation}/cooperative/{idgroupe}")
-		public String addFormationPresence(@PathVariable Integer idformation,@PathVariable Integer idgroupe, ModelMap model){
-			System.out.println("Formation :"+idformation);
-			System.out.println("Cooperative "+idgroupe);
-			Formation formation=formationRepository.findOne(idformation);
-			Cooperative cooperative =cooperativeRepository.findOne(idgroupe);
-			
-			Formationcooperative formationcooperative= new Formationcooperative();
-			formationcooperative.setCooperative(cooperative);
-			formationcooperative.setFormation(formation);
-			List<Candidat> inCooperative=(List<Candidat>) candidatRepository.getInFormationCandidat(idformation);
-			if(formation!=null && cooperative!=null){
-				formationcooperativeRepository.save(formationcooperative);				
-			}
-			
 
-			 return "redirect:"+"/pej/formationgroupe/formation/"+idformation;
-		}
-		
-		@GetMapping("/pej/formationgroupe/rm/{idformation}/cooperative/{idcandidat}")
-		public String removeFormationBenenficiaire(@PathVariable Integer idformation,@PathVariable Integer idcandidat, ModelMap model){
-			
-			Formationcooperative formationcooperative=formationcooperativeRepository.findFb(idcandidat, idformation);
-			if(formationcooperative !=null)
-				formationcooperativeRepository.delete(formationcooperative.getIdformationcooperative());
+    @RequestMapping(value = "/pej/formationgroupe/formation/{id}", method = RequestMethod.GET)
+    String index(Model model, @PathVariable Integer id) {
+        List<Cooperative> cooperatives = (List<Cooperative>) cooperativeRepository.getNotInFormationCooperative(id);
+        List<Cooperative> cooperativeformation = (List<Cooperative>) cooperativeRepository.getInFormationCooperative(id);
 
-			 return "redirect:"+"/pej/formationbeneficiaires/formation/"+idformation;
-		}
-		
-	
-	}
+        Formation formation = formationRepository.findOne(id);
+
+        model.addAttribute("formation", formation);
+        model.addAttribute("cooperatives", cooperatives);
+        model.addAttribute("cooperativeformation", cooperativeformation);
+
+        return "formationcooperatives";
+    }
+
+    @GetMapping("/pej/formationgroupe/{idformation}/cooperative/{idgroupe}")
+    public String addFormationToCooperative(@PathVariable Integer idformation, @PathVariable Integer idgroupe) {
+        cooperativeService.addFormationToCooperative(idformation, idgroupe);
+
+        return "redirect:" + "/pej/formationgroupe/formation/" + idformation;
+    }
+
+
+    @PostMapping("/pej/formationgroupe/multiple/cooperative/{idformation}")
+    public String addFormationToMultipleCooperative(@PathVariable Integer idformation, @RequestParam("table_records") List<String> table_records) {
+        for(String id : table_records){
+            cooperativeService.addFormationToCooperative(idformation, Integer.parseInt(id));
+        }
+
+        return "redirect:" + "/pej/formationgroupe/formation/" + idformation;
+    }
+
+//    @GetMapping("/pej/formationgroupe/rm/{idformation}/cooperative/{idcandidat}")
+//    public String removeFormationBenenficiaire(@PathVariable Integer idformation, @PathVariable Integer idcandidat) {
+//
+//        Formationcooperative formationcooperative = formationcooperativeRepository.findFb(idcandidat, idformation);
+//        if (formationcooperative != null)
+//            formationcooperativeRepository.delete(formationcooperative.getIdformationcooperative());
+//
+//        return "redirect:" + "/pej/formationbeneficiaires/formation/" + idformation;
+//    }
+
+
+    @GetMapping("/pej/formationgroupe/rm/{idformation}/cooperative/{idgroupe}")
+    public String removeFormationFromCooperative(@PathVariable Integer idformation, @PathVariable Integer idgroupe) {
+
+        cooperativeService.deleteFormationFromCooperative(idformation, idgroupe);
+        return "redirect:" + "/pej/formationgroupe/formation/" + idformation;
+    }
+
+
+    @PostMapping("/pej/formationgroupe/multiple/rm/cooperative/{idformation}")
+    public String removeFormationFromMultipleCooperative(@PathVariable Integer idformation, @RequestParam("table_records") List<String> table_records) {
+        for(String id : table_records){
+            cooperativeService.deleteFormationFromCooperative(idformation, Integer.parseInt(id));
+        }
+
+        return "redirect:" + "/pej/formationgroupe/formation/" + idformation;
+    }
+
+
+}
