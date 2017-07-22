@@ -220,4 +220,10 @@ public class Formateur implements java.io.Serializable {
     }
 
 
+    @Transient
+    public String getIdentite(){
+        return this.nom + " " + this.prenom + " ";
+    }
+
+
 }

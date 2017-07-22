@@ -31,37 +31,30 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      <!--<li class="dropdown">-->
-                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>-->
-                        <!--<ul class="dropdown-menu" role="menu">-->
-                          <!--<li><a href="#">Settings 1</a>-->
-                          <!--</li>-->
-                          <!--<li><a href="#">Settings 2</a>-->
-                          <!--</li>-->
-                        <!--</ul>-->
-                      <!--</li>-->
+
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                     <div class="row" >
-							 <a style="margin-left: 8px;" href="#" th:href="@{/pej/formations/add}" class="btn btn-info"><i class="fa fa-plus"></i> AJOUTER</a>
-					</div>
+                      <form id="removeMultipleFormation" novalidate="true"
+                            class="frmPej form-horizontal form-label-left"
+                            th:action="@{/pej/formations/multiple/rm}"
+                            method="post">
+                          <div class="row">
+                              <button style="margin-left: 8px;" type="submit" class="btn btn-info"><i
+                                      class="fa fa-plus"></i> SUPPRIMER LES FORMATIONS SELECTIONNEES
+                              </button>
+                          </div>
                     <div class="table-responsive">
                       <table id="datatable-buttons" class="table table-striped table-bordered display nowrap" cellspacing="0" width="100%">
                         <thead>
                           <tr class="headings">
-                            <th>
-                              <input type="checkbox" id="check-all" class="flat"/>
-                            </th>
-                            <th class="column-title">#</th>
+                              <th class="column-title"></th>
                             <th class="column-title">INTITULE</th>
-                            <th class="column-title">DESCRIPTION</th>
-                            <th class="column-title">DATE DE FORMATION</th>
-                            <th class="column-title">HEURE DE DEBUT</th>
-                            <th class="column-title">HEURE DE FIN</th>
+                            <th class="column-title">PERIODE</th>
+                            <th class="column-title">FORMATEURS</th>
                             <th class="column-title no-link last"><span class="nobr">ACTION</span>
                             </th>
                             <th class="bulk-actions" colspan="7">
@@ -73,43 +66,28 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                         <tbody>
                          <tr data-th-each="formation : ${formations}" class="even pointer">
 	                            <td class="a-center ">
-	                              <input type="checkbox" class="flat" name="table_records"/>
+                                    <input type="checkbox" class="flat" th:name="table_records"
+                                           th:value="${formation.idformation}"/>
 	                            </td>
-								<td class=" " data-th-text="${formation.idformation}"></td>
 								<td class=" " data-th-text="${formation.intitule}"></td>
-								<td class=" " data-th-text="${formation.remarque}"></td>
-								<td class=" " data-th-text="${#dates.format(formation.dateformation,'dd/MM/yyyy')}"></td>
-								<td class=" " data-th-text="${formation.heuredebut}"></td>
-								<td class=" " data-th-text="${formation.heurefin}"></td>
-								<!-- td class=" ">
-									<div class="btn-group btn-group-xs">
-										
-									</div>
-								</td-->
-								<td class=" ">
-	                                <!-- Split button -->
-				                    <div class="btn-group">
-				                      <button type="button" class="btn btn-primary btn-xs">Actions</button>
-				                      <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-				                        <span class="caret"></span>
-				                        <span class="sr-only">Toggle Dropdown</span>
-				                      </button>
-				                      <ul class="dropdown-menu" role="menu">
-				                        <!-- li><a  th:href="@{'/pej/formations/' + ${formation.idformation}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> Modifier</a></li-->
-										<!--li ><a   th:href="@{'/pej/formationbeneficiaires/formation/' + ${formation.idformation}}"><i class="fa fa-plus" data-toggle="tooltip" title="Ajouter participant"></i> Ajouter participant</a></li-->
-										<li><a   th:href="@{'/pej/formationgroupe/formation/' + ${formation.idformation}}"><i class="fa fa-plus" data-toggle="tooltip" title="Ajouter groupe"></i> Ajouter groupe</a></li>
-										<!-- li><a   th:href="@{'/pej/formationbeneficiaires/formation/' + ${formation.idformation}}"><i class="fa fa-plus" data-toggle="tooltip" title="Ajouter participant"></i> Ajouter lot</a></li-->
-										<li><a   th:href="@{'/pej/formationbeneficiaires/presence/' + ${formation.idformation}}"><i class="fa fa-plus" data-toggle="tooltip" title="Liste de présence"></i>Présence</a></li>
-														                        
-				                      </ul>
-				                    </div>
-	                            </td>
-		           
-                          
+								<td class=" " data-th-text=" 'DU '+ ${#dates.format(formation.dateformation,'dd/MM/yyyy')} + ' AU ' + ${#dates.format(formation.datefin,'dd/MM/yyyy')}"></td>
+								<td class=" " data-th-text="${formation.getFormateurNames()}"></td>
+                             <td>
+                                 <div class="btn-group btn-group-xs">
+                                     <a class="btn btn-xs btn-danger"  th:href="@{'/pej/formations/rm/' + ${formation.idformation}}"><i class="fa fa-plus" data-toggle="tooltip" title="enlever un participant"></i> SUPPRIMER</a>
+                                 </div>
+                                 <div class="btn-group btn-group-xs">
+                                     <a class="btn btn-xs btn-primary"  th:href="@{'/pej/formationgroupe/formation/' + ${formation.idformation}}"><i class="fa fa-plus" data-toggle="tooltip" title="enlever un participant"></i> AJOUTER UN GROUPE</a>
+                                 </div>
+                                 <div class="btn-group btn-group-xs">
+                                     <a class="btn btn-xs btn-warning"  th:href="@{'/pej/formationbeneficiaires/presence/' + ${formation.idformation}}"><i class="fa fa-plus" data-toggle="tooltip" title="enlever un participant"></i> PRESENCE</a>
+                                 </div>
+                             </td>
 							</tr>
                         </tbody>
                       </table>
                     </div>
+                      </form>
                   </div>
                 </div>
               </div>

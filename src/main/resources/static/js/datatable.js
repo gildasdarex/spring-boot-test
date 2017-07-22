@@ -89,6 +89,11 @@
     	        var title = $('#example thead th').eq( $(this).index() ).text();
     	        $(this).html( '<input type="text" onclick="stopPropagation(event);" class="form-control" placeholder="Filtrer '+title+'" />' );
     	    } );
+
+          $('#datatable-buttons-calendar thead tr#filterrow th').each( function () {
+              var title = $('#example thead th').eq( $(this).index() ).text();
+              $(this).html( '<input type="text" onclick="stopPropagation(event);" class="form-control" placeholder="Filtrer '+title+'" />' );
+          } );
     	    // Apply the filter
     	    $("#datatable-buttons thead input").on( 'keyup change', function () {
     	        table

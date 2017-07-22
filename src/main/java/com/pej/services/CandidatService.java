@@ -1,6 +1,7 @@
 package com.pej.services;
 
 import com.pej.domains.*;
+import com.pej.pojo.CandidatPresence;
 import com.pej.pojo.HelperEnum;
 import com.pej.pojo.OdkCandidat;
 import com.pej.repository.*;
@@ -24,6 +25,10 @@ public class CandidatService {
     @Autowired private AgentRepository agentRepository;
     @Autowired private CandidatRepository candidatRepository;
     @Autowired private StatutcandidatRepository statutcandidatRepository;
+    @Autowired private PresenceRepository presenceRepository;
+    @Autowired private FormationBeneficiareRepository formationBeneficiareRepository;
+    @Autowired private FormationCooperativeRepository formationCooperativeRepository;
+    @Autowired private BeneficiaireCooperativeRepository beneficiaireCooperativeRepository;
 
 
 
@@ -41,6 +46,8 @@ public class CandidatService {
             candidat.setAgent(agent);
             candidat.setStatutcandidat(statutcandidat);
             candidat.setSexe(HelperEnum.getSexe(odkCandidat.getIs_sexe()));
+            candidat.setDocidentite(HelperEnum.getDocumentIdentite(odkCandidat.getCandidat_document_identite()));
+            candidat.setActiviteprincipale(HelperEnum.getActivite(odkCandidat.getActivite_principale()));
             candidats.add(candidat);
         }
 
@@ -49,6 +56,53 @@ public class CandidatService {
         }
 
         return true;
+    }
+
+
+    public List<CandidatPresence> convertToCandidatPresence(List<Candidat> candidats, Formation formation){
+        List<CandidatPresence> candidatPresences = new ArrayList<>();
+        for(Candidat candidat: candidats){
+            CandidatPresence candidatPresence = convertToCandidatPresence( candidat,  formation);
+            candidatPresences.add(candidatPresence);
+        }
+
+        return candidatPresences;
+
+    }
+
+
+    public List<Candidat> getCandidatForFormation(Integer idformation){
+        List<Candidat> candidats = new ArrayList<>();
+        List<Formationcooperative> formationcooperatives = formationCooperativeRepository.findByFormationIdformation(idformation);
+
+        for(Formationcooperative formationcooperative : formationcooperatives){
+            Cooperative cooperative = formationcooperative.getCooperative();
+            List<Beneficiairecooperative> beneficiairecooperatives = beneficiaireCooperativeRepository.findByCooperativeIdgroupe(cooperative.getIdgroupe());
+            for (Beneficiairecooperative beneficiairecooperative : beneficiairecooperatives){
+                candidats.add(beneficiairecooperative.getCandidat());
+            }
+
+        }
+
+        return candidats;
+    }
+
+
+    public CandidatPresence convertToCandidatPresence(Candidat candidat, Formation formation){
+        CandidatPresence candidatPresence = new CandidatPresence();
+        List<Presence> presences = presenceRepository.findByCandidatIdcandidatAndFormationIdformation(
+                candidat.getIdcandidat(),
+                formation.getIdformation()
+                );
+
+        candidatPresence.setIdCandidat(candidat.getIdcandidat());
+        candidatPresence.setFormation(formation);
+        candidatPresence.setPresences(presences);
+        candidatPresence.setIdentite(candidat.getIdentite());
+
+
+        return candidatPresence;
+
     }
 
 

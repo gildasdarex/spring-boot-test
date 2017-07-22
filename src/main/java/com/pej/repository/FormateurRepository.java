@@ -8,7 +8,6 @@ import com.pej.domains.Formateur;;
 public interface FormateurRepository extends  CrudRepository <Formateur, Integer> {
 	@Query("select fo from Formateur fo where fo.idformateur  not in (select ff.formateur.idformateur from Formationformateur ff where ff.fformation.idformation=?1)" )
 	Iterable<Formateur> getNotInFormationformateur(Integer id);
-	
 	@Query("select fo from Formateur fo  where fo.idformateur  in (select ff.formateur.idformateur from Formationformateur ff where ff.fformation.idformation=?1)" )
 	Iterable<Formateur> getInFormationformateur(Integer id);
 	@Query("select f from Formateur f  where f.nom=?1 and f.prenom=?2" )
