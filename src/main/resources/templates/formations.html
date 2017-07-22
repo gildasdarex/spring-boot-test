@@ -43,9 +43,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             th:action="@{/pej/formations/multiple/rm}"
                             method="post">
                           <div class="row">
-                              <button style="margin-left: 8px;" type="submit" class="btn btn-info"><i
+                              <button style="margin-left: 8px;" type="submit" class="btn btn-danger"><i
                                       class="fa fa-plus"></i> SUPPRIMER LES FORMATIONS SELECTIONNEES
                               </button>
+                              <a style="margin-left: 8px;" href="#" th:href="@{/pej/formations/add}" class="btn btn-info"><i class="fa fa-plus"></i> AJOUTER</a>
                           </div>
                     <div class="table-responsive">
                       <table id="datatable-buttons" class="table table-striped table-bordered display nowrap" cellspacing="0" width="100%">
@@ -74,7 +75,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 								<td class=" " data-th-text="${formation.getFormateurNames()}"></td>
                              <td>
                                  <div class="btn-group btn-group-xs">
-                                     <a class="btn btn-xs btn-danger"  th:href="@{'/pej/formations/rm/' + ${formation.idformation}}"><i class="fa fa-plus" data-toggle="tooltip" title="enlever un participant"></i> SUPPRIMER</a>
+                                     <a class="btn btn-xs btn-success"  th:href="@{'/pej/formations/add/' + ${formation.idformation}}"><i class="fa fa-plus" data-toggle="tooltip" title="enlever un participant"></i> MODIFIER</a>
                                  </div>
                                  <div class="btn-group btn-group-xs">
                                      <a class="btn btn-xs btn-primary"  th:href="@{'/pej/formationgroupe/formation/' + ${formation.idformation}}"><i class="fa fa-plus" data-toggle="tooltip" title="enlever un participant"></i> AJOUTER UN GROUPE</a>

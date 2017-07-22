@@ -42,10 +42,14 @@ public class FormateurController {
     private Utilisateur usercourant;
 
     @GetMapping("/pej/formateurs")
-    String index(Model model) {
+    String index(Model model, @RequestParam(value = "idcabinet", required = false, defaultValue = "") String idcabinet) {
         List<Formateur> formateurs = new ArrayList<>();
         try {
-            formateurs = (List<Formateur>) formateurRepository.findAll();
+            if(idcabinet.equals("")){
+                formateurs = (List<Formateur>) formateurRepository.findAll();
+            }else{
+                formateurs = formateurRepository.findByCabinetIdcabinet(Integer.parseInt(idcabinet));
+            }
             User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             if (principal != null)
                 model.addAttribute("username", principal.getUsername());

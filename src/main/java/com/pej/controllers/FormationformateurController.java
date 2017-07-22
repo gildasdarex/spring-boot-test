@@ -25,97 +25,98 @@ import com.pej.repository.TypeformationRepository;
 
 @Controller
 public class FormationformateurController {
-	@Autowired private FformationRepository formationRepository;
-	@Autowired private FormateurRepository formateurRepository;
-	@Autowired private TypeformationRepository typeformationRepository;
-	@Autowired private FformationRepository fformationRepository;
-	@Autowired private FormationFormateurRepository formationformateurRepository;
-		@GetMapping("/pej/fformations")
-	    String index(Model model,@ModelAttribute("objFormation") Fformation objFormation) {
-	    	System.out.println("Starting Index Ok");
-	    	List<Fformation> formations = (List<Fformation>) formationRepository.findAll();  
-	    	 
-	    	model.addAttribute("formations", formations);
-	        return "fformations";
-	    }
-		
-		@GetMapping("/pej/fformations/add")
-		public String editFormation(@ModelAttribute("objFormation") Fformation objFormation, ModelMap model){
-			List<Formateur> formateurs= (List<Formateur>)formateurRepository.findAll();
-			 model.addAttribute("formateurs",formateurs);
-			 model.addAttribute("objFormation", objFormation); 
-			 List<Typeformation> typeformations = (List<Typeformation>) typeformationRepository.findAll(); 
-			 model.addAttribute("typeformations", typeformations);
-			 return "ffrmFormation";
-		}
-		@GetMapping("/pej/fformations/add/{id}")
-		public String editFormation(@PathVariable Integer id, ModelMap model){
-			List<Formateur> formateurs= (List<Formateur>)formateurRepository.findAll();
-			Fformation objFormation=formationRepository.findOne(id);
-			model.addAttribute("formateurs",formateurs);
-			model.addAttribute("objFormation", objFormation); 
-			List<Typeformation> typeformations = (List<Typeformation>) typeformationRepository.findAll(); 
-			model.addAttribute("typeformations", typeformations);
-			return "ffrmFormation";
-		}
-		
-	    @PostMapping("/pej/fformations")
-	    public String saveagents(@ModelAttribute(value="objFormation")  Fformation objFormation, BindingResult result,Model model) {
-	    	System.out.println("Starting Save Ok");
-	        if (result.hasErrors()) {
-	            return "ffrmFormation";
-	        }
-	        if(objFormation!=null)
-	       System.out.println("Nom Fformation: "+objFormation.getIntitule());
-	        else
-	        	System.out.println("objFormation est null: ");
-	        
-	       if(objFormation.getIdformation()!=null && objFormation.getIdformation().intValue() >0 ){
-	    	   Fformation formation =formationRepository.findOne(objFormation.getIdformation());
-	    	   formation.setIntitule(objFormation.getIntitule());
-	    	   formation.setDatedebut(objFormation.getDatedebut());
-	    	   formation.setDatefin(objFormation.getDatefin());
-	    	   formation.setTheme(objFormation.getTheme());
-	    	   formation.setDescription(objFormation.getDescription());
-	    	   formation.setHeuredebut(objFormation.getHeuredebut());
-	    	   formation.setHeurefin(objFormation.getHeurefin());
-		  
-	    	   formationRepository.save(formation);
-	           return "redirect:/pej/fformations";
-	       }
-	       formationRepository.save(objFormation);
-	       return "redirect:/pej/fformations";
-	    }
-	    
-	    @RequestMapping(value = "/pej/formationformateur/formation/{id}", method = RequestMethod.GET)	
-	    String formationformateur(Model model,@PathVariable Integer id) {
-	    	System.out.println("Starting Index Ok");
-	    	List<Formateur> formateurs = (List<Formateur>) formateurRepository.getNotInFormationformateur(id);
-	    	Fformation formation=formationRepository.findOne(id);
-	    	model.addAttribute("formation", formation);
-	    	model.addAttribute("formateurs", formateurs);
-	    	List<Formateur> formateursformation = (List<Formateur>) formateurRepository.getInFormationformateur(id);
-	    	model.addAttribute("formateursformation", formateursformation);
-	    	
-	    	System.out.println("Formateurs: "+formateurs.size());
-	    	System.out.println("Formateursformation: "+formateursformation.size());
-	        return "formationformateurs";
-	    }
-	    @GetMapping("/pej/formationformateur/{idformation}/presence/{idformateur}")
-		public String addFormationFormateur(@PathVariable Integer idformation,@PathVariable Integer idformateur, ModelMap model){
-			System.out.println("Formation :"+idformation);
-			System.out.println("Formateur "+idformateur);
-			Fformation formation=formationRepository.findOne(idformation);
-			Formateur formateur =formateurRepository.findOne(idformateur);
+    @Autowired
+    private FformationRepository formationRepository;
+    @Autowired
+    private FormateurRepository formateurRepository;
+    @Autowired
+    private TypeformationRepository typeformationRepository;
+    @Autowired
+    private FformationRepository fformationRepository;
+    @Autowired
+    private FormationFormateurRepository formationformateurRepository;
 
-			Formationformateur formationformateur=new Formationformateur();
-			formationformateur.setFormateur(formateur);
-			formationformateur.setFformation(formation);
-			if(formation!=null && formateur!=null){
-				formationformateur.setNbjours(1);
-				formationformateurRepository.save(formationformateur);
-			}
-			 return "redirect:"+"/pej/formationformateur/formation/	"+idformation;
-		}
-	}
+    @GetMapping("/pej/fformations")
+    String index(Model model, @ModelAttribute("objFormation") Fformation objFormation) {
+        List<Fformation> formations = (List<Fformation>) formationRepository.findAll();
+
+        model.addAttribute("formations", formations);
+        return "fformations";
+    }
+
+    @GetMapping("/pej/fformations/add")
+    public String editFormation(@ModelAttribute("objFormation") Fformation objFormation, ModelMap model) {
+        List<Formateur> formateurs = (List<Formateur>) formateurRepository.findAll();
+        List<Typeformation> typeformations = (List<Typeformation>) typeformationRepository.findAll();
+
+        model.addAttribute("formateurs", formateurs);
+        model.addAttribute("objFormation", objFormation);
+        model.addAttribute("typeformations", typeformations);
+        return "ffrmFormation";
+    }
+
+    @GetMapping("/pej/fformations/add/{id}")
+    public String editFormation(@PathVariable Integer id, ModelMap model) {
+        List<Formateur> formateurs = (List<Formateur>) formateurRepository.findAll();
+        List<Typeformation> typeformations = (List<Typeformation>) typeformationRepository.findAll();
+        Fformation objFormation = formationRepository.findOne(id);
+
+        model.addAttribute("formateurs", formateurs);
+        model.addAttribute("objFormation", objFormation);
+        model.addAttribute("typeformations", typeformations);
+
+        return "ffrmFormation";
+    }
+
+    @PostMapping("/pej/fformations")
+    public String saveagents(@ModelAttribute(value = "objFormation") Fformation objFormation, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "redirect:/pej/fformations";
+        }
+
+//        if (objFormation.getIdformation() != null && objFormation.getIdformation().intValue() > 0) {
+//            Fformation formation = formationRepository.findOne(objFormation.getIdformation());
+//            formation.setIntitule(objFormation.getIntitule());
+//            formation.setDatedebut(objFormation.getDatedebut());
+//            formation.setDatefin(objFormation.getDatefin());
+//            formation.setTheme(objFormation.getTheme());
+//            formation.setDescription(objFormation.getDescription());
+//            formation.setHeuredebut(objFormation.getHeuredebut());
+//            formation.setHeurefin(objFormation.getHeurefin());
+//
+//            formationRepository.save(formation);
+//            return "redirect:/pej/fformations";
+//        }
+        formationRepository.save(objFormation);
+        return "redirect:/pej/fformations";
+    }
+
+    @RequestMapping(value = "/pej/formationformateur/formation/{id}", method = RequestMethod.GET)
+    String formationformateur(Model model, @PathVariable Integer id) {
+        List<Formateur> formateurs = (List<Formateur>) formateurRepository.getNotInFormationformateur(id);
+        List<Formateur> formateursformation = (List<Formateur>) formateurRepository.getInFormationformateur(id);
+        Fformation formation = formationRepository.findOne(id);
+
+        model.addAttribute("formation", formation);
+        model.addAttribute("formateurs", formateurs);
+        model.addAttribute("formateursformation", formateursformation);
+
+        return "formationformateurs";
+    }
+
+    @GetMapping("/pej/formationformateur/{idformation}/presence/{idformateur}")
+    public String addFormationFormateur(@PathVariable Integer idformation, @PathVariable Integer idformateur) {
+        Fformation formation = formationRepository.findOne(idformation);
+        Formateur formateur = formateurRepository.findOne(idformateur);
+
+        Formationformateur formationformateur = new Formationformateur();
+        formationformateur.setFormateur(formateur);
+        formationformateur.setFformation(formation);
+        if (formation != null && formateur != null) {
+            formationformateur.setNbjours(1);
+            formationformateurRepository.save(formationformateur);
+        }
+        return "redirect:" + "/pej/formationformateur/formation/	" + idformation;
+    }
+}
 

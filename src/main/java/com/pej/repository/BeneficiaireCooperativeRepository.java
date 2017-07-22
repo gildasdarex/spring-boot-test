@@ -12,4 +12,5 @@ public interface BeneficiaireCooperativeRepository extends  CrudRepository <Bene
 	@Query("select bc from Beneficiairecooperative bc  where bc.candidat.idcandidat=?1 AND bc.cooperative.idgroupe=?2" )
 	Beneficiairecooperative findBc(Integer idcandidat, Integer idgroupe);
 	List<Beneficiairecooperative> findByCooperativeIdgroupe(Integer idgroupe);
+	List<Beneficiairecooperative> findByCandidatIdcandidat(Integer idcandidat);
 }

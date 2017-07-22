@@ -200,56 +200,56 @@ public class CandidatController {
 
 
         Agent agent = agentRepository.getAgent(objCandidat.getNumeroagent());
-        if (objCandidat.getIdcandidat() != null && objCandidat.getIdcandidat().intValue() > 0) {
-            try {
-                Candidat candidat = candidatRepository.findOne(objCandidat.getIdcandidat());
-                candidat.setAgent(agent);
-                candidat.setNom(objCandidat.getNom());
-                candidat.setPrenom(objCandidat.getPrenom());
-                candidat.setDatenaissance(objCandidat.getDatenaissance());
-                candidat.setDocidentite(objCandidat.getDocidentite());
-                candidat.setNiveau(candidat.getNiveau());
-                candidat.setDiplome(objCandidat.getDiplome());
-                candidat.setCodearrondissement(objCandidat.getCodearrondissement());
-                candidat.setRefdocidentite(objCandidat.getRefdocidentite());
-                candidat.setTelprincipal(objCandidat.getTelprincipal());
-                candidat.setTelalternatif(objCandidat.getTelalternatif());
-                candidat.setAge(objCandidat.getAge());
-                candidat.setSexe(objCandidat.getSexe());
-                candidat.setSituationmatrimoniale(objCandidat.getSituationmatrimoniale());
-                candidat.setParentechefmenage(objCandidat.getParentechefmenage());
-                candidat.setNbpersonnemenage(objCandidat.getNbpersonnemenage());
-                candidat.setMenagebeneficiaire(objCandidat.getMenagebeneficiaire());
-                candidat.setScolarise(objCandidat.getScolarise());
-                candidat.setDernierniveauetude(objCandidat.getDernierniveauetude());
-                candidat.setLecture(objCandidat.getLecture());
-                candidat.setQualificationpersonelle(objCandidat.getQualificationpersonelle());
-                candidat.setWorklastmonth(objCandidat.getWorklastmonth());
-                candidat.setRecherchetravail(objCandidat.getRecherchetravail());
-                candidat.setMotifnonrecherche(objCandidat.getMotifnonrecherche());
-                candidat.setActiviteactuelle(objCandidat.getActiviteactuelle());
-                candidat.setAsoncompte(objCandidat.getAsoncompte());
-
-                candidat.setNbmoistravail(objCandidat.getNbmoistravail());
-                candidat.setNbjoursmoyen(objCandidat.getNbjoursmoyen());
-                candidat.setNbheuremoyen(objCandidat.getNbheuremoyen());
-                candidat.setRevenumoyen(objCandidat.getRevenumoyen());
-                candidat.setDomainesouhait(objCandidat.getDomainesouhait());
-                candidat.setTravailgroupe(objCandidat.getTravailgroupe());
-                candidat.setNumcarteagratter(objCandidat.getNumcarteagratter());
-                candidat.setQuartier(objCandidat.getQuartier());
-                candidat.setCommune(objCandidat.getCommune());
-                candidat.setDepartement(objCandidat.getDepartement());
-                candidat.setDateenregistrement(objCandidat.getDateenregistrement());
-                candidat.setNumeroagent(objCandidat.getNumeroagent());
-                candidat.setNumerofiche(objCandidat.getNumerofiche());
-
-                candidatRepository.save(objCandidat);
-                notifyService.addInfoMessage("Candidat modififé avec succès.");
-            } catch (Exception e) {
-                notifyService.addErrorMessage("Echec lors de la modification du candidat. " + e.getMessage());
-            }
-        }
+//        if (objCandidat.getIdcandidat() != null && objCandidat.getIdcandidat().intValue() > 0) {
+//            try {
+//                Candidat candidat = candidatRepository.findOne(objCandidat.getIdcandidat());
+//                candidat.setAgent(agent);
+//                candidat.setNom(objCandidat.getNom());
+//                candidat.setPrenom(objCandidat.getPrenom());
+//                candidat.setDatenaissance(objCandidat.getDatenaissance());
+//                candidat.setDocidentite(objCandidat.getDocidentite());
+//                candidat.setNiveau(candidat.getNiveau());
+//                candidat.setDiplome(objCandidat.getDiplome());
+//                candidat.setCodearrondissement(objCandidat.getCodearrondissement());
+//                candidat.setRefdocidentite(objCandidat.getRefdocidentite());
+//                candidat.setTelprincipal(objCandidat.getTelprincipal());
+//                candidat.setTelalternatif(objCandidat.getTelalternatif());
+//                candidat.setAge(objCandidat.getAge());
+//                candidat.setSexe(objCandidat.getSexe());
+//                candidat.setSituationmatrimoniale(objCandidat.getSituationmatrimoniale());
+//                candidat.setParentechefmenage(objCandidat.getParentechefmenage());
+//                candidat.setNbpersonnemenage(objCandidat.getNbpersonnemenage());
+//                candidat.setMenagebeneficiaire(objCandidat.getMenagebeneficiaire());
+//                candidat.setScolarise(objCandidat.getScolarise());
+//                candidat.setDernierniveauetude(objCandidat.getDernierniveauetude());
+//                candidat.setLecture(objCandidat.getLecture());
+//                candidat.setQualificationpersonelle(objCandidat.getQualificationpersonelle());
+//                candidat.setWorklastmonth(objCandidat.getWorklastmonth());
+//                candidat.setRecherchetravail(objCandidat.getRecherchetravail());
+//                candidat.setMotifnonrecherche(objCandidat.getMotifnonrecherche());
+//                candidat.setActiviteactuelle(objCandidat.getActiviteactuelle());
+//                candidat.setAsoncompte(objCandidat.getAsoncompte());
+//
+//                candidat.setNbmoistravail(objCandidat.getNbmoistravail());
+//                candidat.setNbjoursmoyen(objCandidat.getNbjoursmoyen());
+//                candidat.setNbheuremoyen(objCandidat.getNbheuremoyen());
+//                candidat.setRevenumoyen(objCandidat.getRevenumoyen());
+//                candidat.setDomainesouhait(objCandidat.getDomainesouhait());
+//                candidat.setTravailgroupe(objCandidat.getTravailgroupe());
+//                candidat.setNumcarteagratter(objCandidat.getNumcarteagratter());
+//                candidat.setQuartier(objCandidat.getQuartier());
+//                candidat.setCommune(objCandidat.getCommune());
+//                candidat.setDepartement(objCandidat.getDepartement());
+//                candidat.setDateenregistrement(objCandidat.getDateenregistrement());
+//                candidat.setNumeroagent(objCandidat.getNumeroagent());
+//                candidat.setNumerofiche(objCandidat.getNumerofiche());
+//
+//                candidatRepository.save(objCandidat);
+//                notifyService.addInfoMessage("Candidat modififé avec succès.");
+//            } catch (Exception e) {
+//                notifyService.addErrorMessage("Echec lors de la modification du candidat. " + e.getMessage());
+//            }
+//        }
         Statutcandidat st = statutcandidatRepository.findOne(1);
         if (st == null) {
             notifyService.addErrorMessage("Aucun statut par défaut configuré pour les candidats");
@@ -308,11 +308,11 @@ public class CandidatController {
     @RequestMapping(value = "/pej/candidats/don/{id}", method = RequestMethod.GET)
     public String getDonPage(@PathVariable Integer id, ModelMap model) {
         Candidat candidat = candidatRepository.findOne(id);
+        List dons = (List<Don>) donRepository.getDonByCandidat(id);
+
         Don objDon = new Don();
         objDon.setCandidat(candidat);
-        List dons = (List<Don>) donRepository.getDonByCandidat(id);
-        //List<Don> dons =candidat.getDons().stream().collect(Collectors.toList());
-        System.out.println("Nbre de ligne: " + dons.size());
+
         model.addAttribute("dons", dons);
         model.addAttribute("objDon", objDon);
         return "frmDon";
@@ -321,10 +321,10 @@ public class CandidatController {
     /*Enregistrer un don pour un candidat*/
     @PostMapping("/pej/candidats/don")
     public String saveDon(@Valid @ModelAttribute(value = "objDon") Don objDon, BindingResult result, Model model) {
-        System.out.println("Starting Save Ok");
         if (result.hasErrors()) {
-            return "frmDon";
+            return "redirect:/pej/candidats";
         }
+
         Candidat candidat = candidatRepository.findOne(objDon.getCandidat().getIdcandidat());
         if (candidat != null) {
             objDon.setCandidat(candidat);
@@ -335,12 +335,14 @@ public class CandidatController {
     }
 
     @GetMapping("/pej/candidats/{id}")
-
     public String updateCandidat(@PathVariable Integer id, ModelMap model) {
         List<Departement> departements = (List<Departement>) departementRepository.findAll();
-        model.addAttribute("departements", departements);
         Candidat candidat = candidatRepository.findOne(id);
+
+        model.addAttribute("departements", departements);
         model.addAttribute("objCandidat", candidat);
+
+
         return "frmCandidat";
     }
 
@@ -348,14 +350,19 @@ public class CandidatController {
     @GetMapping("/pej/candidats/upload")
     public String uploadFile(ModelMap model) {
         FileBucket fileModel = new FileBucket();
+
         model.addAttribute("fileBucket", fileModel);
+
         return "frmUploadCandidat";
     }
+
 
     @RequestMapping(value = "/singleUpload", method = RequestMethod.GET)
     public String getSingleUploadPage(ModelMap model) {
         FileBucket fileModel = new FileBucket();
+
         model.addAttribute("fileBucket", fileModel);
+
         return "singleFileUploader";
     }
 
@@ -370,29 +377,6 @@ public class CandidatController {
         fos.write(multipartFile.getBytes());
         fos.close();
         List<OdkCandidat> odkCandidats = Poiji.fromExcel(convFile, OdkCandidat.class);
-//        List<Candidat> candidats = new ArrayList<>();
-//        for (OdkCandidat odkCandidat : odkCandidats) {
-//            candidats.add(mapper.map(odkCandidat, Candidat.class));
-//        }
-//        System.out.println(odkCandidats.size());
-//        System.out.println(candidats.size());
-//
-//        Class<?> clazz = odkCandidats.get(0).getClass();
-//
-//        for(Field field : clazz.getDeclaredFields()) {
-//            //you can also use .toGenericString() instead of .getName(). This will
-//            //give you the type information as well.
-//
-//            try {
-//                System.out.println("##########  " + field.getName() + " #########  "+field.get(odkCandidats.get(0)) );
-//            } catch (IllegalAccessException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        for (Candidat candidat : candidats) {
-//            candidatRepository.save(candidat);
-//        }
         candidatService.saveFromFile(odkCandidats);
         return "redirect:/pej/formations";
 
@@ -402,12 +386,13 @@ public class CandidatController {
     String tirage(Model model, @ModelAttribute("objDepartement") Departement objDepartement) {
         List<Candidat> candidats = (List<Candidat>) candidatRepository.getEligibleCandidat(2);
         List<Commune> communes = (List<Commune>) communeRepository.findAll();
+
+        Tirage objTirage = new Tirage();
+
+        model.addAttribute("objTirage", objTirage);
         model.addAttribute("communes", communes);
         model.addAttribute("candidats", candidats);
 
-        Tirage objTirage = new Tirage();
-        model.addAttribute("objTirage", objTirage);
-        System.out.println("Nbre candidats: " + candidats.size());
         return "tirages";
     }
 
@@ -418,11 +403,8 @@ public class CandidatController {
         Pageable request = new PageRequest(0, objTirage.getNombre(), ordre, "numcarteagratter");
 
         List<Candidat> candidats = (List<Candidat>) candidatJpaRepo.getEligibleCandidat(request, objTirage.getCommune().getCodecommune()).getContent();
-        //List<Candidat> candidats = (List<Candidat>)candidatJpaRepo.findAll(request).getContent();
 
         List<Commune> communes = (List<Commune>) communeRepository.findAll();
-        model.addAttribute("communes", communes);
-        model.addAttribute("candidats", candidats);
 
         Statutcandidat statutcandidat = statutcandidatRepository.findOne(3);
         for (int i = 0; i < candidats.size(); i++) {
@@ -431,7 +413,9 @@ public class CandidatController {
         }
 
         model.addAttribute("objTirage", objTirage);
-        System.out.println("Nbre candidats: " + candidats.size());
+        model.addAttribute("communes", communes);
+        model.addAttribute("candidats", candidats);
+
 
         return "tirages";
     }
@@ -443,8 +427,6 @@ public class CandidatController {
                     + filename);
 
             FileUtils.writeByteArrayToFile(file, image.getBytes());
-            System.out.println("Go to the location:  " + file.toString()
-                    + " on your computer and verify that the image has been stored.");
         } catch (IOException e) {
             throw e;
         }
@@ -454,7 +436,9 @@ public class CandidatController {
     public String uploadPicture(@PathVariable Integer id, ModelMap model) {
         FileBucket fileModel = new FileBucket();
         fileModel.setId(id);
+
         model.addAttribute("fileBucket", fileModel);
+
         return "frmUploadPicture";
     }
 

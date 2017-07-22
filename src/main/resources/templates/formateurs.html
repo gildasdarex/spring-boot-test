@@ -57,10 +57,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                         <thead>
                           <tr class="headings">
                             <th>
-                              <input type="checkbox" id="check-all" class="flat"/>
                             </th>
-                            <th class="column-title">NOM</th>
-                            <th class="column-title">PRENOM  </th>
+                            <th class="column-title">IDENTITE</th>
                             <th class="column-title">DATE DE NAISSANCE </th>
                             <th class="column-title">N°CARTE D'IDENTITE </th>
                               <th class="column-title">EMAIL</th>
@@ -78,16 +76,16 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	                            <td class="a-center ">
 	                              <input type="checkbox" class="flat"  th:name="table_records" th:value="${formateur.idformateur}"/>
 	                            </td>
-								<td class=" " data-th-text="${formateur.nom}"></td>
-								<td class=" " data-th-text="${formateur.prenom}"></td>
+								<td class=" " data-th-text="${formateur.getIdentite()}"></td>
                                 <td class=" " data-th-text="${#dates.format(formateur.datenaissance,'dd/MM/yyyy')}"></td>
 								<td class=" " data-th-text="${formateur.cardid}"></td>
                                 <td class=" " data-th-text="${formateur.email}"></td>
 								<td class=" " data-th-text="${formateur.telephone}"></td>
 								<td>
 									<div class="btn-group btn-group-xs">
-										<a class="btn btn-default" th:href="@{'/pej/formateurs/' + ${formateur.idformateur}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> MODIFIER</a>
-										<a class="btn btn-xs btn-danger" th:href="@{'/pej/delete/formateurs/' + ${formateur.idformateur}}"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> SUPPRIMER</a>
+										<a class="btn btn-primary" th:href="@{'/pej/formateurs/' + ${formateur.idformateur}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> MODIFIER</a>
+                                        <a class="btn btn-xs btn-warning" th:href="@{'/pej/formations?idformateur=' + ${formateur.idformateur}}"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> FORMATIONS</a>
+                                        <a class="btn btn-xs btn-danger" th:href="@{'/pej/delete/formateurs/' + ${formateur.idformateur}}"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> SUPPRIMER</a>
 									</div>
 								</td>
 

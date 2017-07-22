@@ -9,6 +9,8 @@ import com.pej.repository.CooperativeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by darextossa on 7/17/17.
  */
@@ -42,6 +44,10 @@ public class BeneficiaireCooperativeService {
         if (beneficiairecooperative != null)
             beneficiaireCooperativeRepository.delete(beneficiairecooperative.getIdcandidatgroupe());
         return true;
+    }
+
+    public List<Beneficiairecooperative> getBeneficiairecooperativeForCandidat(Integer idCandidat){
+        return beneficiaireCooperativeRepository.findByCandidatIdcandidat(idCandidat);
     }
 
 

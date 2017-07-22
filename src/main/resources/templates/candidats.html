@@ -258,15 +258,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      <!-- <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li> -->
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
@@ -302,15 +293,14 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                           <!--</tr>-->
                           <tr id="filterrow" class="headings">
                             <th>
-                              <input type="checkbox" id="check-all" class="flat call-checkbox"/>
                             </th>
                             <!-- th class="column-title" style="display:none;">Candidat ID</th-->
                             <th class="column-title">CANDIDAT </th>
-                            <th class="column-title">PHOTO</th>
+                            <!--<th class="column-title">PHOTO</th>-->
                             <th class="column-title">COMMUNE </th>
                             <th class="column-title">SEXE </th>
                             <th class="column-title">AGE</th>
-                            <th class="column-title">AGENT ENREGISTREUR </th>
+                            <!--<th class="column-title">AGENT ENREGISTREUR </th>-->
                             <th class="column-title">STATUT </th>
                             <th class="column-title no-link last"><span class="nobr">ACTION</span>
                             </th>
@@ -329,43 +319,59 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	                            <!-- td class=" " data-th-text="${candidat.idcandidat}" style="display:none;"></td-->
 								<td class=" ">
 									<div class="hover_img">
-										<a href="#"  data-th-text="${candidat.nom +' '+candidat.prenom}"><span><img src="images/01.png" alt="image" height="100" /></span></a>
+										<a href="#"  data-th-text="${candidat.getIdentite()}"><span><img src="images/01.png" alt="image" height="100" /></span></a>
 									</div>
 								</td>
-								<td class=" " ><img th:src="@{/images/nopicture.PNG}" alt="" class="img-circle profile_img" style="width:100px;height:100px;"/></td>
+								<!--<td class=" " ><img th:src="@{/images/nopicture.PNG}" alt="" class="img-circle profile_img" style="width:100px;height:100px;"/></td>-->
 								<td class=" " data-th-text="${candidat.localcommune}"></td>
 								<td class=" " data-th-text="${candidat.sexe}"></td>
 								<td class=" " data-th-text="${candidat.age}" ></td>
-								<td class=" " data-th-text="${candidat.agent.nom + ' '+candidat.agent.prenom}"></td>
+								<!--<td class=" " data-th-text="${candidat.agent.nom + ' '+candidat.agent.prenom}"></td>-->
 
 		                        <td>
 		                            <a class="btn btn-success btn-xs"  data-th-text="${candidat.statutcandidat.intitule}"></a>
 		                        </td>
-	                            <td class=" ">
-	                            <!-- a type="button" class="btn btn-primary btn-xs" th:href="@{'/pej/candidats/profil/' + ${candidat.idcandidat}}">Voir Photo</a-->
+	                            <!--<td class=" ">-->
+				                    <!--<div class="btn-group">-->
+				                      <!--<button type="button" class="btn btn-primary btn-xs">ACTIONS</button>-->
+				                      <!--<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">-->
+				                        <!--<span class="caret"></span>-->
+				                        <!--<span class="sr-only">Toggle Dropdown</span>-->
+				                      <!--</button>-->
+				                      <!--<ul class="dropdown-menu" role="menu">-->
+				                        <!--<li><a  th:href="@{'/pej/candidats/' + ${candidat.idcandidat}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> Modifier</a></li>-->
+				                         <!--<li th:style="${candidat.statutcandidat.intitule}=='BENEFICIAIRE DE FINANCEMENT'? 'display:block' : 'display:none'"><a  th:href="@{'/pej/candidats/materiels/' + ${candidat.idcandidat}}"><i class="fa fa-edit" data-toggle="tooltip" title="Voir les matériaux"></i>Information financière</a></li>-->
+				                        <!--<li><a  th:href="@{'/pej/candidats/picture/' + ${candidat.idcandidat}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i>Ajouter photo</a></li>-->
+				                        <!--<li><a  th:href="@{'/pej/candidats/dossier/' + ${candidat.idcandidat}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> Dossier</a></li>-->
 
-	                                <!-- Split button -->
-				                    <div class="btn-group">
-				                      <button type="button" class="btn btn-primary btn-xs">ACTIONS</button>
-				                      <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-				                        <span class="caret"></span>
-				                        <span class="sr-only">Toggle Dropdown</span>
-				                      </button>
-				                      <ul class="dropdown-menu" role="menu">
-				                        <li><a  th:href="@{'/pej/candidats/' + ${candidat.idcandidat}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> Modifier</a></li>
-				                         <li th:style="${candidat.statutcandidat.intitule}=='BENEFICIAIRE DE FINANCEMENT'? 'display:block' : 'display:none'"><a  th:href="@{'/pej/candidats/materiels/' + ${candidat.idcandidat}}"><i class="fa fa-edit" data-toggle="tooltip" title="Voir les matériaux"></i>Information financière</a></li>
-				                        <li><a  th:href="@{'/pej/candidats/picture/' + ${candidat.idcandidat}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i>Ajouter photo</a></li>
-				                        <li><a  th:href="@{'/pej/candidats/dossier/' + ${candidat.idcandidat}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> Dossier</a></li>
+				                        <!--<li><a href="#" th:onclick="${'javascript:upgradeCandidat('+ candidat.idcandidat +', $(this).parent().parent().parent().parent().parent()[0])'}" ><i class="fa fa-check-square-o"></i> Valider </a>-->
+				                        <!--</li>-->
+				                         <!--<li><a href="#" th:href="@{'/pej/candidats/don/' + ${candidat.idcandidat}}"> <i class="fa fa-file-pdf-o"></i>Accorder don</a>-->
+				                        <!--</li>-->
+				                          <!--<li><a href="#" th:href="@{'/pej/candidats/materiels/' + ${candidat.idcandidat}}"> <i class="fa fa-file-pdf-o"></i>Financement</a>-->
+				                        <!--</li>-->
+				                      <!--</ul>-->
+				                    <!--</div>-->
+	                            <!--</td>-->
 
-				                        <li><a href="#" th:onclick="${'javascript:upgradeCandidat('+ candidat.idcandidat +', $(this).parent().parent().parent().parent().parent()[0])'}" ><i class="fa fa-check-square-o"></i> Valider </a>
-				                        </li>
-				                         <li><a href="#" th:href="@{'/pej/candidats/don/' + ${candidat.idcandidat}}"> <i class="fa fa-file-pdf-o"></i>Accorder don</a>
-				                        </li>
-				                          <li><a href="#" th:href="@{'/pej/candidats/materiels/' + ${candidat.idcandidat}}"> <i class="fa fa-file-pdf-o"></i>Financement</a>
-				                        </li>
-				                      </ul>
-				                    </div>
-	                            </td>
+                             <td>
+                                 <!--<div class="btn-group btn-group-xs">-->
+                                     <!--<a class="btn btn-primary" th:href="@{'/pej/candidats/' + ${candidat.idcandidat}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> MODIFIER</a>-->
+                                     <!--<a class="btn btn-xs btn-warning" th:href="@{'/pej/candidats/formations?idcandidat=' + ${candidat.idcandidat}}"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> FORMATIONS</a>-->
+                                     <!--<a class="btn btn-xs btn-warning" th:href="@{'/pej/candidats/don/' + ${candidat.idcandidat}}"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> ACCORDER UN DON</a>-->
+                                     <!--<a class="btn btn-xs btn-warning" th:href="@{'/pej/candidats/materiels/' + ${candidat.idcandidat}}"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> FINANCEMENT</a>-->
+                                     <!--<a class="btn btn-xs btn-danger" th:href="@{'/pej/delete/candidat/' + ${candidat.idcandidat}}"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> SUPPRIMER</a>-->
+                                 <!--</div>-->
+                                 <div class="btn-group btn-group-xs">
+                                     <a class="btn btn-primary" th:href="@{'/pej/candidats/' + ${candidat.idcandidat}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> MODIFIER</a>
+                                 </div>
+                                 <div class="btn-group btn-group-xs">
+                                     <a class="btn btn-xs btn-warning" th:href="@{'/pej/report/formations?idcandidat=' + ${candidat.idcandidat}}"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> FORMATIONS</a>
+                                 </div>
+                                 <div class="btn-group btn-group-xs">
+                                     <a class="btn btn-xs btn-danger" th:href="@{'/pej/delete/candidat/' + ${candidat.idcandidat}}"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> SUPPRIMER</a>
+                                 </div>
+                             </td>
 
 
 							</tr>
@@ -396,61 +402,61 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
             </div>
           </div>
           <!-- DEBUT MODAL DON -->
-             <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-	<div class="modal-content">
+             <!--<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">-->
+  <!--<div class="modal-dialog modal-lg">-->
+	<!--<div class="modal-content">-->
 
-	  <div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-		</button>
-		<h4 class="modal-title" id="myModalLabel">ACCORDER UN DON</h4>
-	  </div>
-	  <div class="modal-body">
-		<h4>ACCORDER UN DON</h4>
-		<form id="frmAgent"  class="form-horizontal form-label-left"  method="post">
-				    	<div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">DEPARTEMENT <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                               <select id="departement" name="departement" class="select2_single form-control" >
-	                            	<option data-th-each="departement : ${departements}" th:text="${departement.libdeparteement}" th:value="${departement.codedepartement}"></option>
-	                           </select>
-                            </div>
-                        </div>
-				       <div class="item form-group">
-                            <label for="numerofiche" class="control-label col-md-3 col-sm-3 col-xs-12">INTITULE</label>
-                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="libantenne"  th:required="required" class="form-control col-md-7 col-xs-12"/>
-                            </div>
-                        </div>
-					    <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">NOM</label>
-                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="responsable" th:required="required" class="form-control col-md-7 col-xs-12"/>
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">TELEPHONE</label>
-                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="numpresponsable"  th:required="required" class="form-control col-md-7 col-xs-12"/>
-                            </div>
-                        </div>
+	  <!--<div class="modal-header">-->
+		<!--<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>-->
+		<!--</button>-->
+		<!--<h4 class="modal-title" id="myModalLabel">ACCORDER UN DON</h4>-->
+	  <!--</div>-->
+	  <!--<div class="modal-body">-->
+		<!--<h4>ACCORDER UN DON</h4>-->
+		<!--<form id="frmAgent"  class="form-horizontal form-label-left"  method="post">-->
+				    	<!--<div class="item form-group">-->
+                            <!--<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">DEPARTEMENT <span class="required">*</span>-->
+                            <!--</label>-->
+                            <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
+                               <!--<select id="departement" name="departement" class="select2_single form-control" >-->
+	                            	<!--<option data-th-each="departement : ${departements}" th:text="${departement.libdeparteement}" th:value="${departement.codedepartement}"></option>-->
+	                           <!--</select>-->
+                            <!--</div>-->
+                        <!--</div>-->
+				       <!--<div class="item form-group">-->
+                            <!--<label for="numerofiche" class="control-label col-md-3 col-sm-3 col-xs-12">INTITULE</label>-->
+                             <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
+                              <!--<input type="text" id="libantenne"  th:required="required" class="form-control col-md-7 col-xs-12"/>-->
+                            <!--</div>-->
+                        <!--</div>-->
+					    <!--<div class="item form-group">-->
+                            <!--<label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">NOM</label>-->
+                             <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
+                              <!--<input type="text" id="responsable" th:required="required" class="form-control col-md-7 col-xs-12"/>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="item form-group">-->
+                            <!--<label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">TELEPHONE</label>-->
+                             <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
+                              <!--<input type="text" id="numpresponsable"  th:required="required" class="form-control col-md-7 col-xs-12"/>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
 
-					    <div class="ln_solid"></div>
-					    <div class="form-group">
-					      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-									<button type="button" class="btn btn-default" data-dismiss="modal">FERMER</button>
-								<button type="button" class="btn btn-primary">ENREGISTRER</button>
-						      </div>
-					    </div>
+					    <!--<div class="ln_solid"></div>-->
+					    <!--<div class="form-group">-->
+					      <!--<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">-->
+									<!--<button type="button" class="btn btn-default" data-dismiss="modal">FERMER</button>-->
+								<!--<button type="button" class="btn btn-primary">ENREGISTRER</button>-->
+						      <!--</div>-->
+					    <!--</div>-->
 
-					  </form>
-	  </div>
+					  <!--</form>-->
+	  <!--</div>-->
 
-	</div>
-  </div>
-</div>
+	<!--</div>-->
+  <!--</div>-->
+<!--</div>-->
             <!-- FIN MODAL DON -->
         </div>
         <!-- /page content -->

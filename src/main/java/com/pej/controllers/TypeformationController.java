@@ -1,4 +1,5 @@
 package com.pej.controllers;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,56 +21,46 @@ import com.pej.services.NotificationService;
 
 @Controller
 public class TypeformationController {
-	@Autowired private TypeformationRepository typeformationRepository;
-	@Autowired private NotificationService notifyService;
-	@GetMapping("/pej/typeformations")
-    String index(Model model,@ModelAttribute("objTypeformation") Typeformation objTypeformation) {
-    	System.out.println("Starting Index Ok");
-    	List<Typeformation> typeformations = (List<Typeformation>) typeformationRepository.findAll();  	
-    	model.addAttribute("typeformations", typeformations);
+    @Autowired
+    private TypeformationRepository typeformationRepository;
+    @Autowired
+    private NotificationService notifyService;
+
+    @GetMapping("/pej/typeformations")
+    String index(Model model) {
+        List<Typeformation> typeformations = (List<Typeformation>) typeformationRepository.findAll();
+        model.addAttribute("typeformations", typeformations);
         return "typeformations";
     }
-	
-	@GetMapping("/pej/typeformations/add")
-	public String editCabinet(@ModelAttribute("objTypeformation") Typeformation objTypeformation, ModelMap model){
 
-		 model.addAttribute("objTypeformation", objTypeformation); 
-		 return "frmTypeformation";
-	}
-	
-	@GetMapping("/pej/typeformation/{id}")
-	public String modifierCabinet(@PathVariable Integer id, ModelMap model){
+    @GetMapping("/pej/typeformations/add")
+    public String create(@ModelAttribute("objTypeformation") Typeformation objTypeformation, ModelMap model) {
 
-		 Typeformation objTypeformation=typeformationRepository.findOne(id);
-	
-		 model.addAttribute("objTypeformation", objTypeformation); 
-		 return "frmTypeformation";
-	}
-	
+        model.addAttribute("objTypeformation", objTypeformation);
+        return "frmTypeformation";
+    }
+
+    @GetMapping("/pej/typeformation/{id}")
+    public String edit(@PathVariable Integer id, ModelMap model) {
+
+        Typeformation objTypeformation = typeformationRepository.findOne(id);
+
+        model.addAttribute("objTypeformation", objTypeformation);
+        return "frmTypeformation";
+    }
+
     @PostMapping("/pej/typeformations")
-    public String saveagents(@ModelAttribute(value="objTypeformation")  Typeformation objTypeformation, BindingResult result,Model model) {
-    	System.out.println("Starting Save Ok");
+    public String save(@ModelAttribute(value = "objTypeformation") Typeformation objTypeformation, BindingResult result, Model model) {
+
         if (result.hasErrors()) {
-        	notifyService.addErrorMessage("Echec enregistrement.");
-            return "frmCabinet";
+            notifyService.addErrorMessage("ECHEC DE L'ENREGISTREMENT.");
         }
-        if(objTypeformation.getIdtypeformation()!=null)
-       System.out.println("id typeformation: "+objTypeformation.getIntitule());
-        else
-        	System.out.println("objTypeformation est null: ");
-        
-       if(objTypeformation.getIdtypeformation()!=null && objTypeformation.getIdtypeformation().intValue() >0 ){
-    	   Typeformation typeformation =typeformationRepository.findOne(objTypeformation.getIdtypeformation());
-    	   typeformation.setIntitule(objTypeformation.getIntitule());
-    	   typeformation.setNature(objTypeformation.getNature());
-    	   typeformation.setDescription(objTypeformation.getDescription());;
-    	   typeformationRepository.save(typeformation);
-    	   notifyService.addInfoMessage("Modificcation effectuée avec succès.");
-           return "redirect:/pej/typeformations";
-       }
-       notifyService.addInfoMessage("Enregistrement effectuée avec succès.");
-       typeformationRepository.save(objTypeformation);
-       return "redirect:/pej/typeformations";
+        else{
+            typeformationRepository.save(objTypeformation);
+            notifyService.addInfoMessage("ENREGISTREMENT EFFECTUE AVEC SUCCESS.");
+        }
+
+        return "redirect:/pej/typeformations";
     }
 
 }

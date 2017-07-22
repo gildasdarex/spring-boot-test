@@ -1,4 +1,5 @@
 package com.pej.controllers;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,58 +21,51 @@ import com.pej.services.NotificationService;
 
 @Controller
 public class CabinetController {
-	@Autowired private CabinetRepository cabinetRepository;
-	@Autowired private NotificationService notifyService;
-	@GetMapping("/pej/cabinets")
-    String index(Model model,@ModelAttribute("objCabinet") Cabinet objCabinet) {
-    	System.out.println("Starting Index Ok");
-    	List<Cabinet> cabinets = (List<Cabinet>) cabinetRepository.findAll();  	
-    	model.addAttribute("cabinets", cabinets);
+    @Autowired
+    private CabinetRepository cabinetRepository;
+    @Autowired
+    private NotificationService notifyService;
+
+    @GetMapping("/pej/cabinets")
+    String index(Model model, @ModelAttribute("objCabinet") Cabinet objCabinet) {
+        List<Cabinet> cabinets = (List<Cabinet>) cabinetRepository.findAll();
+
+        model.addAttribute("cabinets", cabinets);
+
         return "cabinets";
     }
-	
-	@GetMapping("/pej/cabinets/add")
-	public String editCabinet(@ModelAttribute("objCabinet") Cabinet objCabinet, ModelMap model){
-		 
-		 List<Cabinet> antennes = (List<Cabinet>) cabinetRepository.findAll();
-		 model.addAttribute("antennes", antennes); 
-		 model.addAttribute("objCabinet", objCabinet); 
-		 return "frmCabinet";
-	}
-	
-	@GetMapping("/pej/cabinet/{id}")
-	public String modifierCabinet(@PathVariable Integer id, ModelMap model){
 
-		 Cabinet objCabinet=cabinetRepository.findOne(id);
-	
-		 model.addAttribute("objCabinet", objCabinet); 
-		 return "frmCabinet";
-	}
-	
+    @GetMapping("/pej/cabinets/add")
+    public String editCabinet(@ModelAttribute("objCabinet") Cabinet objCabinet, ModelMap model) {
+        List<Cabinet> antennes = (List<Cabinet>) cabinetRepository.findAll();
+
+        model.addAttribute("antennes", antennes);
+        model.addAttribute("objCabinet", objCabinet);
+
+        return "frmCabinet";
+    }
+
+    @GetMapping("/pej/cabinet/{id}")
+    public String modifierCabinet(@PathVariable Integer id, ModelMap model) {
+        Cabinet objCabinet = cabinetRepository.findOne(id);
+
+        model.addAttribute("objCabinet", objCabinet);
+
+        return "frmCabinet";
+    }
+
     @PostMapping("/pej/cabinets")
-    public String saveagents(@ModelAttribute(value="objCabinet")  Cabinet objCabinet, BindingResult result,Model model) {
-    	System.out.println("Starting Save Ok");
+    public String saveagents(@ModelAttribute(value = "objCabinet") Cabinet objCabinet, BindingResult result, Model model) {
+
         if (result.hasErrors()) {
-        	notifyService.addErrorMessage("Echec enregistrement.");
-            return "frmCabinet";
+            notifyService.addErrorMessage("ECHEC DE L'ENREGISTREMENT.");
         }
-        if(objCabinet.getIdcabinet()!=null)
-       System.out.println("id cabinet: "+objCabinet.getIntitule());
-        else
-        	System.out.println("objCabinet est null: ");
-        
-       if(objCabinet.getIdcabinet()!=null && objCabinet.getIdcabinet().intValue() >0 ){
-    	   Cabinet cabinet =cabinetRepository.findOne(objCabinet.getIdcabinet());
-    	   cabinet.setIntitule(objCabinet.getIntitule());
-    	   cabinet.setResponsable(objCabinet.getResponsable());
-    	   cabinet.setTelephone(objCabinet.getTelephone());
-    	   cabinetRepository.save(cabinet);
-    	   notifyService.addInfoMessage("Modificcation effectuée avec succès.");
-           return "redirect:/pej/cabinets";
-       }
-       notifyService.addInfoMessage("Enregistrement effectuée avec succès.");
-       cabinetRepository.save(objCabinet);
-       return "redirect:/pej/cabinets";
+        else{
+            cabinetRepository.save(objCabinet);
+            notifyService.addInfoMessage("ENREGISTREMENT EFFECTUE AVEC SUCCESS.");
+        }
+
+        return "redirect:/pej/cabinets";
     }
 
 }

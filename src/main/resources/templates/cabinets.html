@@ -31,15 +31,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      <!-- <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li> -->
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
@@ -56,7 +47,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                             <th>
                               <input type="checkbox" id="check-all" class="flat"/>
                             </th>
-                            <th class="column-title">#</th>
                             <th class="column-title">INTITULE </th>
                             <th class="column-title">RESPONSABLE</th>
                               <th class="column-title">EMAIL</th>
@@ -74,15 +64,15 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	                            <td class="a-center ">
 	                              <input type="checkbox" class="flat" name="table_records"/>
 	                            </td>
-	                            <td class=" " data-th-text="${cabinet.idcabinet}"></td>
 								<td class=" " data-th-text="${cabinet.intitule}"></td>
 								<td class=" " data-th-text="${cabinet.responsable}"></td>
                                 <td class=" " data-th-text="${cabinet.email}"></td>
 								<td class=" " data-th-text="${cabinet.telephone}"></td>
 								<td>
 									<div class="btn-group btn-group-xs">
-										<a class="btn btn-default" th:href="@{'/pej/cabinet/' + ${cabinet.idcabinet}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> MODIFIER</a>
-										<a class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> SUPPRIMER</a>
+										<a class="btn btn-primary" th:href="@{'/pej/cabinet/' + ${cabinet.idcabinet}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> MODIFIER</a>
+                                        <a class="btn btn-warning" th:href="@{'/pej/formateurs?idcabinet=' + ${cabinet.idcabinet}}"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i> FORMATEURS</a>
+                                        <a class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" title="Edit"></i> SUPPRIMER</a>
 									</div>
 								</td>
 

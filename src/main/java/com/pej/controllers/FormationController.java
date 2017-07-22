@@ -41,9 +41,10 @@ public class FormationController {
     private FormationService formationService;
 
     @GetMapping("/pej/formations")
-    String index(Model model, @ModelAttribute("objFormation") Formation objFormation) {
+    String index(Model model, @RequestParam(value = "idformateur", required = false, defaultValue = "") String idformateur) {
         User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Collection<GrantedAuthority> grantedAuthorities = principal.getAuthorities();
+        Formateur formateur = null;
 
         List<String> roleNames = new ArrayList<>();
         List<Formation> formations = new ArrayList<>();
@@ -55,9 +56,14 @@ public class FormationController {
 
         if (roleNames.size() == 1 && roleNames.contains("FORMATEUR")) {
             String username = principal.getUsername();
-            Formateur formateur = formateurRepository.findOneByUsername(username);
+            formateur = formateurRepository.findOneByUsername(username);
             formations = (List<Formation>) formateur.getFormations();
-        } else {
+        }
+        else if(! idformateur.equals("")){
+            formateur = formateurRepository.findOne(Integer.parseInt(idformateur));
+            formations = (List<Formation>) formateur.getFormations();
+        }
+        else {
             formations = (List<Formation>) formationRepository.findAll();
         }
 
@@ -66,7 +72,7 @@ public class FormationController {
     }
 
     @GetMapping("/pej/formations/add")
-    public String editFormation(@ModelAttribute("objFormation") Formation objFormation, ModelMap model) {
+    public String create(@ModelAttribute("objFormation") Formation objFormation, ModelMap model) {
         List<Formateur> formateurs = (List<Formateur>) formateurRepository.findAll();
         List<Typeformation> typeformations = (List<Typeformation>) typeformationRepository.findAll();
 
@@ -78,7 +84,7 @@ public class FormationController {
 
 
     @GetMapping("/pej/formations/add/{id}")
-    public String editFormation(@PathVariable Integer id, ModelMap model) {
+    public String edit(@PathVariable Integer id, ModelMap model) {
         List<Formateur> formateurs = (List<Formateur>) formateurRepository.findAll();
         List<Typeformation> typeformations = (List<Typeformation>) typeformationRepository.findAll();
         Formation objFormation = formationRepository.findOne(id);
@@ -107,25 +113,25 @@ public class FormationController {
     }
 
     @PostMapping("/pej/formations")
-    public String saveagents(@ModelAttribute(value = "objFormation") Formation objFormation, BindingResult result, Model model) {
+    public String save(@ModelAttribute(value = "objFormation") Formation objFormation, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
             List<ObjectError> errors = result.getAllErrors();
             for (ObjectError error : errors) {
-                System.out.println("error to create new formation " + error.toString());
+                logger.debug("error to create new formation " + error.toString());
             }
             return "frmFormation";
         }
 
         objFormation = formationRepository.save(objFormation);
 
-        String formateurList = objFormation.getFormateurs();
-        String[] formateurListSplit = formateurList.split(",");
-        for (String str : formateurListSplit) {
-            Formateur formateur = formateurRepository.findOne(Integer.parseInt(str));
-            formateur.getFormations().add(objFormation);
-            formateurRepository.save(formateur);
-        }
+//        String formateurList = objFormation.getFormateurs();
+//        String[] formateurListSplit = formateurList.split(",");
+//        for (String str : formateurListSplit) {
+//            Formateur formateur = formateurRepository.findOne(Integer.parseInt(str));
+//            formateur.getFormations().add(objFormation);
+//            formateurRepository.save(formateur);
+//        }
         return "redirect:/pej/formations";
     }
 

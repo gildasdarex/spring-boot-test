@@ -22,18 +22,21 @@ import java.util.List;
 /**
  * Created by D O N A T I E N on 26/12/2016.
  */
+
 @Controller
 public class FournisseurController {
-    @Autowired(required = true) private FournisseurRepository fournisseurRepository;
-    @Autowired private NotificationService notifyService;
+    @Autowired(required = true)
+    private FournisseurRepository fournisseurRepository;
+    @Autowired
+    private NotificationService notifyService;
+
     @GetMapping("/pej/fournisseurs")
-    String index(Model model,@ModelAttribute("ObjFournisseur") Fournisseur objFournisseur) {
-        System.out.println("Starting Index Ok");
+    String index(Model model, @ModelAttribute("ObjFournisseur") Fournisseur objFournisseur) {
         List<Fournisseur> fournisseurs = (List<Fournisseur>) fournisseurRepository.findAll();
         model.addAttribute("fournisseurs", fournisseurs);
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            String username = ((UserDetails)principal).getUsername();
+            String username = ((UserDetails) principal).getUsername();
             model.addAttribute("username", username);
         } else {
             String username = principal.toString();
@@ -43,11 +46,11 @@ public class FournisseurController {
     }
 
     @GetMapping("/pej/fournisseurs/add")
-    public String addFournisseur(@ModelAttribute("ObjFournisseur") Fournisseur objFournisseur, ModelMap model){
+    public String addFournisseur(@ModelAttribute("ObjFournisseur") Fournisseur objFournisseur, ModelMap model) {
         model.addAttribute("ObjFournisseur", objFournisseur);
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            String username = ((UserDetails)principal).getUsername();
+            String username = ((UserDetails) principal).getUsername();
             model.addAttribute("username", username);
         } else {
             String username = principal.toString();
@@ -55,13 +58,14 @@ public class FournisseurController {
         }
         return "frmFournisseur";
     }
+
     @GetMapping("/pej/fournisseurs/{id}")
-    public String editFournisseur(@PathVariable Integer id, ModelMap model){
-        Fournisseur fournisseur=fournisseurRepository.findOne(id);
+    public String editFournisseur(@PathVariable Integer id, ModelMap model) {
+        Fournisseur fournisseur = fournisseurRepository.findOne(id);
         model.addAttribute("ObjFournisseur", fournisseur);
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            String username = ((UserDetails)principal).getUsername();
+            String username = ((UserDetails) principal).getUsername();
             model.addAttribute("username", username);
         } else {
             String username = principal.toString();
@@ -69,39 +73,40 @@ public class FournisseurController {
         }
         return "frmFournisseur";
     }
+
     @PostMapping("/pej/fournisseurs")
-    public String savefournisseurs(@ModelAttribute(value="ObjFournisseur")  Fournisseur objFournisseur, BindingResult result,Model model) {
+    public String savefournisseurs(@ModelAttribute(value = "ObjFournisseur") Fournisseur objFournisseur, BindingResult result, Model model) {
         System.out.println("Starting Save Ok");
         if (result.hasErrors()) {
             notifyService.addErrorMessage("Echec Enrégistrement.");
             return "frmFournisseur";
         }
-        if(objFournisseur!=null) {
+        if (objFournisseur != null) {
 
             System.out.println("Nom Fournisseur: " + objFournisseur);
 
 
-        }
-        else
+        } else
             System.out.println("objMateriel est null: ");
 
-        if(objFournisseur.getIdfournisseur()!=null && objFournisseur.getIdfournisseur().intValue() >0 ){
-            Fournisseur fournisseur =fournisseurRepository.findOne(objFournisseur.getIdfournisseur());
+        if (objFournisseur.getIdfournisseur() != null && objFournisseur.getIdfournisseur().intValue() > 0) {
+            Fournisseur fournisseur = fournisseurRepository.findOne(objFournisseur.getIdfournisseur());
             fournisseur.setNomfournisseur(objFournisseur.getNomfournisseur());
             fournisseur.setContactfournisseur(objFournisseur.getContactfournisseur());
             fournisseurRepository.save(fournisseur);
             return "redirect:/pej/fournisseurs";
         }
-       // System.out.println("objet fournisseur "+objFournisseur);
+        // System.out.println("objet fournisseur "+objFournisseur);
 
         fournisseurRepository.save(objFournisseur);
         notifyService.addInfoMessage("Enrégistrement  effectuée avec succès.");
         return "redirect:/pej/fournisseurs";
     }
-    @GetMapping("/pej/fournisseurs/delete/{id}")
-    public String deleteFournisseur(@PathVariable Integer id, ModelMap model){
 
-        Fournisseur fournisseur=fournisseurRepository.findOne(id);
+    @GetMapping("/pej/fournisseurs/delete/{id}")
+    public String deleteFournisseur(@PathVariable Integer id, ModelMap model) {
+
+        Fournisseur fournisseur = fournisseurRepository.findOne(id);
         fournisseurRepository.delete(fournisseur);
         notifyService.addInfoMessage("Suppression  effectuée avec succès.");
         return "redirect:/pej/fournisseurs";
