@@ -125,13 +125,13 @@ public class FormationController {
 
         objFormation = formationRepository.save(objFormation);
 
-//        String formateurList = objFormation.getFormateurs();
-//        String[] formateurListSplit = formateurList.split(",");
-//        for (String str : formateurListSplit) {
-//            Formateur formateur = formateurRepository.findOne(Integer.parseInt(str));
-//            formateur.getFormations().add(objFormation);
-//            formateurRepository.save(formateur);
-//        }
+        String formateurList = objFormation.getFormateurs();
+        String[] formateurListSplit = formateurList.split(",");
+        for (String str : formateurListSplit) {
+            Formateur formateur = formateurRepository.findOne(Integer.parseInt(str));
+            formateur.getFormations().add(objFormation);
+            formateurRepository.save(formateur);
+        }
         return "redirect:/pej/formations";
     }
 
