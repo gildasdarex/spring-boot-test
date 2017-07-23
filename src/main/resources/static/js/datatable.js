@@ -2,6 +2,10 @@
     	  $('#dateformation').daterangepicker({
               singleDatePicker: true,
               calender_style: "picker_1"
+              // ,
+              // locale: {
+              //     format: 'dd/MM/yyyy'
+              // }
             }, function(start, end, label) {
             	
               console.log(start, end.toISOString(), label);
@@ -9,6 +13,10 @@
     	  $('#datefin').daterangepicker({
               singleDatePicker: true,
               calender_style: "picker_1"
+              // ,
+              // locale: {
+              //     format: 'dd/MM/yyyy'
+              // }
             }, function(start, end, label) {
             	
               console.log(start, end.toISOString(), label);
@@ -16,6 +24,10 @@
     	  $('#dateenregistrement').daterangepicker({
               singleDatePicker: true,
               calender_style: "picker_1"
+              // ,
+              // locale: {
+              //     format: 'dd/MM/yyyy'
+              // }
             }, function(start, end, label) {
             	
               console.log(start, end.toISOString(), label);

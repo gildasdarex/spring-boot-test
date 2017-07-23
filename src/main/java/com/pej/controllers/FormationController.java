@@ -1,7 +1,10 @@
 package com.pej.controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import com.pej.services.CustomUserDetail;
@@ -89,6 +92,17 @@ public class FormationController {
         List<Typeformation> typeformations = (List<Typeformation>) typeformationRepository.findAll();
         Formation objFormation = formationRepository.findOne(id);
 
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//        Date date= null;
+//        try {
+//            date = dateFormat.format(objFormation.getDateformation());
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+
+        System.out.println("*********** " + objFormation.getDateformation());
+        System.out.println("*********** " + objFormation.getDatefin());
+
         model.addAttribute("formateurs", formateurs);
         model.addAttribute("objFormation", objFormation);
         model.addAttribute("typeformations", typeformations);
@@ -113,25 +127,18 @@ public class FormationController {
     }
 
     @PostMapping("/pej/formations")
-    public String save(@ModelAttribute(value = "objFormation") Formation objFormation, BindingResult result, Model model) {
+    public String save(@ModelAttribute(value = "objFormation") Formation objFormation, BindingResult result) {
 
         if (result.hasErrors()) {
             List<ObjectError> errors = result.getAllErrors();
             for (ObjectError error : errors) {
-                logger.debug("error to create new formation " + error.toString());
+                System.out.println("error to create new formation " + error.toString());
             }
-            return "frmFormation";
+            return "redirect:/pej/formations";
         }
 
-        objFormation = formationRepository.save(objFormation);
+        formationService.saveFormation(objFormation);
 
-        String formateurList = objFormation.getFormateurs();
-        String[] formateurListSplit = formateurList.split(",");
-        for (String str : formateurListSplit) {
-            Formateur formateur = formateurRepository.findOne(Integer.parseInt(str));
-            formateur.getFormations().add(objFormation);
-            formateurRepository.save(formateur);
-        }
         return "redirect:/pej/formations";
     }
 

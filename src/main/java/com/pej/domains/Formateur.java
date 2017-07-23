@@ -225,5 +225,12 @@ public class Formateur implements java.io.Serializable {
         return this.nom + " " + this.prenom + " ";
     }
 
-
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Formateur)) return false;
+        Formateur formateur = (Formateur)obj;
+        if(obj == this) return true;
+        else if(this.getIdformateur().intValue() == formateur.getIdformateur().intValue()) return true;
+        else return false;
+    }
 }

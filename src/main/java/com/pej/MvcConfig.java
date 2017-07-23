@@ -1,9 +1,11 @@
 package com.pej;
 
 
+import com.pej.web.FormateurFormatter;
 import org.dozer.spring.DozerBeanMapperFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -27,5 +29,9 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         returnValue.setMappingFiles(resources);*/
         return returnValue;
     }
-   
+
+//    @Override
+//    public void addFormatters(FormatterRegistry registry) {
+//        registry.addFormatter(new FormateurFormatter());
+//    }
 }

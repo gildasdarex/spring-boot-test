@@ -33,7 +33,7 @@ public class BeneficiaireCooperativeController {
 
     @RequestMapping(value = "/pej/beneficiairecooperative/cooperative/{id}", method = RequestMethod.GET)
     String index(Model model, @PathVariable Integer id) {
-        List<Candidat> candidats = (List<Candidat>) candidatRepository.getNotInCooperativeCandidat(id);
+        List<Candidat> candidats = (List<Candidat>) candidatRepository.getFreeCandidats();
         Cooperative cooperative = cooperativeRepository.findOne(id);
         List<Candidat> candidatscooperative = (List<Candidat>) candidatRepository.getInCooperativeCandidat(id);
 
@@ -49,9 +49,9 @@ public class BeneficiaireCooperativeController {
 
         boolean success = beneficiaireCooperativeService.addBeneficiaire(idgroupe,idcandidat);
         if (success) {
-            notifyService.addSucceesgMessage("Candidat ajouter à la coopérative avec succès.");
+            notifyService.addSucceesgMessage("CANDIDATA AJOUTE A LA COOPERATIVE AVEC SUCCESS.");
         } else {
-            notifyService.addWarningMessage("Echec enregistrement. Candidat ou coopérative non trouvé.");
+            notifyService.addWarningMessage("ECHEC ENREGISTREMENT. CANDIDAT OU COOPERATIVE NON TROUVE");
         }
         return "redirect:" + "/pej/beneficiairecooperative/cooperative/" + idgroupe;
     }

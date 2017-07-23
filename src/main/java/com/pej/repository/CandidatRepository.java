@@ -6,6 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 import com.pej.domains.Formationbeneficaire;
 import com.pej.domains.Candidat;
 
+import java.util.List;
+
 public interface CandidatRepository extends CrudRepository<Candidat, Integer>{
 	
 	@Query("select ca from Candidat ca where ca.idcandidat  not in (select fb.candidat.idcandidat from Formationbeneficaire fb where fb.formation.idformation=?1)" )
@@ -37,6 +39,9 @@ public interface CandidatRepository extends CrudRepository<Candidat, Integer>{
         +" where fb.cooperative.idgroupe in (SELECT gr.idgroupe FROM Cooperative gr where gr.idgroupe in(select fc.cooperative.idgroupe from Formationcooperative fc WHERE fc.formation.idformation=?1)))" 
         +" and ca.idcandidat  not in (select pr.candidat.idcandidat from Presence pr where pr.formation.idformation=?1)" )
 	Iterable<Candidat> getInAbsenceCandidat(Integer id);
+
+	@Query("select ca from Candidat ca where ca.idcandidat  not in (select fb.candidat.idcandidat from Beneficiairecooperative fb)" )
+	List<Candidat> getFreeCandidats();
 	
 
 

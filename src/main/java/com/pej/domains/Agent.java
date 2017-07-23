@@ -150,7 +150,7 @@ public class Agent  implements java.io.Serializable {
 	}
 
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="agent")
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="agent")
     public Set<Candidat> getCandidats() {
         return this.candidats;
     }
@@ -169,6 +169,11 @@ public class Agent  implements java.io.Serializable {
 	public void setAntenne(Antenne antenne) {
 		this.antenne = antenne;
 	}
+
+	public String getIdentite(){
+        if(this.prenom == null) return this.nom;
+        else return this.nom+ " " + this.prenom;
+    }
 
 
 
