@@ -26,34 +26,36 @@ public class CandidatService {
     @Autowired private CandidatRepository candidatRepository;
     @Autowired private StatutcandidatRepository statutcandidatRepository;
     @Autowired private PresenceRepository presenceRepository;
-    @Autowired private FormationBeneficiareRepository formationBeneficiareRepository;
     @Autowired private FormationCooperativeRepository formationCooperativeRepository;
     @Autowired private BeneficiaireCooperativeRepository beneficiaireCooperativeRepository;
+    @Autowired private  DoWorkService workService;
+
 
 
 
     public boolean saveFromFile(List<OdkCandidat> odkCandidats){
 
-        List<Candidat> candidats = new ArrayList<>();
-        for (OdkCandidat odkCandidat : odkCandidats) {
-            Candidat candidat = mapper.map(odkCandidat, Candidat.class);
-            Agent agent = agentRepository.getAgent(odkCandidat.getAe());
-            Statutcandidat statutcandidat = null;
-            if(odkCandidat.getStatut().equals("1") )
-                statutcandidat = statutcandidatRepository.findOneByIntitule("BENEFICIAIRE DE FORMATION");
-            else
-                statutcandidat = statutcandidatRepository.findOneByIntitule("CANDIDAT");
-            candidat.setAgent(agent);
-            candidat.setStatutcandidat(statutcandidat);
-            candidat.setSexe(HelperEnum.getSexe(odkCandidat.getIs_sexe()));
-            candidat.setDocidentite(HelperEnum.getDocumentIdentite(odkCandidat.getCandidat_document_identite()));
-            candidat.setActiviteprincipale(HelperEnum.getActivite(odkCandidat.getActivite_principale()));
-            candidats.add(candidat);
-        }
-
-        for (Candidat candidat : candidats) {
-            candidatRepository.save(candidat);
-        }
+//        List<Candidat> candidats = new ArrayList<>();
+//        for (OdkCandidat odkCandidat : odkCandidats) {
+//            Candidat candidat = mapper.map(odkCandidat, Candidat.class);
+//            Agent agent = agentRepository.getAgent(odkCandidat.getAe());
+//            Statutcandidat statutcandidat = null;
+//            if(odkCandidat.getStatut().equals("1") )
+//                statutcandidat = statutcandidatRepository.findOneByIntitule("BENEFICIAIRE DE FORMATION");
+//            else
+//                statutcandidat = statutcandidatRepository.findOneByIntitule("CANDIDAT");
+//            candidat.setAgent(agent);
+//            candidat.setStatutcandidat(statutcandidat);
+//            candidat.setSexe(HelperEnum.getSexe(odkCandidat.getIs_sexe()));
+//            candidat.setDocidentite(HelperEnum.getDocumentIdentite(odkCandidat.getCandidat_document_identite()));
+//            candidat.setActiviteprincipale(HelperEnum.getActivite(odkCandidat.getActivite_principale()));
+//            candidats.add(candidat);
+//        }
+//
+//        for (Candidat candidat : candidats) {
+//            candidatRepository.save(candidat);
+//        }
+        workService.doWork(odkCandidats);
 
         return true;
     }

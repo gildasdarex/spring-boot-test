@@ -378,7 +378,7 @@ public class CandidatController {
         fos.close();
         List<OdkCandidat> odkCandidats = Poiji.fromExcel(convFile, OdkCandidat.class);
         candidatService.saveFromFile(odkCandidats);
-        return "redirect:/pej/formations";
+        return "redirect:/pej/candidats";
 
     }
 
@@ -526,7 +526,7 @@ public class CandidatController {
         String fileLocation = servletContext.getRealPath("/") + fileName;
 
 			 /*FileOutputStream fos = new FileOutputStream(fileLocation);
-			 fos.write(imageByteArray);
+             fos.write(imageByteArray);
 			 fos.close();*/
 
 
