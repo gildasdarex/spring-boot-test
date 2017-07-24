@@ -1,5 +1,8 @@
 package com.pej.controllers;
 
+import com.github.dandelion.datatables.core.ajax.DataSet;
+import com.github.dandelion.datatables.core.ajax.DatatablesCriterias;
+import com.github.dandelion.datatables.core.ajax.DatatablesResponse;
 import com.pej.pojo.OdkCandidat;
 import com.pej.services.CandidatService;
 import com.poiji.internal.Poiji;
@@ -11,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,6 +59,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -110,25 +115,25 @@ public class CandidatController {
         List<Commune> communes = (List<Commune>) communeRepository.findAll();
         List<Statutcandidat> statuts = (List<Statutcandidat>) statutcandidatRepository.findAll();
 
-        try {
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (principal instanceof UserDetails) {
-                String username = ((UserDetails) principal).getUsername();
-                model.addAttribute("username", username);
-            } else {
-                String username = principal.toString();
-                model.addAttribute("username", username);
-            }
-        } catch (Exception e) {
-            return "redirect:/pej/login";
-        }
+        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
 
         model.addAttribute("candidats", candidats);
-        FCandidat objCritere = new FCandidat();
-        model.addAttribute("objCritere", objCritere);
         model.addAttribute("communes", communes);
         model.addAttribute("statuts", statuts);
+        model.addAttribute("username", principal.getUsername());
         return "candidats";
+    }
+
+
+    @RequestMapping(value = "/pej/candidats/table")
+    @ResponseBody
+    public DatatablesResponse<Candidat> data(HttpServletRequest request){
+        List<Candidat> candidats = (List<Candidat>) candidatRepository.findAll();
+
+        DatatablesCriterias criterias = DatatablesCriterias.getFromRequest(request);
+        DataSet<Candidat> dataSet = new DataSet<>(candidats, (long)candidats.size(), (long)candidats.size());
+        return DatatablesResponse.build(dataSet, criterias);
     }
 
     /*Récupérer la liste des candidats au format json*/

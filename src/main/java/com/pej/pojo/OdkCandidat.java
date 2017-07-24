@@ -13,6 +13,7 @@ public class OdkCandidat {
     @ExcelCell(0)
     public String ae_submissionDate;
     @ExcelCell(1)//no mapping
+    @Mapping("dateenregistrementStr")
     public String ae_date_enregistrement;
     @ExcelCell(2)
     public String deviceid;
@@ -203,9 +204,10 @@ public class OdkCandidat {
     @Mapping("commentaire")//commentaire
     public String commentaire;
     @ExcelCell(75)
-    //@Mapping("meta_instanceName")//A créer
     public String meta_instanceName;
-    @ExcelCell(76)//Ce champ existe pas dans mon fichier
+    @ExcelCell(76)
+    public String after_status;
+    @ExcelCell(77)//Ce champ existe pas dans mon fichier
     public String statut;
 
 
@@ -799,5 +801,37 @@ public class OdkCandidat {
 
     public void setStatut(String statut) {
         this.statut = statut;
+    }
+
+    public String getSimid() {
+        return simid;
+    }
+
+    public void setSimid(String simid) {
+        this.simid = simid;
+    }
+
+    public String getTitre_authorite_local() {
+        return titre_authorite_local;
+    }
+
+    public void setTitre_authorite_local(String titre_authorite_local) {
+        this.titre_authorite_local = titre_authorite_local;
+    }
+
+    public String getNom_authorite_local() {
+        return nom_authorite_local;
+    }
+
+    public void setNom_authorite_local(String nom_authorite_local) {
+        this.nom_authorite_local = nom_authorite_local;
+    }
+
+    public String getAfter_status() {
+        return after_status;
+    }
+
+    public void setAfter_status(String after_status) {
+        this.after_status = after_status;
     }
 }

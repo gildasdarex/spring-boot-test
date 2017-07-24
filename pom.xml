@@ -91,11 +91,16 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <version>1.4.3.RELEASE</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.security</groupId>-->
-            <!--<artifactId>spring-security-web</artifactId>-->
-            <!--<version>RELEASE</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.github.dandelion</groupId>
+            <artifactId>datatables-thymeleaf</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.dandelion</groupId>
+            <artifactId>datatables-spring3</artifactId>
+            <version>1.0.1</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>

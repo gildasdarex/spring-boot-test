@@ -95,13 +95,19 @@ public class FormationController {
 //        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 //        Date date= null;
 //        try {
-//            date = dateFormat.format(objFormation.getDateformation());
+//            String formatWithDate = dateFormat.format(objFormation.getDateformation());
+//            date = dateFormat.parse(formatWithDate);
+//            objFormation.setDateformation(date);
+//
+//            formatWithDate = dateFormat.format(objFormation.getDatefin());
+//            date = dateFormat.parse(formatWithDate);
+//            objFormation.setDatefin(date);
 //        } catch (ParseException e) {
 //            e.printStackTrace();
 //        }
-
-        System.out.println("*********** " + objFormation.getDateformation());
-        System.out.println("*********** " + objFormation.getDatefin());
+//
+//        System.out.println("*********** " + objFormation.getDateformation());
+//        System.out.println("*********** " + objFormation.getDatefin());
 
         model.addAttribute("formateurs", formateurs);
         model.addAttribute("objFormation", objFormation);

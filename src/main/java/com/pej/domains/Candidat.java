@@ -78,6 +78,7 @@ public class Candidat  implements java.io.Serializable {
      private String departement;
      @DateTimeFormat(pattern = "dd/MM/yyyy")
      private Date dateenregistrement;
+     private String dateenregistrementStr;
      private String numeroagent;
      private String numerofiche;
      private String languesparlees;
@@ -625,7 +626,7 @@ public class Candidat  implements java.io.Serializable {
     }
 
 
-    @Column(name="LANGUESPARLEES", length=50)
+    @Column(name="LANGUESPARLEES", length=1024)
     public String getLanguesparlees() {
         return this.languesparlees;
     }
@@ -659,7 +660,7 @@ public class Candidat  implements java.io.Serializable {
 	public void setPhotolink(String photolink) {
 		this.photolink = photolink;
 	}
-    @Column(name="PRECISIONACTIVITE", length=50)
+    @Column(name="PRECISIONACTIVITE", length=1024)
     public String getPrecisionactivite() {
         return this.precisionactivite;
     }
@@ -667,7 +668,7 @@ public class Candidat  implements java.io.Serializable {
     public void setPrecisionactivite(String precisionactivite) {
         this.precisionactivite = precisionactivite;
     }
-    @Column(name="PRECISIONACTIVITESOUHAITER", length=50)
+    @Column(name="PRECISIONACTIVITESOUHAITER", length=1024)
     public String getPrecisionactivitesouhaiter() {
         return this.precisionactivitesouhaiter;
     }
@@ -747,7 +748,7 @@ public class Candidat  implements java.io.Serializable {
 				+ precisionactivitesouhaiter + ", beneficiaires="  + "]";
 	}
 
-	@Column(name="deviceid", length=50)
+	@Column(name="deviceid", length=1024)
 	public String getDeviceid() {
 		return deviceid;
 	}
@@ -757,7 +758,7 @@ public class Candidat  implements java.io.Serializable {
 		this.deviceid = deviceid;
 	}
 
-	@Column(name="agentenregistreur", length=50)
+	@Column(name="agentenregistreur", length=1024)
 	public String getAgentenregistreur() {
 		return agentenregistreur;
 	}
@@ -767,7 +768,7 @@ public class Candidat  implements java.io.Serializable {
 		this.agentenregistreur = agentenregistreur;
 	}
 
-	@Column(name="enqueteur", length=50)
+	@Column(name="enqueteur", length=1024)
 	public String getEnqueteur() {
 		return enqueteur;
 	}
@@ -777,7 +778,7 @@ public class Candidat  implements java.io.Serializable {
 		this.enqueteur = enqueteur;
 	}
 
-	@Column(name="localdepartement", length=50)
+	@Column(name="localdepartement", length=1024)
 	public String getLocaldepartement() {
 		return localdepartement;
 	}
@@ -787,7 +788,7 @@ public class Candidat  implements java.io.Serializable {
 		this.localdepartement = localdepartement;
 	}
 
-	@Column(name="localcommune", length=50)
+	@Column(name="localcommune", length=1024)
 	public String getLocalcommune() {
 		return localcommune;
 	}
@@ -797,7 +798,7 @@ public class Candidat  implements java.io.Serializable {
 		this.localcommune = localcommune;
 	}
 
-	@Column(name="arrondissement", length=50)
+	@Column(name="arrondissement", length=1024)
 	public String getArrondissement() {
 		return arrondissement;
 	}
@@ -807,7 +808,7 @@ public class Candidat  implements java.io.Serializable {
 		this.arrondissement = arrondissement;
 	}
 
-	@Column(name="village", length=50)
+	@Column(name="village", length=1024)
 	public String getVillage() {
 		return village;
 	}
@@ -817,7 +818,7 @@ public class Candidat  implements java.io.Serializable {
 		this.village = village;
 	}
 
-	@Column(name="nourrison", length=50)
+	@Column(name="nourrison", length=1024)
 	public String getNourrison() {
 		return nourrison;
 	}
@@ -827,7 +828,7 @@ public class Candidat  implements java.io.Serializable {
 		this.nourrison = nourrison;
 	}
 
-	@Column(name="documentidentite", length=50)
+	@Column(name="documentidentite", length=1024)
 	public String getDocumentidentite() {
 		return documentidentite;
 	}
@@ -837,7 +838,7 @@ public class Candidat  implements java.io.Serializable {
 		this.documentidentite = documentidentite;
 	}
 
-	@Column(name="autredocidentite", length=50)
+	@Column(name="autredocidentite", length=1024)
 	public String getAutredocidentite() {
 		return autredocidentite;
 	}
@@ -847,7 +848,7 @@ public class Candidat  implements java.io.Serializable {
 		this.autredocidentite = autredocidentite;
 	}
 
-	@Column(name="beneficiairepsdcc", length=50)
+	@Column(name="beneficiairepsdcc", length=1024)
 	public String getBeneficiairepsdcc() {
 		return beneficiairepsdcc;
 	}
@@ -857,7 +858,7 @@ public class Candidat  implements java.io.Serializable {
 		this.beneficiairepsdcc = beneficiairepsdcc;
 	}
 
-	@Column(name="liencm", length=50)
+	@Column(name="liencm", length=1024)
 	public String getLiencm() {
 		return liencm;
 	}
@@ -867,7 +868,7 @@ public class Candidat  implements java.io.Serializable {
 		this.liencm = liencm;
 	}
 
-	@Column(name="autreniveauetude", length=50)
+	@Column(name="autreniveauetude", length=1024)
 	public String getAutreniveauetude() {
 		return autreniveauetude;
 	}
@@ -877,7 +878,7 @@ public class Candidat  implements java.io.Serializable {
 		this.autreniveauetude = autreniveauetude;
 	}
 
-	@Column(name="niveaualphabetfr", length=50)
+	@Column(name="niveaualphabetfr", length=1024)
 	public String getNiveaualphabetfr() {
 		return niveaualphabetfr;
 	}
@@ -887,7 +888,7 @@ public class Candidat  implements java.io.Serializable {
 		this.niveaualphabetfr = niveaualphabetfr;
 	}
 
-	@Column(name="niveaualphabetlocal", length=50)
+	@Column(name="niveaualphabetlocal", length=1024)
 	public String getNiveaualphabetlocal() {
 		return niveaualphabetlocal;
 	}
@@ -897,7 +898,7 @@ public class Candidat  implements java.io.Serializable {
 		this.niveaualphabetlocal = niveaualphabetlocal;
 	}
 
-	@Column(name="formationentrepreunariat", length=50)
+	@Column(name="formationentrepreunariat", length=1024)
 	public String getFormationentrepreunariat() {
 		return formationentrepreunariat;
 	}
@@ -907,7 +908,7 @@ public class Candidat  implements java.io.Serializable {
 		this.formationentrepreunariat = formationentrepreunariat;
 	}
 
-	@Column(name="autrerecherchetravail", length=50)
+	@Column(name="autrerecherchetravail", length=1024)
 	public String getAutrerecherchetravail() {
 		return autrerecherchetravail;
 	}
@@ -917,7 +918,7 @@ public class Candidat  implements java.io.Serializable {
 		this.autrerecherchetravail = autrerecherchetravail;
 	}
 
-	@Column(name="activiteprincipale", length=50)
+	@Column(name="activiteprincipale", length=1024)
 	public String getActiviteprincipale() {
 		return activiteprincipale;
 	}
@@ -927,7 +928,7 @@ public class Candidat  implements java.io.Serializable {
 		this.activiteprincipale = activiteprincipale;
 	}
 
-	@Column(name="employeur", length=50)
+	@Column(name="employeur", length=1024)
 	public String getEmployeur() {
 		return employeur;
 	}
@@ -937,7 +938,7 @@ public class Candidat  implements java.io.Serializable {
 		this.employeur = employeur;
 	}
 
-	@Column(name="codebarre", length=50)
+	@Column(name="codebarre", length=1024)
 	public String getCodebarre() {
 		return codebarre;
 	}
@@ -947,7 +948,7 @@ public class Candidat  implements java.io.Serializable {
 		this.codebarre = codebarre;
 	}
 
-	@Column(name="numeroserie", length=50)
+	@Column(name="numeroserie", length=1024)
 	public String getNumeroserie() {
 		return numeroserie;
 	}
@@ -957,7 +958,7 @@ public class Candidat  implements java.io.Serializable {
 		this.numeroserie = numeroserie;
 	}
 
-	@Column(name="numerocandidat", length=50)
+	@Column(name="numerocandidat", length=1024)
 	public String getNumerocandidat() {
 		return numerocandidat;
 	}
@@ -967,7 +968,7 @@ public class Candidat  implements java.io.Serializable {
 		this.numerocandidat = numerocandidat;
 	}
 
-	@Column(name="nomradio", length=50)
+	@Column(name="nomradio", length=1024)
 	public String getNomradio() {
 		return nomradio;
 	}
@@ -977,7 +978,7 @@ public class Candidat  implements java.io.Serializable {
 		this.nomradio = nomradio;
 	}
 
-	@Column(name="commentaire", length=50)
+	@Column(name="commentaire", length=1024)
 	public String getCommentaire() {
 		return commentaire;
 	}
@@ -992,7 +993,7 @@ public class Candidat  implements java.io.Serializable {
 		return serialVersionUID;
 	}
 
-	@Column(name="agentautre", length=50)
+	@Column(name="agentautre", length=1024)
 	public String getAgentautre() {
 		return agentautre;
 	}
@@ -1002,7 +1003,7 @@ public class Candidat  implements java.io.Serializable {
 		this.agentautre = agentautre;
 	}
 
-	@Column(name="autreslanguesparlees", length=50)
+	@Column(name="autreslanguesparlees", length=1024)
 	public String getAutreslanguesparlees() {
 		return autreslanguesparlees;
 	}
@@ -1012,7 +1013,7 @@ public class Candidat  implements java.io.Serializable {
 		this.autreslanguesparlees = autreslanguesparlees;
 	}
 
-	@Column(name="autrequalifpersonelle", length=50)
+	@Column(name="autrequalifpersonelle", length=1024)
 	public String getAutrequalifpersonelle() {
 		return autrequalifpersonelle;
 	}
@@ -1022,7 +1023,7 @@ public class Candidat  implements java.io.Serializable {
 		this.autrequalifpersonelle = autrequalifpersonelle;
 	}
 
-	@Column(name="consentement", length=50)
+	@Column(name="consentement", length=1024)
 	public String getConsentement() {
 		return consentement;
 	}
@@ -1032,7 +1033,7 @@ public class Candidat  implements java.io.Serializable {
 		this.consentement = consentement;
 	}
 
-	@Column(name="devicephonenum", length=50)
+	@Column(name="devicephonenum", length=1024)
 	public String getDevicephonenum() {
 		return devicephonenum;
 	}
@@ -1062,7 +1063,7 @@ public class Candidat  implements java.io.Serializable {
 		this.endtime = endtime;
 	}
 
-	@Column(name="lieu_passage_temps", length=50)
+	@Column(name="lieu_passage_temps", length=1024)
 	public String getLieupassagetemps() {
 		return lieupassagetemps;
 	}
@@ -1072,7 +1073,7 @@ public class Candidat  implements java.io.Serializable {
 		this.lieupassagetemps = lieupassagetemps;
 	}
 
-	@Column(name="nom_autorite_locale", length=50)
+	@Column(name="nom_autorite_locale", length=1024)
 	public String getNomautoritelocale() {
 		return nomautoritelocale;
 	}
@@ -1082,7 +1083,7 @@ public class Candidat  implements java.io.Serializable {
 		this.nomautoritelocale = nomautoritelocale;
 	}
 
-	@Column(name="titre_autorite_locale", length=50)
+	@Column(name="titre_autorite_locale", length=1024)
 	public String getTitreautoritelocale() {
 		return titreautoritelocale;
 	}
@@ -1092,7 +1093,7 @@ public class Candidat  implements java.io.Serializable {
 		this.titreautoritelocale = titreautoritelocale;
 	}
 
-	@Column(name="ilot", length=50)
+	@Column(name="ilot", length=1024)
 	public String getIlot() {
 		return ilot;
 	}
@@ -1102,7 +1103,7 @@ public class Candidat  implements java.io.Serializable {
 		this.ilot = ilot;
 	}
 
-	@Column(name="rue", length=50)
+	@Column(name="rue", length=1024)
 	public String getRue() {
 		return rue;
 	}
@@ -1112,7 +1113,7 @@ public class Candidat  implements java.io.Serializable {
 		this.rue = rue;
 	}
 
-	@Column(name="parcel_nom_proprio", length=50)
+	@Column(name="parcel_nom_proprio", length=1024)
 	public String getParcelnomproprio() {
 		return parcelnomproprio;
 	}
@@ -1122,7 +1123,7 @@ public class Candidat  implements java.io.Serializable {
 		this.parcelnomproprio = parcelnomproprio;
 	}
 
-	@Column(name="point_repere1", length=50)
+	@Column(name="point_repere1", length=1024)
 	public String getPointrepere1() {
 		return pointrepere1;
 	}
@@ -1132,7 +1133,7 @@ public class Candidat  implements java.io.Serializable {
 		this.pointrepere1 = pointrepere1;
 	}
 
-	@Column(name="point_repere2", length=50)
+	@Column(name="point_repere2", length=1024)
 	public String getPointrepere2() {
 		return pointrepere2;
 	}
@@ -1152,7 +1153,7 @@ public class Candidat  implements java.io.Serializable {
 		this.submissiondate = submissiondate;
 	}
 
-	@Column(name="smid", length=50)
+	@Column(name="smid", length=1024)
 	public String getSmid() {
 		return smid;
 	}
@@ -1162,7 +1163,7 @@ public class Candidat  implements java.io.Serializable {
 		this.smid = smid;
 	}
 
-	@Column(name="subscriberid", length=50)
+	@Column(name="subscriberid", length=1024)
 	public String getSubscriberid() {
 		return subscriberid;
 	}
@@ -1172,7 +1173,7 @@ public class Candidat  implements java.io.Serializable {
 		this.subscriberid = subscriberid;
 	}
 
-	@Column(name="key", length=50)
+	@Column(name="key", length=1024)
 	public String getKey() {
 		return key;
 	}
@@ -1182,7 +1183,7 @@ public class Candidat  implements java.io.Serializable {
 		this.key = key;
 	}
 
-	@Column(name="meta_instancename", length=50)
+	@Column(name="meta_instancename", length=1024)
 	public String getMetainstancename() {
 		return metainstancename;
 	}
@@ -1192,7 +1193,16 @@ public class Candidat  implements java.io.Serializable {
 		this.metainstancename = metainstancename;
 	}
 
-	@Transient
+    @Column(name="dateenregistrementStr", length=1024)
+    public String getDateenregistrementStr() {
+        return dateenregistrementStr;
+    }
+
+    public void setDateenregistrementStr(String dateenregistrementStr) {
+        this.dateenregistrementStr = dateenregistrementStr;
+    }
+
+    @Transient
 	public String getIdentite(){
         return this.nom + " "+ this.prenom;
     }
