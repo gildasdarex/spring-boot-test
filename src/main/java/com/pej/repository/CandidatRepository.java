@@ -1,5 +1,6 @@
 package com.pej.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -42,6 +43,12 @@ public interface CandidatRepository extends CrudRepository<Candidat, Integer>{
 
 	@Query("select ca from Candidat ca where ca.idcandidat  not in (select fb.candidat.idcandidat from Beneficiairecooperative fb)" )
 	List<Candidat> getFreeCandidats();
+
+	@Query("SELECT ca FROM Candidat ca")
+	List<Candidat> findAllWithPAgination(Pageable pageable);
+
+	@Query("SELECT COUNT(ca) FROM Candidat ca")
+	long getNumberOfData();
 	
 
 

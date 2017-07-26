@@ -3,8 +3,13 @@ package com.pej.controllers;
 import com.github.dandelion.datatables.core.ajax.DataSet;
 import com.github.dandelion.datatables.core.ajax.DatatablesCriterias;
 import com.github.dandelion.datatables.core.ajax.DatatablesResponse;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.pej.pojo.FilterModel;
+import com.pej.pojo.FilterResult;
 import com.pej.pojo.OdkCandidat;
 import com.pej.services.CandidatService;
+import com.pej.services.FilterService;
 import com.poiji.internal.Poiji;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -21,13 +26,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 //import org.apache.camel.*;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -53,10 +52,12 @@ import com.pej.services.NotificationService;
 import com.pej.utils.*;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.IntStream;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -103,6 +104,8 @@ public class CandidatController {
     private org.dozer.Mapper mapper;
     @Autowired
     private CandidatService candidatService;
+    @Autowired
+    private FilterService filterService;
 
 
     Fichefinancement fiche = new Fichefinancement();
@@ -110,18 +113,50 @@ public class CandidatController {
     String tempLocation;
 
     @GetMapping("/pej/candidats")
-    String index(Model model, @ModelAttribute("objDepartement") Departement objDepartement) {
-        List<Candidat> candidats = (List<Candidat>) candidatRepository.findAll();
+    String index(Model model, @ModelAttribute("objDepartement") Departement objDepartement, @RequestParam(value = "page", required = false, defaultValue = "0") int page) {
+        Pageable pageable =  new PageRequest( page, 100 );
+
+        List<Candidat> candidats = (List<Candidat>) candidatRepository.findAllWithPAgination(pageable);
         List<Commune> communes = (List<Commune>) communeRepository.findAll();
+        List<Departement> departements = (List<Departement>) departementRepository.findAll();
         List<Statutcandidat> statuts = (List<Statutcandidat>) statutcandidatRepository.findAll();
 
         User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 
+        int nextPage = candidatService.getNextPage(page);
+        int previousPage = candidatService.getPreviousPage(page);
+
+        String hasNext = "true";
+        String hasPrevious = "true";
+
+        if(page == nextPage) hasNext = "false";
+        if(page == previousPage) hasPrevious = "false";
+
+
+        long sizeOfData = candidatRepository.getNumberOfData();
+        long numberOfIndex = sizeOfData/100;
+        int size = ((Double)Math.ceil(numberOfIndex)).intValue();
+
+        int[] listOfPages = IntStream.range(1, size).toArray();
+
+
+
+
+
+
         model.addAttribute("candidats", candidats);
         model.addAttribute("communes", communes);
+        model.addAttribute("departements", departements);
         model.addAttribute("statuts", statuts);
         model.addAttribute("username", principal.getUsername());
+        model.addAttribute("nextPage", nextPage);
+        model.addAttribute("previousPage", previousPage);
+        model.addAttribute("hasNext", hasNext);
+        model.addAttribute("hasPrevious", hasPrevious);
+        model.addAttribute("listOfPages", listOfPages);
+
+
         return "candidats";
     }
 
@@ -626,27 +661,96 @@ public class CandidatController {
     }
 
     @SuppressWarnings("unchecked")
-    @PostMapping("/pej/candidats/searchContrat")
-    String searchContrat(@ModelAttribute(value = "objCritere") FCandidat fCandidat, BindingResult result, Model model) {
+    @PostMapping("/pej/candidats/search")
+    String searchContrat(HttpServletRequest request, Model model) {
 
-        Pageable request = new PageRequest(0, 50);
-        String nomcandidat = fCandidat.getSearchnom() == null ? "" : fCandidat.getSearchnom();
-        String nomagent = fCandidat.getSearchagent() == null ? "" : fCandidat.getSearchagent();
-        Date datenaissance = fCandidat.getSearchdate() == null ? null : fCandidat.getSearchdate();
-        int statut = fCandidat.getSearchstatut() == null ? 0 : fCandidat.getSearchstatut().getId();
-        int commune = fCandidat.getSearchstatut() == null ? 0 : fCandidat.getSearchstatut().getId();
-
-        List<Candidat> candidats = (List<Candidat>) candidatJpaRepo.getSearchCandidat(commune,
-                statut, nomcandidat, datenaissance, nomagent);
-
+//        String criteriaParameter = request.getParameter("criteria");
+//        String pageParameter = request.getParameter("page");
+//        int page =  0;
+//
+//        if(pageParameter != null && pageParameter != "") page = Integer.parseInt(pageParameter);
+//
+//
+//        Gson gson = new Gson();
+//        Type type = new TypeToken<List<FilterModel>>() {}.getType();
+//        List<FilterModel> criteres = gson.fromJson(criteriaParameter, type);
+//
+//        List<FilterModel> copyOfCriteres = ((List) ((ArrayList) criteres).clone());
+//
+//        for (FilterModel filterModel : copyOfCriteres){
+//            filterModel.clean();
+//        }
+//
+//
+//
+//        Pageable pageable =  new PageRequest( page, 100 );
+//
+//        List<Candidat> queryCandidats = filterService.filterCandidat(copyOfCriteres, Candidat.class);
+//
+//        System.out.println("queryCandidats "+ queryCandidats.size());
+//
+//        for (Candidat candidat : queryCandidats){
+//            System.out.println("final candidat "+ candidat.getIdentite());
+//        }
+//
+//        List<Candidat> candidats = (List<Candidat>) candidatRepository.findAllWithPAgination(pageable);
+        FilterResult filterResult = filterService.filter(request, Candidat.class);
         List<Commune> communes = (List<Commune>) communeRepository.findAll();
-
+        List<Departement> departements = (List<Departement>) departementRepository.findAll();
         List<Statutcandidat> statuts = (List<Statutcandidat>) statutcandidatRepository.findAll();
 
+        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+
+//        int nextPage = candidatService.getNextPage(page);
+//        int previousPage = candidatService.getPreviousPage(page);
+//
+        String hasNext = "true";
+        String hasPrevious = "true";
+
+        if(filterResult.getCurrentPage() == filterResult.getNextPage()) hasNext = "false";
+        if(filterResult.getCurrentPage() == filterResult.getPreviousPage()) hasPrevious = "false";
+
+
+//        long sizeOfData = candidatRepository.getNumberOfData();
+//        long numberOfIndex = sizeOfData/100;
+//        int size = ((Double)Math.ceil(numberOfIndex)).intValue();
+//
+//        int[] listOfPages = IntStream.range(1, size).toArray();
+
+
+
+
+
+        model.addAttribute("candidats", filterResult.getData());
         model.addAttribute("communes", communes);
-        model.addAttribute("candidats", candidats);
+        model.addAttribute("departements", departements);
         model.addAttribute("statuts", statuts);
-        model.addAttribute("objCritere", fCandidat);
+        model.addAttribute("username", principal.getUsername());
+        model.addAttribute("nextPage", filterResult.getNextPage());
+        model.addAttribute("currentPage", filterResult.getCurrentPage());
+        model.addAttribute("previousPage", filterResult.getPreviousPage());
+        model.addAttribute("hasNext", hasNext);
+        model.addAttribute("hasPrevious", hasPrevious);
+        model.addAttribute("listOfPages", filterResult.getListOfPages());
+        model.addAttribute("criteria", filterResult.getCriteriaParameter());
+
+
+//        model.addAttribute("candidats", candidats);
+//        model.addAttribute("communes", communes);
+//        model.addAttribute("departements", departements);
+//        model.addAttribute("statuts", statuts);
+//        model.addAttribute("username", principal.getUsername());
+//        model.addAttribute("nextPage", nextPage);
+//        model.addAttribute("currentPage", page);
+//        model.addAttribute("previousPage", previousPage);
+//        model.addAttribute("hasNext", hasNext);
+//        model.addAttribute("hasPrevious", hasPrevious);
+//        model.addAttribute("listOfPages", listOfPages);
+//        model.addAttribute("criteria", criteriaParameter);
+
+
         return "candidats";
+
     }
 }

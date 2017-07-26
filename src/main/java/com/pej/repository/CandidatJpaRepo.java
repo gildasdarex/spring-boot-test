@@ -3,6 +3,7 @@ package com.pej.repository;
 
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,4 +31,6 @@ public interface CandidatJpaRepo extends JpaRepository<Candidat, Integer> {
 	
 	@Query("select ca from Candidat ca where ca.quartier.arrondissement.commune.codecommune=?1 or ca.statutcandidat.id=?2 or ca.nom=?4 or ca.prenom=?3 or ca.agent.nom=?5 " )
 	Iterable<Candidat> getSearchCandidat(int commune, int statut, String nom, Date datenaissance, String agent);
+
+
 }

@@ -18,7 +18,6 @@ public class TestConfig {
     public JdbcTemplate jdbcTemplate() {
         JdbcTemplate template = new JdbcTemplate();
         template.setDataSource(dataSource);
-        System.out.println("Testing the config class");
         return template;
     }
 }
